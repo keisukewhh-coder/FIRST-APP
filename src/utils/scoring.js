@@ -4,13 +4,22 @@ import types from '../data/types.json';
 /**
  * 回答配列からスコアを計算し、タイプキーと結果を返す
  * @param {Object} answers - { questionId: value(1-5) }
+ * @param {string} ageGroup - "teens" or "twenties"
  * @returns {{ scores: Object, typeKey: string, result: Object }}
  */
-export function calculateResult(answers) {
+export function calculateResult(answers, ageGroup) {
   const scores = {
-    freedom: 0,
-    intuition: 0,
-    connection: 0,
+    EI: 0,
+    SN: 0,
+    TF: 0,
+    JP: 0,
+  };
+
+  const positiveDirection = {
+    EI: 'E',
+    SN: 'S',
+    TF: 'T',
+    JP: 'J',
   };
 
   questions.forEach((q) => {
@@ -20,40 +29,33 @@ export function calculateResult(answers) {
     // 中央3を基準に -2〜+2 に正規化
     const normalized = raw - 3;
 
-    // direction=left → そのまま加算（左寄り=+）
-    // direction=right → 符号反転して加算（右寄りの質問は反転）
-    const value = q.direction === 'left' ? normalized : -normalized;
+    // direction が軸の正方向（E, S, T, J）と一致 → そのまま加算
+    // direction が軸の負方向（I, N, F, P）→ 符号反転して加算
+    const value = q.direction === positiveDirection[q.axis] ? normalized : -normalized;
 
     scores[q.axis] += value;
   });
 
-  // 0以上なら「+」(左)、0未満なら「-」(右)
-  const fSign = scores.freedom >= 0 ? '+' : '-';
-  const iSign = scores.intuition >= 0 ? '+' : '-';
-  const cSign = scores.connection >= 0 ? '+' : '-';
+  // スコアから4文字のタイプキーを生成
+  const ei = scores.EI >= 0 ? 'E' : 'I';
+  const sn = scores.SN >= 0 ? 'S' : 'N';
+  const tf = scores.TF >= 0 ? 'T' : 'F';
+  const jp = scores.JP >= 0 ? 'J' : 'P';
 
-  const typeKey = `F${fSign}I${iSign}C${cSign}`;
+  const typeKey = `${ei}${sn}${tf}${jp}`;
   const result = types[typeKey] || null;
 
-  return { scores, typeKey, result };
+  return { scores, typeKey, result, ageGroup };
 }
 
 /**
  * typeKeyからタイプ情報を取得
- * URLから読み取った際に + がスペースに変換される場合があるため復元する
  * @param {string} typeKey
  * @returns {{ key: string, data: Object } | null}
  */
 export function getTypeByKey(typeKey) {
   if (!typeKey) return null;
-
-  // そのまま一致すればそれを返す
   if (types[typeKey]) return { key: typeKey, data: types[typeKey] };
-
-  // + がスペースに化けていた場合を復元して再検索
-  const restored = typeKey.replace(/ /g, '+');
-  if (types[restored]) return { key: restored, data: types[restored] };
-
   return null;
 }
 
