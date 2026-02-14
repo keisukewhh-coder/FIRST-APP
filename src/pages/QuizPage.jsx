@@ -7,18 +7,25 @@ import questions from '../data/questions.json';
 import { calculateResult, isAllAnswered } from '../utils/scoring';
 
 /**
- * Shuffle questions so that no two consecutive questions share the same axis.
- * Uses a greedy approach: pick randomly from axes that differ from the last placed.
+ * 質問の「主軸」を取得（axes の最初のキー）
+ * シャッフル時に同一軸の連続を防ぐために使用
+ */
+function getPrimaryAxis(q) {
+  return Object.keys(q.axes)[0] || 'other';
+}
+
+/**
+ * ランダムシャッフル（同じ主軸が連続しないよう配慮）
  */
 function shuffleQuestions(qs) {
-  // Group questions by axis
   const byAxis = {};
   for (const q of qs) {
-    if (!byAxis[q.axis]) byAxis[q.axis] = [];
-    byAxis[q.axis].push(q);
+    const axis = getPrimaryAxis(q);
+    if (!byAxis[axis]) byAxis[axis] = [];
+    byAxis[axis].push(q);
   }
 
-  // Shuffle each axis group
+  // 各グループ内をシャッフル
   for (const axis of Object.keys(byAxis)) {
     const arr = byAxis[axis];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -31,20 +38,17 @@ function shuffleQuestions(qs) {
   let lastAxis = null;
 
   while (Object.values(byAxis).some((arr) => arr.length > 0)) {
-    // Collect axes that differ from last AND still have questions
     const available = Object.keys(byAxis).filter(
       (axis) => byAxis[axis].length > 0 && axis !== lastAxis
     );
 
     let chosenAxis;
     if (available.length > 0) {
-      // Pick the axis with most remaining questions (tie-break random)
       available.sort((a, b) => byAxis[b].length - byAxis[a].length);
       const maxLen = byAxis[available[0]].length;
       const topAxes = available.filter((a) => byAxis[a].length === maxLen);
       chosenAxis = topAxes[Math.floor(Math.random() * topAxes.length)];
     } else {
-      // Forced to repeat axis (only one axis left)
       chosenAxis = Object.keys(byAxis).find((axis) => byAxis[axis].length > 0);
     }
 
@@ -61,7 +65,6 @@ export default function QuizPage() {
   const [showValidation, setShowValidation] = useState(false);
   const cardRefs = useRef({});
 
-  // Shuffle once on mount
   const shuffledQuestions = useMemo(() => shuffleQuestions([...questions]), []);
 
   const totalQuestions = shuffledQuestions.length;
@@ -69,7 +72,6 @@ export default function QuizPage() {
 
   const handleAnswer = useCallback((questionId, value) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
-    // Clear validation highlight once user starts answering
     setShowValidation(false);
   }, []);
 
@@ -77,7 +79,6 @@ export default function QuizPage() {
     if (!isAllAnswered(answers)) {
       setShowValidation(true);
 
-      // Scroll to the first unanswered question
       const firstUnanswered = shuffledQuestions.find((q) => answers[q.id] == null);
       if (firstUnanswered && cardRefs.current[firstUnanswered.id]) {
         cardRefs.current[firstUnanswered.id].scrollIntoView({
@@ -87,8 +88,8 @@ export default function QuizPage() {
       }
       return;
     }
-    const { typeKey } = calculateResult(answers);
-    navigate(`/result?key=${encodeURIComponent(typeKey)}`);
+    const { typeKey, modifier } = calculateResult(answers);
+    navigate(`/result?key=${encodeURIComponent(typeKey)}&mod=${encodeURIComponent(modifier)}`);
   };
 
   const canSubmit = isAllAnswered(answers);

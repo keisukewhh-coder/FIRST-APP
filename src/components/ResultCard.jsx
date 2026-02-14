@@ -1,6 +1,6 @@
 import AnimalIllustration from './AnimalIllustration';
 
-export default function ResultCard({ result, typeKey }) {
+export default function ResultCard({ result, typeKey, modifier }) {
   if (!result) {
     return (
       <div className="bg-white rounded-3xl p-6 shadow-sm text-center">
@@ -23,8 +23,9 @@ export default function ResultCard({ result, typeKey }) {
         </span>
       </div>
 
-      {/* Type name & tagline */}
+      {/* Modifier + Type name */}
       <h2 className="text-center text-2xl font-extrabold text-text-primary mb-1">
+        {modifier && <span className="text-vivid-pink">{modifier}</span>}
         {result.name}
       </h2>
       <p className="text-center text-sm text-vivid-pink font-semibold mb-4">

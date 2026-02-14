@@ -1,6 +1,6 @@
-// Flat-design anthropomorphized animal illustrations (MBTI official style)
+// Flat-design anthropomorphized animal/character illustrations (16 MBTI types)
 
-function LuxuryCat() {
+function NightCat() {
   return (
     <svg viewBox="0 0 200 200" width="180" height="180">
       <circle cx="100" cy="100" r="95" fill="#2C2444" />
@@ -17,35 +17,120 @@ function LuxuryCat() {
       <circle cx="150" cy="35" r="1.5" fill="#FFD700" opacity="0.6" />
       <circle cx="170" cy="55" r="1" fill="#FFD700" opacity="0.4" />
       {/* Body - coat */}
-      <rect x="70" y="115" width="60" height="45" rx="16" fill="#6B5B8A" />
-      <rect x="85" y="115" width="30" height="40" rx="8" fill="#F5E6D3" />
+      <rect x="70" y="115" width="60" height="45" rx="16" fill="#2C2C2C" />
+      <rect x="85" y="115" width="30" height="40" rx="8" fill="#1A1A1A" />
       {/* Head */}
-      <ellipse cx="100" cy="82" rx="32" ry="28" fill="#F5E6D3" />
+      <ellipse cx="100" cy="82" rx="32" ry="28" fill="#2C2C2C" />
       {/* Ears - pointed cat ears */}
-      <polygon points="72,62 78,38 88,58" fill="#F5E6D3" stroke="#E8D5C0" strokeWidth="2" />
-      <polygon points="128,62 122,38 112,58" fill="#F5E6D3" stroke="#E8D5C0" strokeWidth="2" />
-      <polygon points="75,60 80,44 86,58" fill="#FFB6C1" />
-      <polygon points="125,60 120,44 114,58" fill="#FFB6C1" />
-      {/* Glasses */}
-      <circle cx="88" cy="80" r="10" fill="none" stroke="#333" strokeWidth="2.5" />
-      <circle cx="112" cy="80" r="10" fill="none" stroke="#333" strokeWidth="2.5" />
-      <line x1="98" y1="80" x2="102" y2="80" stroke="#333" strokeWidth="2.5" />
-      <line x1="78" y1="78" x2="72" y2="75" stroke="#333" strokeWidth="2.5" />
-      <line x1="122" y1="78" x2="128" y2="75" stroke="#333" strokeWidth="2.5" />
-      {/* Eyes */}
-      <ellipse cx="88" cy="80" rx="3" ry="3.5" fill="#2C2444" />
-      <ellipse cx="112" cy="80" rx="3" ry="3.5" fill="#2C2444" />
+      <polygon points="72,62 78,38 88,58" fill="#2C2C2C" stroke="#1A1A1A" strokeWidth="2" />
+      <polygon points="128,62 122,38 112,58" fill="#2C2C2C" stroke="#1A1A1A" strokeWidth="2" />
+      <polygon points="75,60 80,44 86,58" fill="#3A3A3A" />
+      <polygon points="125,60 120,44 114,58" fill="#3A3A3A" />
+      {/* Eyes - glowing */}
+      <ellipse cx="88" cy="80" rx="4" ry="5" fill="#C8FF00" />
+      <ellipse cx="112" cy="80" rx="4" ry="5" fill="#C8FF00" />
+      <ellipse cx="88" cy="80" rx="2" ry="4" fill="#2C2C2C" />
+      <ellipse cx="112" cy="80" rx="2" ry="4" fill="#2C2C2C" />
       <circle cx="89.5" cy="79" r="1" fill="#fff" />
       <circle cx="113.5" cy="79" r="1" fill="#fff" />
       {/* Nose */}
-      <ellipse cx="100" cy="90" rx="3" ry="2" fill="#FFB6C1" />
+      <ellipse cx="100" cy="90" rx="3" ry="2" fill="#555" />
       {/* Mouth */}
-      <path d="M97 93 L100 96 L103 93" stroke="#C09080" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      <path d="M97 93 L100 96 L103 93" stroke="#666" strokeWidth="1.5" fill="none" strokeLinecap="round" />
       {/* Whiskers */}
-      <line x1="75" y1="88" x2="60" y2="86" stroke="#D0C0B0" strokeWidth="1" />
-      <line x1="75" y1="92" x2="60" y2="94" stroke="#D0C0B0" strokeWidth="1" />
-      <line x1="125" y1="88" x2="140" y2="86" stroke="#D0C0B0" strokeWidth="1" />
-      <line x1="125" y1="92" x2="140" y2="94" stroke="#D0C0B0" strokeWidth="1" />
+      <line x1="75" y1="88" x2="60" y2="86" stroke="#555" strokeWidth="1" />
+      <line x1="75" y1="92" x2="60" y2="94" stroke="#555" strokeWidth="1" />
+      <line x1="125" y1="88" x2="140" y2="86" stroke="#555" strokeWidth="1" />
+      <line x1="125" y1="92" x2="140" y2="94" stroke="#555" strokeWidth="1" />
+      {/* Moon */}
+      <circle cx="160" cy="40" r="12" fill="#FFD700" opacity="0.8" />
+      <circle cx="165" cy="37" r="10" fill="#2C2444" />
+    </svg>
+  );
+}
+
+function HighFlower() {
+  return (
+    <svg viewBox="0 0 200 200" width="180" height="180">
+      <circle cx="100" cy="100" r="95" fill="#F0E6F8" />
+      {/* Flower petals background */}
+      <circle cx="40" cy="50" r="8" fill="#E8B0D4" opacity="0.4" />
+      <circle cx="160" cy="40" r="6" fill="#D4A0C8" opacity="0.3" />
+      <circle cx="30" cy="130" r="5" fill="#E8B0D4" opacity="0.3" />
+      <circle cx="170" cy="120" r="7" fill="#D4A0C8" opacity="0.4" />
+      {/* Body - elegant dress */}
+      <rect x="70" y="118" width="60" height="48" rx="18" fill="#C87DAA" />
+      <rect x="82" y="118" width="36" height="42" rx="12" fill="#D898BC" />
+      {/* Pearl necklace */}
+      <circle cx="90" cy="120" r="2.5" fill="#FFF5EE" />
+      <circle cx="97" cy="118" r="2.5" fill="#FFF5EE" />
+      <circle cx="104" cy="118" r="2.5" fill="#FFF5EE" />
+      <circle cx="111" cy="120" r="2.5" fill="#FFF5EE" />
+      {/* Head */}
+      <circle cx="100" cy="80" r="30" fill="#FFE4E1" />
+      {/* Hair */}
+      <ellipse cx="100" cy="60" rx="34" ry="22" fill="#4A3040" />
+      <ellipse cx="68" cy="75" rx="8" ry="18" fill="#4A3040" />
+      <ellipse cx="132" cy="75" rx="8" ry="18" fill="#4A3040" />
+      {/* Eyes - almond shaped, looking away */}
+      <ellipse cx="88" cy="80" rx="5" ry="4" fill="#4A3040" />
+      <ellipse cx="112" cy="80" rx="5" ry="4" fill="#4A3040" />
+      <circle cx="87" cy="79" r="1.5" fill="#fff" />
+      <circle cx="111" cy="79" r="1.5" fill="#fff" />
+      {/* Eyelashes */}
+      <path d="M82 78 L80 75" stroke="#4A3040" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M118 78 L120 75" stroke="#4A3040" strokeWidth="1.5" strokeLinecap="round" />
+      {/* Blush */}
+      <circle cx="80" cy="88" r="5" fill="#FFB6C1" opacity="0.4" />
+      <circle cx="120" cy="88" r="5" fill="#FFB6C1" opacity="0.4" />
+      {/* Slight smile */}
+      <path d="M95 92 Q100 96 105 92" stroke="#C08080" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      {/* Flower crown */}
+      <circle cx="80" cy="58" r="5" fill="#FF6B81" opacity="0.8" />
+      <circle cx="92" cy="52" r="4" fill="#FFB6C1" />
+      <circle cx="108" cy="52" r="4" fill="#FF6B81" opacity="0.7" />
+      <circle cx="120" cy="58" r="5" fill="#FFB6C1" opacity="0.8" />
+      <circle cx="100" cy="50" r="4.5" fill="#FF8FA0" />
+    </svg>
+  );
+}
+
+function RobotFace() {
+  return (
+    <svg viewBox="0 0 200 200" width="180" height="180">
+      <circle cx="100" cy="100" r="95" fill="#E8EEF4" />
+      {/* Circuit board lines */}
+      <line x1="20" y1="60" x2="50" y2="60" stroke="#B0C4DE" strokeWidth="1.5" />
+      <line x1="50" y1="60" x2="50" y2="90" stroke="#B0C4DE" strokeWidth="1.5" />
+      <line x1="150" y1="50" x2="180" y2="50" stroke="#B0C4DE" strokeWidth="1.5" />
+      <line x1="150" y1="50" x2="150" y2="80" stroke="#B0C4DE" strokeWidth="1.5" />
+      <circle cx="50" cy="60" r="3" fill="#B0C4DE" />
+      <circle cx="150" cy="50" r="3" fill="#B0C4DE" />
+      {/* Body - metal */}
+      <rect x="70" y="120" width="60" height="45" rx="10" fill="#A8B8C8" />
+      <rect x="82" y="125" width="36" height="20" rx="4" fill="#78909C" />
+      {/* Indicator lights */}
+      <circle cx="90" cy="135" r="3" fill="#4CAF50" />
+      <circle cx="100" cy="135" r="3" fill="#FF9800" />
+      <circle cx="110" cy="135" r="3" fill="#F44336" opacity="0.4" />
+      {/* Head - box shape */}
+      <rect x="65" y="50" width="70" height="65" rx="12" fill="#B0BEC5" />
+      {/* Antenna */}
+      <line x1="100" y1="50" x2="100" y2="32" stroke="#90A4AE" strokeWidth="3" />
+      <circle cx="100" cy="28" r="5" fill="#FF5252" />
+      <circle cx="100" cy="28" r="3" fill="#FF8A80" />
+      {/* Screen face */}
+      <rect x="72" y="58" width="56" height="48" rx="6" fill="#263238" />
+      {/* Digital eyes */}
+      <rect x="80" y="68" width="12" height="10" rx="2" fill="#00E5FF" />
+      <rect x="108" y="68" width="12" height="10" rx="2" fill="#00E5FF" />
+      {/* Flat mouth - deadpan */}
+      <rect x="88" y="92" width="24" height="4" rx="2" fill="#00E5FF" />
+      {/* Bolts */}
+      <circle cx="68" cy="82" r="4" fill="#90A4AE" />
+      <circle cx="68" cy="82" r="2" fill="#78909C" />
+      <circle cx="132" cy="82" r="4" fill="#90A4AE" />
+      <circle cx="132" cy="82" r="2" fill="#78909C" />
     </svg>
   );
 }
@@ -135,6 +220,125 @@ function ChargingLion() {
       {/* Smartphone in hand */}
       <rect x="138" y="130" width="12" height="20" rx="3" fill="#333" />
       <rect x="140" y="133" width="8" height="14" rx="1" fill="#4488CC" />
+    </svg>
+  );
+}
+
+function BigMom() {
+  return (
+    <svg viewBox="0 0 200 200" width="180" height="180">
+      <circle cx="100" cy="100" r="95" fill="#8B0000" />
+      {/* Throne backrest */}
+      <rect x="55" y="40" width="90" height="130" rx="12" fill="#B22222" />
+      <rect x="60" y="45" width="80" height="10" rx="5" fill="#DAA520" />
+      {/* Body - power suit */}
+      <rect x="65" y="115" width="70" height="50" rx="18" fill="#1C1C1C" />
+      <rect x="80" y="115" width="40" height="45" rx="12" fill="#2C2C2C" />
+      {/* Gold chain */}
+      <circle cx="92" cy="122" r="3" fill="#DAA520" />
+      <circle cx="100" cy="120" r="3" fill="#DAA520" />
+      <circle cx="108" cy="122" r="3" fill="#DAA520" />
+      {/* Head */}
+      <circle cx="100" cy="82" r="30" fill="#F5DEB3" />
+      {/* Hair - big and commanding */}
+      <ellipse cx="100" cy="58" rx="36" ry="20" fill="#1C1C1C" />
+      <ellipse cx="68" cy="72" rx="10" ry="16" fill="#1C1C1C" />
+      <ellipse cx="132" cy="72" rx="10" ry="16" fill="#1C1C1C" />
+      {/* Crown */}
+      <polygon points="80,48 85,32 90,45 95,28 100,42 105,28 110,45 115,32 120,48" fill="#DAA520" />
+      <circle cx="95" cy="42" r="2" fill="#FF3355" />
+      <circle cx="105" cy="42" r="2" fill="#FF3355" />
+      {/* Eyes - sharp and commanding */}
+      <ellipse cx="88" cy="80" rx="5" ry="4" fill="#2C1810" />
+      <ellipse cx="112" cy="80" rx="5" ry="4" fill="#2C1810" />
+      <circle cx="90" cy="79" r="1.5" fill="#fff" />
+      <circle cx="114" cy="79" r="1.5" fill="#fff" />
+      {/* Bold eyebrows */}
+      <path d="M80 73 L93 76" stroke="#1C1C1C" strokeWidth="3" strokeLinecap="round" />
+      <path d="M120 73 L107 76" stroke="#1C1C1C" strokeWidth="3" strokeLinecap="round" />
+      {/* Red lips */}
+      <path d="M93 92 Q100 98 107 92" stroke="#FF3355" strokeWidth="2.5" fill="#FF3355" strokeLinecap="round" />
+      {/* Blush */}
+      <circle cx="78" cy="88" r="5" fill="#FFB6C1" opacity="0.3" />
+      <circle cx="122" cy="88" r="5" fill="#FFB6C1" opacity="0.3" />
+    </svg>
+  );
+}
+
+function MountParrot() {
+  return (
+    <svg viewBox="0 0 200 200" width="180" height="180">
+      <circle cx="100" cy="100" r="95" fill="#FFE0B2" />
+      {/* Speech bubbles background */}
+      <ellipse cx="40" cy="45" rx="20" ry="14" fill="#FFF" opacity="0.5" />
+      <text x="30" y="50" fontSize="10" fill="#FF6B81" opacity="0.6">！</text>
+      <ellipse cx="165" cy="55" rx="18" ry="12" fill="#FFF" opacity="0.5" />
+      <text x="157" y="60" fontSize="10" fill="#FF6B81" opacity="0.6">！</text>
+      {/* Body - colorful */}
+      <rect x="70" y="118" width="60" height="45" rx="16" fill="#4CAF50" />
+      <rect x="82" y="118" width="36" height="40" rx="10" fill="#66BB6A" />
+      {/* Wings */}
+      <ellipse cx="60" cy="135" rx="14" ry="22" fill="#FF9800" transform="rotate(15,60,135)" />
+      <ellipse cx="140" cy="135" rx="14" ry="22" fill="#FF9800" transform="rotate(-15,140,135)" />
+      {/* Head */}
+      <circle cx="100" cy="78" r="30" fill="#4CAF50" />
+      {/* Crest */}
+      <ellipse cx="90" cy="48" rx="6" ry="16" fill="#FF5722" transform="rotate(-15,90,48)" />
+      <ellipse cx="100" cy="46" rx="5" ry="18" fill="#FF9800" />
+      <ellipse cx="110" cy="48" rx="6" ry="16" fill="#FFC107" transform="rotate(15,110,48)" />
+      {/* White face patch */}
+      <circle cx="100" cy="82" r="20" fill="#FFFFFF" />
+      {/* Eyes - mischievous */}
+      <ellipse cx="90" cy="78" rx="5" ry="5" fill="#2C1810" />
+      <ellipse cx="110" cy="78" rx="5" ry="5" fill="#2C1810" />
+      <circle cx="92" cy="76" r="2" fill="#fff" />
+      <circle cx="112" cy="76" r="2" fill="#fff" />
+      {/* Beak */}
+      <path d="M95 88 L100 98 L105 88 Z" fill="#FF5722" />
+      <line x1="95" y1="88" x2="105" y2="88" stroke="#E64A19" strokeWidth="1.5" />
+      {/* Blush */}
+      <circle cx="80" cy="85" r="5" fill="#FFB6C1" opacity="0.4" />
+      <circle cx="120" cy="85" r="5" fill="#FFB6C1" opacity="0.4" />
+      {/* Megaphone */}
+      <g transform="translate(142,100) rotate(-20)">
+        <polygon points="0,5 20,0 20,15 0,10" fill="#FFC107" />
+        <rect x="-5" y="3" width="6" height="9" rx="2" fill="#FF9800" />
+      </g>
+    </svg>
+  );
+}
+
+function IronVault() {
+  return (
+    <svg viewBox="0 0 200 200" width="180" height="180">
+      <circle cx="100" cy="100" r="95" fill="#D5DDE5" />
+      {/* Office background */}
+      <rect x="20" y="140" width="160" height="40" rx="2" fill="#B0BEC5" />
+      <rect x="25" y="90" width="30" height="50" rx="2" fill="#C0C8D0" />
+      <rect x="145" y="95" width="30" height="45" rx="2" fill="#C0C8D0" />
+      {/* Body - vault shape */}
+      <rect x="65" y="105" width="70" height="65" rx="14" fill="#78909C" />
+      <rect x="72" y="110" width="56" height="52" rx="8" fill="#90A4AE" />
+      {/* Vault door details */}
+      <circle cx="100" cy="140" r="10" fill="#607D8B" />
+      <circle cx="100" cy="140" r="6" fill="#78909C" />
+      <line x1="94" y1="140" x2="106" y2="140" stroke="#546E7A" strokeWidth="2" />
+      <line x1="100" y1="134" x2="100" y2="146" stroke="#546E7A" strokeWidth="2" />
+      {/* Head - square-ish */}
+      <rect x="68" y="48" width="64" height="58" rx="16" fill="#90A4AE" />
+      {/* Eyes - stern */}
+      <rect x="80" y="68" width="10" height="8" rx="4" fill="#37474F" />
+      <rect x="110" y="68" width="10" height="8" rx="4" fill="#37474F" />
+      <circle cx="87" cy="71" r="1.5" fill="#fff" />
+      <circle cx="117" cy="71" r="1.5" fill="#fff" />
+      {/* Stern eyebrows */}
+      <path d="M78 62 L92 66" stroke="#546E7A" strokeWidth="3" strokeLinecap="round" />
+      <path d="M122 62 L108 66" stroke="#546E7A" strokeWidth="3" strokeLinecap="round" />
+      {/* Straight mouth */}
+      <line x1="90" y1="88" x2="110" y2="88" stroke="#546E7A" strokeWidth="2.5" strokeLinecap="round" />
+      {/* Lock on forehead */}
+      <rect x="94" y="50" width="12" height="10" rx="3" fill="#DAA520" />
+      <circle cx="100" cy="56" r="2" fill="#B8860B" />
     </svg>
   );
 }
@@ -270,6 +474,47 @@ function ShelterRabbit() {
   );
 }
 
+function TofuMental() {
+  return (
+    <svg viewBox="0 0 200 200" width="180" height="180">
+      <circle cx="100" cy="100" r="95" fill="#FFF8E1" />
+      {/* Dreamy clouds */}
+      <ellipse cx="40" cy="40" rx="20" ry="12" fill="#FFF" opacity="0.6" />
+      <ellipse cx="55" cy="38" rx="15" ry="10" fill="#FFF" opacity="0.5" />
+      <ellipse cx="155" cy="50" rx="18" ry="10" fill="#FFF" opacity="0.5" />
+      {/* Sparkles */}
+      <text x="25" y="80" fontSize="12" opacity="0.3">&#x2728;</text>
+      <text x="165" y="90" fontSize="10" opacity="0.3">&#x2728;</text>
+      {/* Body - soft tofu block */}
+      <rect x="65" y="100" width="70" height="70" rx="18" fill="#FFF5E0" stroke="#F0E0C0" strokeWidth="2" />
+      {/* Wobble lines */}
+      <path d="M70 140 Q80 137 90 140 Q100 143 110 140 Q120 137 130 140" stroke="#F0D890" strokeWidth="1" fill="none" />
+      {/* Head - soft round */}
+      <circle cx="100" cy="78" r="32" fill="#FFF5E0" stroke="#F0E0C0" strokeWidth="2" />
+      {/* Teary eyes */}
+      <ellipse cx="88" cy="76" rx="5" ry="6" fill="#5C4033" />
+      <ellipse cx="112" cy="76" rx="5" ry="6" fill="#5C4033" />
+      <circle cx="90" cy="74" r="2" fill="#fff" />
+      <circle cx="114" cy="74" r="2" fill="#fff" />
+      {/* Tear drops */}
+      <ellipse cx="82" cy="86" rx="2" ry="3" fill="#87CEEB" opacity="0.6" />
+      <ellipse cx="118" cy="88" rx="2" ry="3" fill="#87CEEB" opacity="0.5" />
+      {/* Worried eyebrows */}
+      <path d="M82 66 L90 70" stroke="#C0A080" strokeWidth="2" strokeLinecap="round" />
+      <path d="M118 66 L110 70" stroke="#C0A080" strokeWidth="2" strokeLinecap="round" />
+      {/* Wobbly mouth */}
+      <path d="M93 90 Q97 94 100 90 Q103 86 107 90" stroke="#C0A080" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      {/* Blush */}
+      <circle cx="78" cy="84" r="6" fill="#FFB6C1" opacity="0.3" />
+      <circle cx="122" cy="84" r="6" fill="#FFB6C1" opacity="0.3" />
+      {/* Book */}
+      <rect x="140" y="120" width="18" height="24" rx="2" fill="#8B7355" />
+      <rect x="142" y="122" width="14" height="20" rx="1" fill="#F5DEB3" />
+      <line x1="149" y1="120" x2="149" y2="144" stroke="#7B6345" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
 function CraftsmanWolf() {
   return (
     <svg viewBox="0 0 200 200" width="180" height="180">
@@ -375,15 +620,69 @@ function FestivalPanda() {
   );
 }
 
+function SeaTurtle() {
+  return (
+    <svg viewBox="0 0 200 200" width="180" height="180">
+      <circle cx="100" cy="100" r="95" fill="#B2EBF2" />
+      {/* Ocean waves */}
+      <path d="M0 160 Q25 150 50 160 Q75 170 100 160 Q125 150 150 160 Q175 170 200 160 L200 200 L0 200 Z" fill="#80DEEA" opacity="0.5" />
+      <path d="M0 170 Q25 162 50 170 Q75 178 100 170 Q125 162 150 170 Q175 178 200 170 L200 200 L0 200 Z" fill="#4DD0E1" opacity="0.4" />
+      {/* Bubbles */}
+      <circle cx="35" cy="130" r="4" fill="#FFF" opacity="0.4" />
+      <circle cx="45" cy="120" r="2.5" fill="#FFF" opacity="0.3" />
+      <circle cx="160" cy="125" r="3" fill="#FFF" opacity="0.4" />
+      {/* Shell */}
+      <ellipse cx="100" cy="125" rx="42" ry="35" fill="#66BB6A" />
+      <ellipse cx="100" cy="125" rx="38" ry="31" fill="#81C784" />
+      {/* Shell pattern */}
+      <path d="M80 105 Q100 95 120 105" stroke="#4CAF50" strokeWidth="2" fill="none" />
+      <path d="M72 118 Q100 105 128 118" stroke="#4CAF50" strokeWidth="2" fill="none" />
+      <path d="M70 132 Q100 120 130 132" stroke="#4CAF50" strokeWidth="2" fill="none" />
+      <line x1="100" y1="95" x2="100" y2="148" stroke="#4CAF50" strokeWidth="1.5" />
+      <line x1="85" y1="98" x2="78" y2="145" stroke="#4CAF50" strokeWidth="1" />
+      <line x1="115" y1="98" x2="122" y2="145" stroke="#4CAF50" strokeWidth="1" />
+      {/* Flippers */}
+      <ellipse cx="55" cy="125" rx="14" ry="8" fill="#66BB6A" transform="rotate(-30,55,125)" />
+      <ellipse cx="145" cy="125" rx="14" ry="8" fill="#66BB6A" transform="rotate(30,145,125)" />
+      {/* Head */}
+      <circle cx="100" cy="80" r="26" fill="#81C784" />
+      {/* Face */}
+      <circle cx="100" cy="82" r="20" fill="#A5D6A7" />
+      {/* Eyes - innocent looking but sly */}
+      <circle cx="90" cy="78" r="6" fill="#FFF" />
+      <circle cx="110" cy="78" r="6" fill="#FFF" />
+      <circle cx="92" cy="77" r="3.5" fill="#2E7D32" />
+      <circle cx="112" cy="77" r="3.5" fill="#2E7D32" />
+      <circle cx="93" cy="76" r="1.5" fill="#fff" />
+      <circle cx="113" cy="76" r="1.5" fill="#fff" />
+      {/* Gentle smile (fake) */}
+      <path d="M92 90 Q100 97 108 90" stroke="#2E7D32" strokeWidth="2" fill="none" strokeLinecap="round" />
+      {/* Blush */}
+      <circle cx="80" cy="86" r="5" fill="#FFB6C1" opacity="0.3" />
+      <circle cx="120" cy="86" r="5" fill="#FFB6C1" opacity="0.3" />
+      {/* Halo (fake goodness) */}
+      <ellipse cx="100" cy="52" rx="18" ry="5" fill="none" stroke="#FFD700" strokeWidth="2" opacity="0.6" />
+    </svg>
+  );
+}
+
 const TYPE_COMPONENTS = {
-  INTJ: LuxuryCat,
-  ENFP: AlleyChihuahua,
-  ESTJ: ChargingLion,
-  ESFJ: SunnyRetriever,
-  ISTJ: StrategyPenguin,
-  INFP: ShelterRabbit,
+  INTJ: NightCat,
+  INFJ: HighFlower,
+  INTP: RobotFace,
   ISTP: CraftsmanWolf,
-  ESFP: FestivalPanda,
+  ENTJ: BigMom,
+  ESTJ: ChargingLion,
+  ENTP: MountParrot,
+  ENFP: AlleyChihuahua,
+  ISTJ: IronVault,
+  ISFJ: StrategyPenguin,
+  ISFP: ShelterRabbit,
+  INFP: TofuMental,
+  ESTP: FestivalPanda,
+  ESFP: SeaTurtle,
+  ENFJ: SunnyRetriever,
+  ESFJ: SeaTurtle,
 };
 
 export default function AnimalIllustration({ typeKey }) {
