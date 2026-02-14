@@ -97,7 +97,22 @@ export default function ResultCard({ result, typeKey, modifier }) {
           </div>
         </div>
 
-        {/* 4. キラーフレーズ */}
+        {/* 4. 付き合ったらどうなる？ */}
+        {result.love && (
+          <div className="result-section">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CC1133" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </span>
+              <h3 className="text-sm font-bold text-vivid-pink">付き合ったらどうなる？</h3>
+            </div>
+            <div className="text-sm leading-relaxed text-text-primary pl-9 whitespace-pre-line">
+              {result.love}
+            </div>
+          </div>
+        )}
+
+        {/* 5. キラーフレーズ */}
         <div className="result-section">
           <div className="flex items-center gap-2 mb-2">
             <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
