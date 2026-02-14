@@ -1,74 +1,92 @@
 [
   {
     "id": 1,
-    "text": "新しい環境に飛び込むとき、ワクワクする方だ",
-    "axis": "freedom",
-    "direction": "left"
+    "text": "店員さんを呼ぶ時、迷わず声をかけたりアイコンタクトしたりできる。",
+    "axis": "EI",
+    "direction": "E"
   },
   {
     "id": 2,
-    "text": "計画をしっかり立ててから行動したい",
-    "axis": "freedom",
-    "direction": "right"
+    "text": "LINEの返信は、こちらのメッセージに対して1通にまとめて送られてくる。",
+    "axis": "JP",
+    "direction": "J"
   },
   {
     "id": 3,
-    "text": "ルールや慣習より、自分の感覚を優先したい",
-    "axis": "freedom",
-    "direction": "left"
+    "text": "道案内をする時、「赤い看板を右」のように具体的な目印で教えてくれる。",
+    "axis": "SN",
+    "direction": "S"
   },
   {
     "id": 4,
-    "text": "安定した日常があると安心する",
-    "axis": "freedom",
-    "direction": "right"
+    "text": "悩み相談をすると、共感よりも先に「解決策」や「アドバイス」をくれる。",
+    "axis": "TF",
+    "direction": "T"
   },
   {
     "id": 5,
-    "text": "理屈よりも「なんとなく」で決めることが多い",
-    "axis": "intuition",
-    "direction": "left"
+    "text": "賑やかなカフェや人混みの中にいても、あまり疲れた様子を見せない。",
+    "axis": "EI",
+    "direction": "E"
   },
   {
     "id": 6,
-    "text": "データや根拠をもとに判断するのが好きだ",
-    "axis": "intuition",
-    "direction": "right"
+    "text": "デートの行き先は、当日決めるよりも数日前から決まっていないと不安そうだ。",
+    "axis": "JP",
+    "direction": "J"
   },
   {
     "id": 7,
-    "text": "ひらめきやインスピレーションを大切にしている",
-    "axis": "intuition",
-    "direction": "left"
+    "text": "「もし1億円当たったら？」のような、現実味のない妄想話にはあまり乗ってこない。",
+    "axis": "SN",
+    "direction": "S"
   },
   {
     "id": 8,
-    "text": "物事を論理的に整理してから考えたい",
-    "axis": "intuition",
-    "direction": "right"
+    "text": "何かをお願いした時、理屈よりも「お願い！どうしても！」という熱意に弱い。",
+    "axis": "TF",
+    "direction": "F"
   },
   {
     "id": 9,
-    "text": "誰かと一緒にいる時間が自分を元気にしてくれる",
-    "axis": "connection",
-    "direction": "left"
+    "text": "沈黙が続いた時、相手の方から何気ない話題を振って場を繋いでくれる。",
+    "axis": "EI",
+    "direction": "E"
   },
   {
     "id": 10,
-    "text": "ひとりの時間が自分にとって大切だ",
-    "axis": "connection",
-    "direction": "right"
+    "text": "エスカレーターに乗る位置を、次の乗り換えや出口に合わせて事前に意識している。",
+    "axis": "JP",
+    "direction": "J"
   },
   {
     "id": 11,
-    "text": "チームで協力して成果を出すのが好きだ",
-    "axis": "connection",
-    "direction": "left"
+    "text": "持ち物は、デザインの斬新さよりも「使いやすさ」や「機能性」を重視している。",
+    "axis": "SN",
+    "direction": "S"
   },
   {
     "id": 12,
-    "text": "自分のペースで自由に進められる方が力を発揮できる",
-    "axis": "connection",
-    "direction": "right"
+    "text": "映画の感想が「感動した」よりも「設定が凝っていた」などの分析寄り。",
+    "axis": "TF",
+    "direction": "T"
+  },
+  {
+    "id": 13,
+    "text": "自分のプライベートな話を、こちらが聞かなくてもオープンに話してくれる。",
+    "axis": "EI",
+    "direction": "E"
+  },
+  {
+    "id": 14,
+    "text": "待ち合わせの数分前には到着している。遅れる時は必ず事前に連絡がある。",
+    "axis": "JP",
+    "direction": "J"
+  },
+  {
+    "id": 15,
+    "text": "注文する時、食べたことのない創作料理より味の想像がつく定番メニューを選びがち。",
+    "axis": "SN",
+    "direction": "S"
   }
 ]
