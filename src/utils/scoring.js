@@ -10,10 +10,10 @@ const ALL_AXES = [...MBTI_AXES, ...SPICE_AXES];
 
 // Spice軸ごとの高スコア修飾語（maxScore >= 3）
 const SPICE_MODIFIERS = {
-  Approval: '自撮り加工済みの',
-  Obsession: 'カギアカ監視中の',
+  Approval: '加工上手の',
+  Obsession: '鍵アカストーカーの',
   Emotion: '即泣き地雷原な',
-  Fickle: '沈黙が耐えられない',
+  Fickle: 'べらべら',
 };
 
 // 中間スコア修飾語（maxScore 0〜2）

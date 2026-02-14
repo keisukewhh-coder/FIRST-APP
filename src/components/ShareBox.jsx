@@ -5,7 +5,7 @@ export default function ShareBox({ typeKey, modifier, resultName }) {
 
   const shareUrl = `${window.location.origin}/result?key=${encodeURIComponent(typeKey)}&mod=${encodeURIComponent(modifier || '')}`;
   const displayName = modifier ? `${modifier}${resultName}` : resultName || typeKey;
-  const shareText = `#あの人勝手に占っちゃおう診断\nあの人の本性は「${displayName}」だった…！\n${shareUrl}`;
+  const shareText = `#あの人の裏の顔診断\nあの人の裏の顔は「${displayName}」だった…！\n${shareUrl}`;
 
   const handleCopy = async () => {
     try {
@@ -25,7 +25,7 @@ export default function ShareBox({ typeKey, modifier, resultName }) {
   };
 
   const handleTwitterShare = () => {
-    const text = encodeURIComponent(`#あの人勝手に占っちゃおう診断\nあの人の本性を暴いた結果…！`);
+    const text = encodeURIComponent(`#あの人の裏の顔診断\nあの人の裏の顔を暴いた結果…！`);
     const url = encodeURIComponent(shareUrl);
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
   };
@@ -33,7 +33,7 @@ export default function ShareBox({ typeKey, modifier, resultName }) {
   return (
     <div className="bg-white rounded-3xl p-5 shadow-sm mb-5">
       <h3 className="text-sm font-bold text-text-primary mb-1">結果をシェア</h3>
-      <p className="text-xs text-vivid-pink font-semibold mb-3">#あの人勝手に占っちゃおう診断</p>
+      <p className="text-xs text-vivid-pink font-semibold mb-3">#あの人の裏の顔診断</p>
       <div className="flex gap-2 mb-3">
         <input
           type="text"

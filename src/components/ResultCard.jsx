@@ -49,14 +49,14 @@ export default function ResultCard({ result, typeKey, modifier }) {
         <p>{result.description}</p>
       </div>
 
-      {/* Gesu result sections */}
+      {/* Result sections */}
       <div className="space-y-5">
         <div className="result-section">
           <div className="flex items-center gap-2 mb-2">
             <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3355" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             </span>
-            <h3 className="text-sm font-bold text-vivid-pink">ゲスい弱点</h3>
+            <h3 className="text-sm font-bold text-vivid-pink">裏の弱点</h3>
           </div>
           <p className="text-sm leading-relaxed text-text-primary pl-9">
             {result.weakness}
@@ -66,12 +66,12 @@ export default function ResultCard({ result, typeKey, modifier }) {
         <div className="result-section">
           <div className="flex items-center gap-2 mb-2">
             <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3355" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3355" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
             </span>
-            <h3 className="text-sm font-bold text-vivid-pink">喜ぶデート</h3>
+            <h3 className="text-sm font-bold text-vivid-pink">この人のトリセツ</h3>
           </div>
           <p className="text-sm leading-relaxed text-text-primary pl-9">
-            {result.date}
+            {result.handling}
           </p>
         </div>
 
@@ -80,10 +80,10 @@ export default function ResultCard({ result, typeKey, modifier }) {
             <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3355" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             </span>
-            <h3 className="text-sm font-bold text-vivid-pink">モテる動き</h3>
+            <h3 className="text-sm font-bold text-vivid-pink">相性のいい人・悪い人</h3>
           </div>
           <p className="text-sm leading-relaxed text-text-primary pl-9">
-            {result.attractive}
+            {result.compatible}
           </p>
         </div>
 
@@ -92,7 +92,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
             <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3355" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             </span>
-            <h3 className="text-sm font-bold text-vivid-pink">刺さる一言</h3>
+            <h3 className="text-sm font-bold text-vivid-pink">心に刺さる一言</h3>
           </div>
           <p className="text-sm leading-relaxed text-text-primary pl-9 font-semibold">
             {result.approach}
@@ -102,7 +102,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
 
       {/* Hashtag */}
       <div className="text-center mt-6 pt-4 border-t border-coral/20">
-        <span className="text-sm font-bold text-vivid-pink">#あの人勝手に占っちゃおう診断</span>
+        <span className="text-sm font-bold text-vivid-pink">#あの人の裏の顔診断</span>
       </div>
     </div>
   );
