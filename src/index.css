@@ -5,6 +5,7 @@
   --color-coral: #FFB6C1;
   --color-coral-dark: #FF99AA;
   --color-coral-light: #FFD6DE;
+  --color-vivid-pink: #FF3355;
   --color-text-primary: #4A3540;
   --color-text-secondary: #8B7080;
   --color-bg-white: #FFFFFF;
@@ -78,20 +79,4 @@ body {
 
 .pulse-gentle {
   animation: gentlePulse 2s ease-in-out infinite;
-}
-
-/* Slide in animation */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.animate-slide-in {
-  animation: slideIn 0.4s ease-out forwards;
 }

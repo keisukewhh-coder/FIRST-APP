@@ -1,14 +1,14 @@
 const labels = [
-  'まったく\n当てはまらない',
-  'あまり\n当てはまらない',
-  'どちらでも\nない',
-  'やや\n当てはまる',
-  'とても\n当てはまる',
+  '激しく\n同意',
+  'まあ\nわかる',
+  'どっちでも\nねぇ',
+  'ちょっと\n違うわ',
+  '反吐が出る\nほど違う',
 ];
 
 const sizes = [44, 36, 30, 36, 44];
-const colors = ['#FF99AA', '#FFB6C1', '#E0D0D5', '#FFB6C1', '#FF99AA'];
-const selectedColors = ['#FF6B81', '#FF8FA0', '#C0A8B0', '#FF8FA0', '#FF6B81'];
+const colors = ['#FF6B81', '#FFB6C1', '#E0D0D5', '#FFB6C1', '#FF6B81'];
+const selectedColors = ['#FF3355', '#FF6B81', '#C0A8B0', '#FF6B81', '#FF3355'];
 
 export default function ScaleSelector({ value, onChange }) {
   return (
@@ -36,7 +36,7 @@ export default function ScaleSelector({ value, onChange }) {
                 </svg>
               )}
             </button>
-            <span className="text-[0.6rem] leading-tight text-center text-text-secondary whitespace-pre-line">
+            <span className="text-[0.6rem] leading-tight text-center text-text-secondary whitespace-pre-line font-bold">
               {labels[i]}
             </span>
           </div>
