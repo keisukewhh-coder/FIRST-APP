@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "text": "新しい環境に飛び込むとき、ワクワクする方だ",
+    "axis": "freedom",
+    "direction": "left"
+  },
+  {
+    "id": 2,
+    "text": "計画をしっかり立ててから行動したい",
+    "axis": "freedom",
+    "direction": "right"
+  },
+  {
+    "id": 3,
+    "text": "ルールや慣習より、自分の感覚を優先したい",
+    "axis": "freedom",
+    "direction": "left"
+  },
+  {
+    "id": 4,
+    "text": "安定した日常があると安心する",
+    "axis": "freedom",
+    "direction": "right"
+  },
+  {
+    "id": 5,
+    "text": "理屈よりも「なんとなく」で決めることが多い",
+    "axis": "intuition",
+    "direction": "left"
+  },
+  {
+    "id": 6,
+    "text": "データや根拠をもとに判断するのが好きだ",
+    "axis": "intuition",
+    "direction": "right"
+  },
+  {
+    "id": 7,
+    "text": "ひらめきやインスピレーションを大切にしている",
+    "axis": "intuition",
+    "direction": "left"
+  },
+  {
+    "id": 8,
+    "text": "物事を論理的に整理してから考えたい",
+    "axis": "intuition",
+    "direction": "right"
+  },
+  {
+    "id": 9,
+    "text": "誰かと一緒にいる時間が自分を元気にしてくれる",
+    "axis": "connection",
+    "direction": "left"
+  },
+  {
+    "id": 10,
+    "text": "ひとりの時間が自分にとって大切だ",
+    "axis": "connection",
+    "direction": "right"
+  },
+  {
+    "id": 11,
+    "text": "チームで協力して成果を出すのが好きだ",
+    "axis": "connection",
+    "direction": "left"
+  },
+  {
+    "id": 12,
+    "text": "自分のペースで自由に進められる方が力を発揮できる",
+    "axis": "connection",
+    "direction": "right"
+  }
+]
