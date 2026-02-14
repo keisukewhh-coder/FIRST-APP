@@ -46,7 +46,7 @@ export default function ResultPage() {
             もう一度診断する
           </button>
           <button
-            className="w-full py-3 rounded-full bg-white text-text-secondary font-semibold text-sm border border-coral/30 cursor-pointer hover:bg-coral/5 transition-colors"
+            className="w-full py-3 rounded-full bg-card text-text-secondary font-semibold text-sm border border-coral/30 cursor-pointer hover:bg-coral/5 transition-colors"
             onClick={() => navigate('/')}
           >
             トップに戻る

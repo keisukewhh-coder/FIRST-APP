@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-sakura: #FFF0F5;
-  --color-coral: #FFB6C1;
-  --color-coral-dark: #FF99AA;
-  --color-coral-light: #FFD6DE;
-  --color-vivid-pink: #FF3355;
-  --color-text-primary: #4A3540;
-  --color-text-secondary: #8B7080;
-  --color-bg-white: #FFFFFF;
+  --color-sakura: #0D0808;
+  --color-coral: #3D1520;
+  --color-coral-dark: #991122;
+  --color-coral-light: #1F0E12;
+  --color-vivid-pink: #CC1133;
+  --color-text-primary: #E0CCCC;
+  --color-text-secondary: #8B6666;
+  --color-card: #1A1010;
   --font-sans: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
 }
 
@@ -17,8 +17,8 @@ html {
 }
 
 body {
-  background-color: #FFF0F5;
-  color: #4A3540;
+  background-color: #0D0808;
+  color: #E0CCCC;
   font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

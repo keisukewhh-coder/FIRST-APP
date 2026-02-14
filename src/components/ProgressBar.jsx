@@ -11,7 +11,7 @@ export default function ProgressBar({ current, total }) {
           className="progress-fill h-full rounded-full"
           style={{
             width: `${percentage}%`,
-            background: 'linear-gradient(90deg, #FFB6C1, #FF99AA)',
+            background: 'linear-gradient(90deg, #5A1520, #CC1133)',
           }}
         />
       </div>

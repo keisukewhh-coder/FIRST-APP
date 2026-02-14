@@ -10,32 +10,32 @@ export default function StartCard() {
         <svg viewBox="0 0 200 120" width="240" height="144" className="mx-auto">
           {/* Mask icons */}
           <g transform="translate(30,25)">
-            <circle cx="20" cy="25" r="18" fill="#FF6B81" opacity="0.2" />
-            <circle cx="20" cy="25" r="14" fill="#FF6B81" opacity="0.4" />
+            <circle cx="20" cy="25" r="18" fill="#CC1133" opacity="0.15" />
+            <circle cx="20" cy="25" r="14" fill="#CC1133" opacity="0.3" />
             {/* Happy mask */}
-            <path d="M12 22 Q20 30 28 22" stroke="#FF3355" strokeWidth="2" fill="none" strokeLinecap="round" />
-            <circle cx="14" cy="20" r="2" fill="#FF3355" />
-            <circle cx="26" cy="20" r="2" fill="#FF3355" />
+            <path d="M12 22 Q20 30 28 22" stroke="#CC1133" strokeWidth="2" fill="none" strokeLinecap="round" />
+            <circle cx="14" cy="20" r="2" fill="#CC1133" />
+            <circle cx="26" cy="20" r="2" fill="#CC1133" />
           </g>
           {/* Question mark */}
           <g transform="translate(85,15)">
-            <circle cx="15" cy="30" r="22" fill="#FFD4A0" opacity="0.3" />
-            <text x="7" y="38" fontSize="28" fontWeight="bold" fill="#FF3355" opacity="0.6">?</text>
+            <circle cx="15" cy="30" r="22" fill="#3D1520" opacity="0.5" />
+            <text x="7" y="38" fontSize="28" fontWeight="bold" fill="#CC1133" opacity="0.6">?</text>
           </g>
           {/* Sad mask */}
           <g transform="translate(140,25)">
-            <circle cx="20" cy="25" r="18" fill="#2C2C2C" opacity="0.1" />
-            <circle cx="20" cy="25" r="14" fill="#2C2C2C" opacity="0.15" />
+            <circle cx="20" cy="25" r="18" fill="#2C2C2C" opacity="0.3" />
+            <circle cx="20" cy="25" r="14" fill="#2C2C2C" opacity="0.4" />
             {/* Sad mask */}
             <path d="M12 28 Q20 22 28 28" stroke="#666" strokeWidth="2" fill="none" strokeLinecap="round" />
             <circle cx="14" cy="20" r="2" fill="#666" />
             <circle cx="26" cy="20" r="2" fill="#666" />
           </g>
           {/* Floating elements */}
-          <path d="M60 10 L63 16 L57 16 Z" fill="#FF3355" opacity="0.3" />
-          <path d="M145 12 L148 18 L142 18 Z" fill="#FF6B81" opacity="0.25" />
-          <circle cx="75" cy="90" r="3" fill="#FF3355" opacity="0.2" />
-          <circle cx="130" cy="85" r="2" fill="#FF6B81" opacity="0.3" />
+          <path d="M60 10 L63 16 L57 16 Z" fill="#CC1133" opacity="0.3" />
+          <path d="M145 12 L148 18 L142 18 Z" fill="#8B1A2B" opacity="0.4" />
+          <circle cx="75" cy="90" r="3" fill="#CC1133" opacity="0.2" />
+          <circle cx="130" cy="85" r="2" fill="#8B1A2B" opacity="0.3" />
         </svg>
       </div>
 
