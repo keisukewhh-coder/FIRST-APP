@@ -101,7 +101,7 @@ export default function ResultCard({ result, typeKey }) {
 
       {/* Hashtag */}
       <div className="text-center mt-6 pt-4 border-t border-coral/20">
-        <span className="text-sm font-bold text-vivid-pink">#都会の動物ゲス診断</span>
+        <span className="text-sm font-bold text-vivid-pink">#あの人勝手に占っちゃおう診断</span>
       </div>
     </div>
   );

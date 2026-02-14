@@ -37,13 +37,14 @@ export default function StartCard() {
         </svg>
       </div>
 
-      <h1 className="text-2xl font-extrabold text-text-primary mb-2">
-        都会の動物ゲス診断
+      <h1 className="text-2xl font-extrabold text-text-primary mb-1">
+        あの人勝手に占っちゃおう診断
       </h1>
+      <p className="text-xs text-vivid-pink font-bold mb-3">（ちょいゲス）</p>
       <p className="text-sm text-text-secondary mb-6 leading-relaxed">
-        綺麗な言葉はもういらない。<br />
-        MBTIをベースに、あの人の<br />
-        <span className="text-vivid-pink font-bold">「隠れた本性」</span>と<span className="text-vivid-pink font-bold">「落とし方」</span>を暴き出す。
+        あの人の「ちょっとダメなところ」や<br />
+        「日常のクセ」を観察。その本性を<br />
+        <span className="text-vivid-pink font-bold">都会の動物に例えて暴く</span>、エンタメ全振りの攻略サイト。
       </p>
 
       <div className="flex justify-center gap-6 mb-5">
@@ -62,7 +63,7 @@ export default function StartCard() {
       </div>
 
       <p className="text-sm text-text-primary mb-2 leading-relaxed">
-        好きな人の行動を思い出しながら、<br />
+        あの人の行動を思い出しながら、<br />
         20問の質問に答えてみてください。
       </p>
       <p className="text-xs text-text-secondary mb-6">
@@ -73,11 +74,11 @@ export default function StartCard() {
         className="pulse-gentle w-full max-w-xs mx-auto py-3.5 px-8 rounded-full bg-vivid-pink text-white font-bold text-base border-0 cursor-pointer shadow-md hover:bg-coral-dark transition-colors"
         onClick={() => navigate('/quiz')}
       >
-        本性を暴く
+        あの人の本性を暴く
       </button>
 
       <p className="mt-4 text-xs text-text-secondary">
-        <span className="text-vivid-pink font-semibold">#都会の動物ゲス診断</span>
+        <span className="text-vivid-pink font-semibold">#あの人勝手に占っちゃおう診断</span>
       </p>
     </div>
   );

@@ -49,7 +49,7 @@ export default function ResultPage() {
     <Layout>
       <div className="pt-2 animate-fade-in-up">
         <h1 className="text-center text-base text-text-secondary mb-4 font-medium">
-          あの人の本性は…
+          あの人のちょいゲス取説
         </h1>
 
         <ResultCard result={result} typeKey={resolvedKey} />
