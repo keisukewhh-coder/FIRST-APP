@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-export default function ShareBox({ typeKey, modifier, resultName }) {
+export default function ShareBox({ typeId, modifier, resultName }) {
   const [copied, setCopied] = useState(false);
 
-  const shareUrl = `${window.location.origin}/result?key=${encodeURIComponent(typeKey)}&mod=${encodeURIComponent(modifier || '')}`;
-  const displayName = modifier ? `${modifier}${resultName}` : resultName || typeKey;
+  const shareUrl = `${window.location.origin}/result?t=${encodeURIComponent(typeId)}&m=${encodeURIComponent(modifier || '')}`;
+  const displayName = modifier ? `${modifier}${resultName}` : resultName;
   const shareText = `#あの人の裏の顔診断\nあの人の裏の顔は「${displayName}」だった…！\n${shareUrl}`;
 
   const handleCopy = async () => {

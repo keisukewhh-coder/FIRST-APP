@@ -1,4 +1,5 @@
 import AnimalIllustration from './AnimalIllustration';
+import { MODIFIER_DETAILS } from '../utils/scoring';
 
 export default function ResultCard({ result, typeKey, modifier }) {
   if (!result) {
@@ -9,6 +10,8 @@ export default function ResultCard({ result, typeKey, modifier }) {
     );
   }
 
+  const modifierDetail = modifier ? MODIFIER_DETAILS[modifier] : null;
+
   return (
     <div className="bg-white rounded-3xl p-6 shadow-md mb-5">
       {/* Animal illustration */}
@@ -16,17 +19,9 @@ export default function ResultCard({ result, typeKey, modifier }) {
         <AnimalIllustration typeKey={typeKey} />
       </div>
 
-      {/* Type badge */}
-      <div className="text-center mb-4">
-        <span className="inline-block text-xs font-semibold text-white bg-vivid-pink px-4 py-1 rounded-full tracking-wider">
-          {typeKey}
-        </span>
-      </div>
-
-      {/* Modifier + Type name */}
+      {/* Modifier + Type name (seamless, same styling) */}
       <h2 className="text-center text-2xl font-extrabold text-text-primary mb-1">
-        {modifier && <span className="text-vivid-pink">{modifier}</span>}
-        {result.name}
+        {modifier}{result.name}
       </h2>
       <p className="text-center text-sm text-vivid-pink font-semibold mb-4">
         {result.tagline}
@@ -44,25 +39,39 @@ export default function ResultCard({ result, typeKey, modifier }) {
         ))}
       </div>
 
-      {/* Description */}
-      <div className="text-sm leading-relaxed text-text-primary mb-6 pb-5 border-b border-coral/20">
-        <p>{result.description}</p>
-      </div>
-
       {/* Result sections */}
       <div className="space-y-5">
+        {/* 1. 表の顔と裏の顔 */}
+        <div className="result-section">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3355" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </span>
+            <h3 className="text-sm font-bold text-vivid-pink">表の顔</h3>
+          </div>
+          <p className="text-sm leading-relaxed text-text-primary pl-9">
+            {result.front}
+          </p>
+        </div>
+
         <div className="result-section">
           <div className="flex items-center gap-2 mb-2">
             <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3355" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             </span>
-            <h3 className="text-sm font-bold text-vivid-pink">裏の弱点</h3>
+            <h3 className="text-sm font-bold text-vivid-pink">裏の顔</h3>
           </div>
           <p className="text-sm leading-relaxed text-text-primary pl-9">
-            {result.weakness}
+            {result.hidden}
           </p>
+          {modifierDetail && (
+            <p className="text-sm leading-relaxed text-text-primary pl-9 mt-3 pt-3 border-t border-coral/15">
+              さらにこの人は<span className="font-bold text-vivid-pink">「{modifier}」</span>タイプ。{modifierDetail}
+            </p>
+          )}
         </div>
 
+        {/* 2. 取扱説明書 */}
         <div className="result-section">
           <div className="flex items-center gap-2 mb-2">
             <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
@@ -70,32 +79,34 @@ export default function ResultCard({ result, typeKey, modifier }) {
             </span>
             <h3 className="text-sm font-bold text-vivid-pink">この人のトリセツ</h3>
           </div>
-          <p className="text-sm leading-relaxed text-text-primary pl-9">
-            {result.handling}
-          </p>
+          <div className="text-sm leading-relaxed text-text-primary pl-9 whitespace-pre-line">
+            {result.manual}
+          </div>
         </div>
 
+        {/* 3. デートのシミュレーション */}
         <div className="result-section">
           <div className="flex items-center gap-2 mb-2">
             <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3355" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3355" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             </span>
-            <h3 className="text-sm font-bold text-vivid-pink">相性のいい人・悪い人</h3>
+            <h3 className="text-sm font-bold text-vivid-pink">デートのシミュレーション</h3>
           </div>
-          <p className="text-sm leading-relaxed text-text-primary pl-9">
-            {result.compatible}
-          </p>
+          <div className="text-sm leading-relaxed text-text-primary pl-9 whitespace-pre-line">
+            {result.date}
+          </div>
         </div>
 
+        {/* 4. キラーフレーズ */}
         <div className="result-section">
           <div className="flex items-center gap-2 mb-2">
             <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF3355" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             </span>
-            <h3 className="text-sm font-bold text-vivid-pink">心に刺さる一言</h3>
+            <h3 className="text-sm font-bold text-vivid-pink">相手の心を開かせるキラーフレーズ</h3>
           </div>
           <p className="text-sm leading-relaxed text-text-primary pl-9 font-semibold">
-            {result.approach}
+            {result.killer}
           </p>
         </div>
       </div>
