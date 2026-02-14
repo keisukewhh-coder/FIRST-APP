@@ -54,17 +54,17 @@ export default function StartCard() {
         </div>
         <div className="flex flex-col items-center gap-1">
           <span className="text-xs text-text-secondary">質問数</span>
-          <span className="text-base font-bold text-vivid-pink">20問</span>
+          <span className="text-base font-bold text-vivid-pink">28問</span>
         </div>
         <div className="flex flex-col items-center gap-1">
           <span className="text-xs text-text-secondary">タイプ</span>
-          <span className="text-base font-bold text-vivid-pink">8種</span>
+          <span className="text-base font-bold text-vivid-pink">16種</span>
         </div>
       </div>
 
       <p className="text-sm text-text-primary mb-2 leading-relaxed">
         あの人の行動を思い出しながら、<br />
-        20問の質問に答えてみてください。
+        28問の質問に答えてみてください。
       </p>
       <p className="text-xs text-text-secondary mb-6">
         ※ エンタメ目的の診断です。性格を断定するものではありません。

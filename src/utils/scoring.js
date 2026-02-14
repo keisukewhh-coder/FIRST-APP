@@ -1,56 +1,81 @@
 import questions from '../data/questions.json';
 import types from '../data/types.json';
 
+// MBTI axes
+const MBTI_AXES = ['E_I', 'S_N', 'T_F', 'J_P'];
+// Spice axes
+const SPICE_AXES = ['Approval', 'Obsession', 'Emotion', 'Fickle'];
+// All axes
+const ALL_AXES = [...MBTI_AXES, ...SPICE_AXES];
+
 /**
- * 回答配列からスコアを計算し、タイプキーと結果を返す
- * @param {Object} answers - { questionId: value(1-5) }
- * @returns {{ scores: Object, typeKey: string, result: Object }}
+ * ボタン値(1-5)を内部スコア(+2〜-2)に変換
+ * 1=+2(せやねんせやねん), 2=+1, 3=0, 4=-1, 5=-2(全然ちゃうわ)
+ */
+function buttonToScore(buttonValue) {
+  return 3 - buttonValue; // 1→+2, 2→+1, 3→0, 4→-1, 5→-2
+}
+
+/**
+ * 回答から全8軸のスコアを計算し、MBTIタイプキーと結果を返す
+ * @param {Object} answers - { questionId: buttonValue(1-5) }
+ * @returns {{ mbtiScores, spiceScores, typeKey, result }}
  */
 export function calculateResult(answers) {
-  const scores = {
-    EI: 0,
-    SN: 0,
-    TF: 0,
-    JP: 0,
-  };
+  // 初期化: 全軸0
+  const scores = {};
+  for (const axis of ALL_AXES) {
+    scores[axis] = 0;
+  }
 
-  const positiveDirection = {
-    EI: 'E',
-    SN: 'S',
-    TF: 'T',
-    JP: 'J',
-  };
-
+  // 各質問の回答を集計
   questions.forEach((q) => {
     const raw = answers[q.id];
     if (raw == null) return;
 
-    // 中央3を基準に -2〜+2 に正規化
-    const normalized = raw - 3;
+    const answerScore = buttonToScore(raw);
 
-    // direction が軸の正方向（E, S, T, J）と一致 → そのまま加算
-    // direction が軸の負方向（I, N, F, P）→ 符号反転して加算
-    const value = q.direction === positiveDirection[q.axis] ? normalized : -normalized;
-
-    scores[q.axis] += value;
+    // axes内の各軸に weight * answerScore を加算
+    for (const [axis, weight] of Object.entries(q.axes)) {
+      if (scores[axis] !== undefined) {
+        scores[axis] += answerScore * weight;
+      }
+    }
   });
 
-  // スコアから4文字のタイプキーを生成
-  const ei = scores.EI >= 0 ? 'E' : 'I';
-  const sn = scores.SN >= 0 ? 'S' : 'N';
-  const tf = scores.TF >= 0 ? 'T' : 'F';
-  const jp = scores.JP >= 0 ? 'J' : 'P';
+  // MBTI 4文字のタイプキーを生成
+  // E_I: プラス→E, マイナス→I
+  // S_N: プラス→S, マイナス→N
+  // T_F: プラス→T, マイナス→F
+  // J_P: プラス→J, マイナス→P
+  const ei = scores.E_I >= 0 ? 'E' : 'I';
+  const sn = scores.S_N >= 0 ? 'S' : 'N';
+  const tf = scores.T_F >= 0 ? 'T' : 'F';
+  const jp = scores.J_P >= 0 ? 'J' : 'P';
 
   const typeKey = `${ei}${sn}${tf}${jp}`;
+
+  // MBTI / Spice を分離して返す
+  const mbtiScores = {
+    E_I: scores.E_I,
+    S_N: scores.S_N,
+    T_F: scores.T_F,
+    J_P: scores.J_P,
+  };
+  const spiceScores = {
+    Approval: scores.Approval,
+    Obsession: scores.Obsession,
+    Emotion: scores.Emotion,
+    Fickle: scores.Fickle,
+  };
+
   const result = types[typeKey] || null;
 
-  return { scores, typeKey, result };
+  return { mbtiScores, spiceScores, typeKey, result };
 }
 
 /**
  * typeKeyからタイプ情報を取得
- * @param {string} typeKey
- * @returns {{ key: string, data: Object } | null}
  */
 export function getTypeByKey(typeKey) {
   if (!typeKey) return null;
@@ -60,8 +85,6 @@ export function getTypeByKey(typeKey) {
 
 /**
  * 全問回答済みかチェック
- * @param {Object} answers
- * @returns {boolean}
  */
 export function isAllAnswered(answers) {
   return questions.every((q) => answers[q.id] != null);

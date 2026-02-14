@@ -1,9 +1,11 @@
+// +2=せやねんせやねん！ +1=まあ、そうやと思うわ 0=どっちとも言えん -1=それはちゃう気する -2=全然ちゃうわ！
+// ボタン値: 1(+2), 2(+1), 3(0), 4(-1), 5(-2)
 const labels = [
-  '激しく\n同意',
-  'まあ\nわかる',
-  'どっちでも\nねぇ',
-  'ちょっと\n違うわ',
-  '反吐が出る\nほど違う',
+  'せやねん\nせやねん！',
+  'まあ、そうやと\n思うわ',
+  'どっちとも\n言えん',
+  'それはちゃう\n気する',
+  '全然\nちゃうわ！',
 ];
 
 const sizes = [44, 36, 30, 36, 44];
@@ -36,7 +38,7 @@ export default function ScaleSelector({ value, onChange }) {
                 </svg>
               )}
             </button>
-            <span className="text-[0.6rem] leading-tight text-center text-text-secondary whitespace-pre-line font-bold">
+            <span className="text-[0.55rem] leading-tight text-center text-text-secondary whitespace-pre-line font-bold">
               {labels[i]}
             </span>
           </div>
