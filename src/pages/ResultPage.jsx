@@ -18,9 +18,9 @@ export default function ResultPage() {
 
   if (!typeKey) return null;
 
-  const result = getTypeByKey(typeKey);
+  const found = getTypeByKey(typeKey);
 
-  if (!result) {
+  if (!found) {
     return (
       <Layout>
         <div className="result-page">
@@ -35,13 +35,17 @@ export default function ResultPage() {
     );
   }
 
+  // found.key は復元済みの正しいキー、found.data がタイプ情報
+  const resolvedKey = found.key;
+  const result = found.data;
+
   return (
     <Layout>
       <div className="result-page">
         <h1 className="result-heading">あなたのタイプは…</h1>
 
-        <ResultCard result={result} typeKey={typeKey} />
-        <ShareBox typeKey={typeKey} />
+        <ResultCard result={result} typeKey={resolvedKey} />
+        <ShareBox typeKey={resolvedKey} />
 
         <div className="result-actions">
           <button
