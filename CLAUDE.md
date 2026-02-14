@@ -1,11 +1,11 @@
-# アニマル恋愛攻略診断 - Animal Love Guide
+# 都会の動物ゲス診断
 
 ## 開発方針
 - Vite + React (JavaScript) で構成
 - 依存: `react-router-dom`, `tailwindcss`, `@tailwindcss/vite`
 - CSS は Tailwind CSS v4 ユーティリティ + index.css でカスタムテーマ定義
 - データは JSON で外部化し、テキスト差し替えが容易な設計
-- カラー: メイン #FFF0F5（サクラピンク）、アクセント #FFB6C1（コーラルピンク）
+- カラー: メイン #FFF0F5（サクラピンク）、アクセント #FF3355（ビビッドピンク）
 
 ## コマンド
 ```bash
@@ -24,16 +24,16 @@ src/
 │   ├── QuestionCard.jsx      # 設問表示
 │   ├── ScaleSelector.jsx     # 5段階丸型選択UI
 │   ├── ProgressBar.jsx       # 進捗バー
-│   ├── ResultCard.jsx        # 結果表示（攻略アドバイス付き）
+│   ├── ResultCard.jsx        # 結果表示（ゲス攻略アドバイス付き）
 │   ├── AnimalIllustration.jsx # 8動物タイプSVGイラスト
-│   └── ShareBox.jsx          # 共有リンク
+│   └── ShareBox.jsx          # 共有リンク + Xシェア
 ├── pages/          # ページコンポーネント
 │   ├── HomePage.jsx      # / (LP)
-│   ├── QuizPage.jsx      # /quiz (年代選択 + 15問診断)
+│   ├── QuizPage.jsx      # /quiz (20問フルスクロール診断)
 │   └── ResultPage.jsx    # /result (結果)
 ├── data/           # 外部データファイル
-│   ├── questions.json    # 15問の質問データ (E-I, S-N, T-F, J-P)
-│   └── types.json        # 8動物タイプの結果データ（年代別アドバイス付き）
+│   ├── questions.json    # 20問の質問データ (E-I, S-N, T-F, J-P)
+│   └── types.json        # 8動物タイプの結果データ（ゲス味アドバイス）
 ├── utils/
 │   └── scoring.js        # スコア計算・タイプ判定ロジック
 ├── App.jsx         # ルーティング定義
@@ -43,20 +43,20 @@ src/
 ```
 
 ## データファイル
-- `questions.json`: 15問。4軸(EI/SN/TF/JP) × 各3-4問。direction で加点方向を制御
-- `types.json`: 8動物タイプ。キー形式は MBTI 4文字（INTJ, ENFP 等）。年代別アドバイス付き
+- `questions.json`: 20問。4軸(EI/SN/TF/JP) × 各5問。direction で加点方向を制御。ゲスい口調の質問文
+- `types.json`: 8動物タイプ。キー形式は MBTI 4文字（INTJ, ENFP 等）。ゲス味の本性暴露＆攻略法
 
 ## 動物タイプ一覧
 | タイプキー | 名前 | 特徴 |
 |-----------|------|------|
-| INTJ | ラグジュアリー猫 | 知的で気高い |
-| ENFP | 路地裏チワワ | 好奇心の塊 |
-| ESTJ | 爆走ライオン | 圧倒的リーダー |
-| ESFJ | ひだまりレトリバー | 共感の天才 |
-| ISTJ | 戦略ペンギン | 几帳面な実務家 |
-| INFP | 雨宿りうさぎ | 繊細な芸術家 |
-| ISTP | 職人ウルフ | 寡黙なこだわり派 |
-| ESFP | お祭りパンダ | 今を楽しむ |
+| INTJ | ラグジュアリー猫 | 俺様が一番正しいモンスター |
+| ENFP | 路地裏チワワ | 構ってちゃんモンスター |
+| ESTJ | 爆走ライオン | 完璧主義の不器用王様 |
+| ESFJ | ひだまりレトリバー | 依存煽り職人 |
+| ISTJ | 戦略ペンギン | ルール至上主義のむっつり |
+| INFP | 雨宿りうさぎ | 脳内ダークファンタジー |
+| ISTP | 職人ウルフ | 論破マウント中毒 |
+| ESFP | お祭りパンダ | 逃避行動の天才 |
 
 ## 判定ロジック（src/utils/scoring.js）
 1. 回答値(1-5)を中央3基準で -2〜+2 に正規化
@@ -64,13 +64,16 @@ src/
 3. 各軸スコアが 0以上 → 正方向の文字、0未満 → 負方向の文字
 4. 4文字を結合して typeKey を生成 → types.json から結果取得
 
-## 属性フィルター
-- 10代 (teens): 部活動・学校・放課後がキーワードのアドバイス
-- 20代 (twenties): 仕事・キャリア・休日がキーワードのアドバイス
-
 ## 結果画面の構成
 1. 動物タイプ名 & SVGイラスト
-2. オーダーメイド・デート提案
-3. 意外な一面（裏の顔）
-4. モテるための動き方
-5. 最強のアプローチ
+2. ゲスい弱点（weakness）
+3. 喜ぶデート（date）
+4. モテる動き（attractive）
+5. 刺さる一言（approach）
+6. ハッシュタグ: #都会の動物ゲス診断
+
+## UIデザイン
+- フルスクロール1カラム（画面遷移なし）
+- 丸型ぷるんボタン（角ばったボタンなし）
+- ビビッドピンク (#FF3355) でゲスい強調
+- SNSシェア対応（X/コピー）

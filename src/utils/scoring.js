@@ -4,10 +4,9 @@ import types from '../data/types.json';
 /**
  * 回答配列からスコアを計算し、タイプキーと結果を返す
  * @param {Object} answers - { questionId: value(1-5) }
- * @param {string} ageGroup - "teens" or "twenties"
  * @returns {{ scores: Object, typeKey: string, result: Object }}
  */
-export function calculateResult(answers, ageGroup) {
+export function calculateResult(answers) {
   const scores = {
     EI: 0,
     SN: 0,
@@ -45,7 +44,7 @@ export function calculateResult(answers, ageGroup) {
   const typeKey = `${ei}${sn}${tf}${jp}`;
   const result = types[typeKey] || null;
 
-  return { scores, typeKey, result, ageGroup };
+  return { scores, typeKey, result };
 }
 
 /**
