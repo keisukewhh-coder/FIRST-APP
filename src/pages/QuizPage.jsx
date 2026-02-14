@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 import QuestionCard from '../components/QuestionCard';
 import ProgressBar from '../components/ProgressBar';
 import questions from '../data/questions.json';
-import { calculateResult, isAllAnswered } from '../utils/scoring';
+import { calculateResult, isAllAnswered, typeKeyToId } from '../utils/scoring';
 
 /**
  * 質問の「主軸」を取得（axes の最初のキー）
@@ -89,7 +89,7 @@ export default function QuizPage() {
       return;
     }
     const { typeKey, modifier } = calculateResult(answers);
-    navigate(`/result?key=${encodeURIComponent(typeKey)}&mod=${encodeURIComponent(modifier)}`);
+    navigate(`/result?t=${typeKeyToId(typeKey)}&m=${encodeURIComponent(modifier)}`);
   };
 
   const canSubmit = isAllAnswered(answers);

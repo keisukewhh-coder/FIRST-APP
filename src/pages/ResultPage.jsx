@@ -3,26 +3,27 @@ import { useEffect } from 'react';
 import Layout from '../components/Layout';
 import ResultCard from '../components/ResultCard';
 import ShareBox from '../components/ShareBox';
-import { getTypeByKey } from '../utils/scoring';
+import { getTypeByKey, idToTypeKey } from '../utils/scoring';
 
 export default function ResultPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const typeKey = searchParams.get('key');
-  const modifier = searchParams.get('mod') || '量産型の';
+  const typeId = searchParams.get('t');
+  const modifier = searchParams.get('m') || '量産型の';
 
   useEffect(() => {
-    if (!typeKey) {
+    if (typeId == null) {
       navigate('/quiz');
     }
-  }, [typeKey, navigate]);
+  }, [typeId, navigate]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (!typeKey) return null;
+  if (typeId == null) return null;
 
+  const typeKey = idToTypeKey(typeId);
   const found = getTypeByKey(typeKey);
   const resolvedKey = found.key;
   const result = found.data;
@@ -35,7 +36,7 @@ export default function ResultPage() {
         </h1>
 
         <ResultCard result={result} typeKey={resolvedKey} modifier={modifier} />
-        <ShareBox typeKey={resolvedKey} modifier={modifier} resultName={result.name} />
+        <ShareBox typeId={typeId} modifier={modifier} resultName={result.name} />
 
         <div className="flex flex-col gap-3">
           <button
