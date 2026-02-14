@@ -1,3 +1,5 @@
+import TypeIllustration from './TypeIllustration';
+
 export default function ResultCard({ result, typeKey }) {
   if (!result) {
     return (
@@ -9,6 +11,9 @@ export default function ResultCard({ result, typeKey }) {
 
   return (
     <div className="result-card">
+      <div className="result-illustration">
+        <TypeIllustration typeKey={typeKey} />
+      </div>
       <div className="result-type-key">{typeKey}</div>
       <h2 className="result-name">{result.name}</h2>
       <p className="result-tagline">{result.tagline}</p>
