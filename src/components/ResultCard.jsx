@@ -49,9 +49,9 @@ export default function ResultCard({ result, typeKey, modifier }) {
             </span>
             <h3 className="text-sm font-bold text-vivid-pink">表の顔</h3>
           </div>
-          <p className="text-sm leading-relaxed text-text-primary pl-9">
+          <div className="text-sm leading-relaxed text-text-primary pl-9 whitespace-pre-line">
             {result.front}
-          </p>
+          </div>
         </div>
 
         <div className="result-section">
@@ -61,9 +61,9 @@ export default function ResultCard({ result, typeKey, modifier }) {
             </span>
             <h3 className="text-sm font-bold text-vivid-pink">裏の顔</h3>
           </div>
-          <p className="text-sm leading-relaxed text-text-primary pl-9">
+          <div className="text-sm leading-relaxed text-text-primary pl-9 whitespace-pre-line">
             {result.hidden}
-          </p>
+          </div>
           {modifierDetail && (
             <p className="text-sm leading-relaxed text-text-primary pl-9 mt-3 pt-3 border-t border-coral/15">
               さらにこの人は<span className="font-bold text-vivid-pink">「{modifier}」</span>タイプ。{modifierDetail}
@@ -105,9 +105,9 @@ export default function ResultCard({ result, typeKey, modifier }) {
             </span>
             <h3 className="text-sm font-bold text-vivid-pink">相手の心を開かせるキラーフレーズ</h3>
           </div>
-          <p className="text-sm leading-relaxed text-text-primary pl-9 font-semibold">
+          <div className="text-sm leading-relaxed text-text-primary pl-9 font-semibold whitespace-pre-line">
             {result.killer}
-          </p>
+          </div>
         </div>
       </div>
 
