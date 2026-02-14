@@ -31,7 +31,7 @@ export default function ShareBox({ typeId, modifier, resultName }) {
   };
 
   return (
-    <div className="bg-white rounded-3xl p-5 shadow-sm mb-5">
+    <div className="bg-card rounded-3xl p-5 shadow-sm mb-5">
       <h3 className="text-sm font-bold text-text-primary mb-1">結果をシェア</h3>
       <p className="text-xs text-vivid-pink font-semibold mb-3">#あの人の裏の顔診断</p>
       <div className="flex gap-2 mb-3">

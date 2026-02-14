@@ -9,8 +9,8 @@ const labels = [
 ];
 
 const sizes = [44, 36, 30, 36, 44];
-const colors = ['#FF6B81', '#FFB6C1', '#E0D0D5', '#FFB6C1', '#FF6B81'];
-const selectedColors = ['#FF3355', '#FF6B81', '#C0A8B0', '#FF6B81', '#FF3355'];
+const colors = ['#8B1A2B', '#5A1520', '#2A1818', '#5A1520', '#8B1A2B'];
+const selectedColors = ['#CC1133', '#8B1A2B', '#4A2A30', '#8B1A2B', '#CC1133'];
 
 export default function ScaleSelector({ value, onChange }) {
   return (

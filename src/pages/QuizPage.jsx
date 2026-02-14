@@ -116,7 +116,7 @@ export default function QuizPage() {
 
         <div className="mt-4">
           {showValidation && (
-            <p className="text-center text-sm text-green-600 font-bold mb-3">
+            <p className="text-center text-sm text-green-400 font-bold mb-3">
               未回答の質問があります（緑色の項目を確認してください）
             </p>
           )}
