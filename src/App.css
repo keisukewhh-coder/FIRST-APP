@@ -6,8 +6,8 @@
 }
 
 .header {
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--color-dark);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.2);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -26,15 +26,21 @@
   font-size: 1.125rem;
   font-weight: 700;
   color: var(--color-primary);
+  letter-spacing: 0.04em;
 }
 
 .header-logo:hover {
   text-decoration: none;
+  color: #ddc06a;
 }
 
 .header-nav a {
   font-size: 0.875rem;
-  color: var(--color-text-secondary);
+  color: #a09a92;
+}
+
+.header-nav a:hover {
+  color: var(--color-primary);
 }
 
 .main {
@@ -46,12 +52,12 @@
 }
 
 .footer {
-  background: var(--color-surface);
-  border-top: 1px solid var(--color-border);
+  background: var(--color-dark);
+  border-top: 1px solid rgba(201, 168, 76, 0.2);
   padding: 1.5rem 1.25rem;
   text-align: center;
   font-size: 0.8rem;
-  color: var(--color-text-secondary);
+  color: #a09a92;
 }
 
 .footer-note {
@@ -70,31 +76,37 @@
   font-weight: 600;
   cursor: pointer;
   border: none;
-  transition: background-color 0.2s, opacity 0.2s;
+  transition: background-color 0.2s, opacity 0.2s, transform 0.1s;
   font-family: inherit;
 }
 
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
 .btn:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
-  color: #fff;
+  background-color: var(--color-dark);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--color-primary-hover);
+  background-color: var(--color-primary);
+  color: var(--color-dark);
 }
 
 .btn-secondary {
   background-color: var(--color-primary-light);
-  color: var(--color-primary);
+  color: var(--color-dark-soft);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: #c7d2fe;
+  background-color: #efe5cc;
 }
 
 .btn-ghost {
@@ -104,7 +116,8 @@
 }
 
 .btn-ghost:hover:not(:disabled) {
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
+  border-color: var(--color-text-secondary);
 }
 
 /* ===== StartCard (LP) ===== */
@@ -116,7 +129,7 @@
 .start-title {
   font-size: 1.75rem;
   font-weight: 800;
-  color: var(--color-primary);
+  color: var(--color-dark);
   margin-bottom: 0.5rem;
 }
 
@@ -148,7 +161,7 @@
 .info-value {
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-primary);
 }
 
 .start-description {
@@ -194,7 +207,7 @@
 
 .progress-fill {
   height: 100%;
-  background: var(--color-primary);
+  background: linear-gradient(90deg, var(--color-primary), #ddc06a);
   border-radius: 3px;
   transition: width 0.3s ease;
 }
@@ -206,6 +219,9 @@
   padding: 2rem 1.5rem;
   box-shadow: var(--shadow);
   margin-bottom: 1.5rem;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
 }
 
 .question-number {
@@ -220,6 +236,7 @@
   font-weight: 600;
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  flex: 1;
 }
 
 /* ===== ScaleSelector ===== */
@@ -239,8 +256,9 @@
   border-radius: var(--radius-sm);
   background: var(--color-surface);
   cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s;
+  transition: border-color 0.2s, background-color 0.2s, transform 0.1s;
   font-family: inherit;
+  color: var(--color-text);
 }
 
 .scale-btn:hover {
@@ -248,10 +266,14 @@
   background-color: var(--color-primary-light);
 }
 
+.scale-btn:active {
+  transform: scale(0.96);
+}
+
 .scale-btn.active {
   border-color: var(--color-primary);
   background-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-dark);
 }
 
 .scale-number {
@@ -272,12 +294,13 @@
 
 .quiz-nav {
   display: flex;
-  justify-content: space-between;
   gap: 1rem;
 }
 
 .quiz-nav .btn {
   flex: 1;
+  min-width: 0;
+  min-height: 48px;
 }
 
 /* ===== ResultPage ===== */
@@ -299,6 +322,13 @@
   padding: 2rem 1.5rem;
   box-shadow: var(--shadow-lg);
   margin-bottom: 1.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.result-illustration {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
 }
 
 .result-type-key {
@@ -306,16 +336,17 @@
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-primary);
-  background: var(--color-primary-light);
+  background: var(--color-dark);
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
   margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
 }
 
 .result-name {
   font-size: 1.75rem;
   font-weight: 800;
-  color: var(--color-text);
+  color: var(--color-dark);
   margin-bottom: 0.25rem;
 }
 
@@ -339,12 +370,11 @@
 }
 
 .result-section h3 {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--color-primary);
   margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .result-strengths {
@@ -354,7 +384,7 @@
 }
 
 .result-strengths li {
-  background: var(--color-primary-light);
+  background: var(--color-dark);
   color: var(--color-primary);
   padding: 0.35rem 0.85rem;
   border-radius: 999px;
@@ -376,7 +406,7 @@
 .result-match {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--color-accent);
+  color: var(--color-primary);
 }
 
 /* ===== ShareBox ===== */
@@ -386,6 +416,7 @@
   padding: 1.25rem 1.5rem;
   box-shadow: var(--shadow);
   margin-bottom: 1.5rem;
+  border: 1px solid var(--color-border);
 }
 
 .share-box h3 {
@@ -463,12 +494,13 @@
   border-radius: var(--radius-sm);
   padding: 1.25rem;
   box-shadow: var(--shadow);
+  border: 1px solid var(--color-border);
 }
 
 .axis-card h3 {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-dark);
   margin-bottom: 0.5rem;
 }
 
@@ -507,6 +539,7 @@
   padding: 2rem 1.5rem;
   box-shadow: var(--shadow);
   text-align: center;
+  border: 1px solid var(--color-border);
 }
 
 .error-card p {
@@ -540,9 +573,18 @@
 
   .question-card {
     padding: 1.5rem 1rem;
+    min-height: 220px;
   }
 
   .result-card {
     padding: 1.5rem 1rem;
+  }
+
+  .share-url-row {
+    flex-direction: column;
+  }
+
+  .share-url-row .btn {
+    width: 100%;
   }
 }
