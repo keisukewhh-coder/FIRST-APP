@@ -8,43 +8,46 @@ export default function StartCard() {
       {/* Hero illustration */}
       <div className="mb-6">
         <svg viewBox="0 0 200 120" width="240" height="144" className="mx-auto">
-          {/* Hearts floating */}
-          <path d="M30 40 C30 35 37 32 37 38 C37 32 44 35 44 40 C44 46 37 50 37 50 C37 50 30 46 30 40Z" fill="#FF3355" opacity="0.6" />
-          <path d="M155 30 C155 26 160 24 160 28 C160 24 165 26 165 30 C165 34 160 37 160 37 C160 37 155 34 155 30Z" fill="#FF6B81" opacity="0.5" />
-          <path d="M80 15 C80 12 84 10 84 13 C84 10 88 12 88 15 C88 18 84 20 84 20 C84 20 80 18 80 15Z" fill="#FF3355" opacity="0.4" />
-          {/* Cat silhouette */}
-          <g transform="translate(40,35)">
-            <ellipse cx="20" cy="40" rx="16" ry="18" fill="#FF6B81" />
-            <circle cx="20" cy="22" r="14" fill="#FF6B81" />
-            <polygon points="8,14 6,0 16,10" fill="#FF6B81" />
-            <polygon points="32,14 34,0 24,10" fill="#FF6B81" />
-            <ellipse cx="14" cy="22" rx="2" ry="2.5" fill="#fff" />
-            <ellipse cx="26" cy="22" rx="2" ry="2.5" fill="#fff" />
+          {/* Mask icons */}
+          <g transform="translate(30,25)">
+            <circle cx="20" cy="25" r="18" fill="#FF6B81" opacity="0.2" />
+            <circle cx="20" cy="25" r="14" fill="#FF6B81" opacity="0.4" />
+            {/* Happy mask */}
+            <path d="M12 22 Q20 30 28 22" stroke="#FF3355" strokeWidth="2" fill="none" strokeLinecap="round" />
+            <circle cx="14" cy="20" r="2" fill="#FF3355" />
+            <circle cx="26" cy="20" r="2" fill="#FF3355" />
           </g>
-          {/* Panda silhouette */}
-          <g transform="translate(85,30)">
-            <ellipse cx="20" cy="45" rx="18" ry="20" fill="#2C2C2C" opacity="0.15" />
-            <circle cx="20" cy="25" r="16" fill="#2C2C2C" opacity="0.15" />
-            <circle cx="8" cy="12" r="8" fill="#2C2C2C" opacity="0.15" />
-            <circle cx="32" cy="12" r="8" fill="#2C2C2C" opacity="0.15" />
+          {/* Question mark */}
+          <g transform="translate(85,15)">
+            <circle cx="15" cy="30" r="22" fill="#FFD4A0" opacity="0.3" />
+            <text x="7" y="38" fontSize="28" fontWeight="bold" fill="#FF3355" opacity="0.6">?</text>
           </g>
-          {/* Lion silhouette */}
-          <g transform="translate(130,32)">
-            <ellipse cx="20" cy="42" rx="16" ry="18" fill="#FFD4A0" opacity="0.5" />
-            <circle cx="20" cy="22" r="20" fill="#FFD4A0" opacity="0.5" />
-            <circle cx="20" cy="22" r="14" fill="#FFD4A0" opacity="0.7" />
+          {/* Sad mask */}
+          <g transform="translate(140,25)">
+            <circle cx="20" cy="25" r="18" fill="#2C2C2C" opacity="0.1" />
+            <circle cx="20" cy="25" r="14" fill="#2C2C2C" opacity="0.15" />
+            {/* Sad mask */}
+            <path d="M12 28 Q20 22 28 28" stroke="#666" strokeWidth="2" fill="none" strokeLinecap="round" />
+            <circle cx="14" cy="20" r="2" fill="#666" />
+            <circle cx="26" cy="20" r="2" fill="#666" />
           </g>
+          {/* Floating elements */}
+          <path d="M60 10 L63 16 L57 16 Z" fill="#FF3355" opacity="0.3" />
+          <path d="M145 12 L148 18 L142 18 Z" fill="#FF6B81" opacity="0.25" />
+          <circle cx="75" cy="90" r="3" fill="#FF3355" opacity="0.2" />
+          <circle cx="130" cy="85" r="2" fill="#FF6B81" opacity="0.3" />
         </svg>
       </div>
 
       <h1 className="text-2xl font-extrabold text-text-primary mb-1">
-        あの人勝手に占っちゃおう診断
+        あの人の裏の顔診断
       </h1>
       <p className="text-xs text-vivid-pink font-bold mb-3">（ちょいゲス）</p>
       <p className="text-sm text-text-secondary mb-6 leading-relaxed">
         あの人の「ちょっとダメなところ」や<br />
-        「日常のクセ」を観察。その本性を<br />
-        <span className="text-vivid-pink font-bold">都会の動物に例えて暴く</span>、エンタメ全振りの攻略サイト。
+        「日常のクセ」を観察。その裏の顔を<br />
+        <span className="text-vivid-pink font-bold">動物に例えてこっそり暴く</span>、<br />
+        ちょいゲスな人間観察エンタメ。
       </p>
 
       <div className="flex justify-center gap-6 mb-5">
@@ -74,11 +77,11 @@ export default function StartCard() {
         className="pulse-gentle w-full max-w-xs mx-auto py-3.5 px-8 rounded-full bg-vivid-pink text-white font-bold text-base border-0 cursor-pointer shadow-md hover:bg-coral-dark transition-colors"
         onClick={() => navigate('/quiz')}
       >
-        あの人の本性を暴く
+        あの人の裏の顔を暴く
       </button>
 
       <p className="mt-4 text-xs text-text-secondary">
-        <span className="text-vivid-pink font-semibold">#あの人勝手に占っちゃおう診断</span>
+        <span className="text-vivid-pink font-semibold">#あの人の裏の顔診断</span>
       </p>
     </div>
   );
