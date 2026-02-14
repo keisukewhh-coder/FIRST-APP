@@ -9,8 +9,9 @@ const labels = [
 ];
 
 const sizes = [44, 36, 30, 36, 44];
-const colors = ['#8B1A2B', '#5A1520', '#2A1818', '#5A1520', '#8B1A2B'];
-const selectedColors = ['#CC1133', '#8B1A2B', '#4A2A30', '#8B1A2B', '#CC1133'];
+const emojiSizes = [24, 20, 16, 20, 24];
+const colors = ['#9B2030', '#6B2028', '#3A2020', '#6B2028', '#9B2030'];
+const selectedColors = ['#CC1133', '#9B2030', '#5A3035', '#9B2030', '#CC1133'];
 
 export default function ScaleSelector({ value, onChange }) {
   return (
@@ -26,14 +27,19 @@ export default function ScaleSelector({ value, onChange }) {
                 width: `${size}px`,
                 height: `${size}px`,
                 backgroundColor: isSelected ? selectedColors[i] : colors[i],
-                opacity: isSelected ? 1 : 0.6,
+                opacity: isSelected ? 1 : 0.75,
                 boxShadow: isSelected ? `0 0 0 3px ${selectedColors[i]}40, 0 2px 8px ${selectedColors[i]}30` : 'none',
               }}
               onClick={() => onChange(n)}
               aria-label={labels[i].replace('\n', '')}
             >
               {isSelected && (
-                <span className="text-sm leading-none select-none" role="img" aria-label="selected">😏</span>
+                <span
+                  className="leading-none select-none"
+                  style={{ fontSize: `${emojiSizes[i]}px` }}
+                  role="img"
+                  aria-label="selected"
+                >😏</span>
               )}
             </button>
             <span className="text-[0.55rem] leading-tight text-center text-text-secondary whitespace-pre-line font-bold">

@@ -2,13 +2,13 @@
 
 @theme {
   --color-sakura: #0D0808;
-  --color-coral: #3D1520;
+  --color-coral: #4A2030;
   --color-coral-dark: #991122;
-  --color-coral-light: #1F0E12;
+  --color-coral-light: #251015;
   --color-vivid-pink: #CC1133;
-  --color-text-primary: #E0CCCC;
-  --color-text-secondary: #8B6666;
-  --color-card: #1A1010;
+  --color-text-primary: #F0E0E0;
+  --color-text-secondary: #A88888;
+  --color-card: #1C1212;
   --font-sans: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
 }
 
@@ -18,7 +18,7 @@ html {
 
 body {
   background-color: #0D0808;
-  color: #E0CCCC;
+  color: #F0E0E0;
   font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
