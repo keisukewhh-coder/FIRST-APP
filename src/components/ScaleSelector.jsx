@@ -33,9 +33,7 @@ export default function ScaleSelector({ value, onChange }) {
               aria-label={labels[i].replace('\n', '')}
             >
               {isSelected && (
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M2.5 7L5.5 10L11.5 4" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <span className="text-sm leading-none select-none" role="img" aria-label="selected">😏</span>
               )}
             </button>
             <span className="text-[0.55rem] leading-tight text-center text-text-secondary whitespace-pre-line font-bold">
