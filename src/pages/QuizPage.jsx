@@ -88,8 +88,8 @@ export default function QuizPage() {
       }
       return;
     }
-    const { typeKey } = calculateResult(answers);
-    navigate(`/result?key=${encodeURIComponent(typeKey)}`);
+    const { typeKey, modifier } = calculateResult(answers);
+    navigate(`/result?key=${encodeURIComponent(typeKey)}&mod=${encodeURIComponent(modifier)}`);
   };
 
   const canSubmit = isAllAnswered(answers);

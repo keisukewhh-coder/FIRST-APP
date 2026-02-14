@@ -9,6 +9,7 @@ export default function ResultPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const typeKey = searchParams.get('key');
+  const modifier = searchParams.get('mod') || '量産型の';
 
   useEffect(() => {
     if (!typeKey) {
@@ -23,25 +24,6 @@ export default function ResultPage() {
   if (!typeKey) return null;
 
   const found = getTypeByKey(typeKey);
-
-  if (!found) {
-    return (
-      <Layout>
-        <div className="pt-4">
-          <div className="bg-white rounded-3xl p-6 shadow-sm text-center">
-            <p className="text-text-secondary mb-4">無効な結果キーです。診断をやり直してください。</p>
-            <button
-              className="py-3 px-8 rounded-full bg-vivid-pink text-white font-bold text-sm border-0 cursor-pointer"
-              onClick={() => navigate('/quiz')}
-            >
-              診断をやり直す
-            </button>
-          </div>
-        </div>
-      </Layout>
-    );
-  }
-
   const resolvedKey = found.key;
   const result = found.data;
 
@@ -52,8 +34,8 @@ export default function ResultPage() {
           あの人のちょいゲス取説
         </h1>
 
-        <ResultCard result={result} typeKey={resolvedKey} />
-        <ShareBox typeKey={resolvedKey} />
+        <ResultCard result={result} typeKey={resolvedKey} modifier={modifier} />
+        <ShareBox typeKey={resolvedKey} modifier={modifier} resultName={result.name} />
 
         <div className="flex flex-col gap-3">
           <button
