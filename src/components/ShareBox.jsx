@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default function ShareBox({ typeKey }) {
   const [copied, setCopied] = useState(false);
 
-  const shareUrl = `${window.location.origin}/result?key=${typeKey}`;
+  const shareUrl = `${window.location.origin}/result?key=${encodeURIComponent(typeKey)}`;
 
   const handleCopy = async () => {
     try {

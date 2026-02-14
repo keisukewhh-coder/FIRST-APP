@@ -40,11 +40,21 @@ export function calculateResult(answers) {
 
 /**
  * typeKeyからタイプ情報を取得
+ * URLから読み取った際に + がスペースに変換される場合があるため復元する
  * @param {string} typeKey
- * @returns {Object|null}
+ * @returns {{ key: string, data: Object } | null}
  */
 export function getTypeByKey(typeKey) {
-  return types[typeKey] || null;
+  if (!typeKey) return null;
+
+  // そのまま一致すればそれを返す
+  if (types[typeKey]) return { key: typeKey, data: types[typeKey] };
+
+  // + がスペースに化けていた場合を復元して再検索
+  const restored = typeKey.replace(/ /g, '+');
+  if (types[restored]) return { key: restored, data: types[restored] };
+
+  return null;
 }
 
 /**

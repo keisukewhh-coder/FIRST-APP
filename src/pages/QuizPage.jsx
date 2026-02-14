@@ -36,7 +36,7 @@ export default function QuizPage() {
   const handleSubmit = () => {
     if (!isAllAnswered(answers)) return;
     const { typeKey } = calculateResult(answers);
-    navigate(`/result?key=${typeKey}`);
+    navigate(`/result?key=${encodeURIComponent(typeKey)}`);
   };
 
   const isLastQuestion = currentIndex === totalQuestions - 1;
