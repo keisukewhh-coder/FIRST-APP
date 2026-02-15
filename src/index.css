@@ -357,3 +357,119 @@ body {
 .result-section:hover {
   transform: translateY(-2px);
 }
+
+/* ========================================
+   TEASER PAGE - ominous reveal animations
+   ======================================== */
+
+/* 背景の脈動グロー */
+@keyframes teaserBgPulse {
+  0%, 100% {
+    box-shadow: 0 0 60px 20px rgba(204, 17, 51, 0.08);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 80px 30px rgba(204, 17, 51, 0.15);
+    transform: scale(1.05);
+  }
+}
+
+.teaser-bg-pulse {
+  animation: teaserBgPulse 3s ease-in-out infinite;
+}
+
+/* 封筒から飛び出す紙 */
+@keyframes teaserPaper {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.teaser-paper {
+  animation: teaserPaper 2.5s ease-in-out infinite;
+}
+
+/* 浮遊するマーク */
+@keyframes teaserFloat1 {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+  50% { transform: translateY(-6px) rotate(10deg); opacity: 0.7; }
+}
+@keyframes teaserFloat2 {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+  50% { transform: translateY(-5px) rotate(-8deg); opacity: 0.6; }
+}
+@keyframes teaserFloat3 {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.25; }
+  50% { transform: translateY(-7px) rotate(5deg); opacity: 0.5; }
+}
+
+.teaser-float-1 { animation: teaserFloat1 3s ease-in-out infinite; }
+.teaser-float-2 { animation: teaserFloat2 3.5s ease-in-out infinite 0.5s; }
+.teaser-float-3 { animation: teaserFloat3 2.8s ease-in-out infinite 1s; }
+
+/* テキストのちらつき演出 */
+@keyframes teaserFlicker {
+  0%, 92%, 100% { opacity: 0.6; }
+  94% { opacity: 0.2; }
+  96% { opacity: 0.8; }
+  98% { opacity: 0.3; }
+}
+
+.teaser-flicker {
+  animation: teaserFlicker 4s ease-in-out infinite;
+}
+
+/* 結果を見るボタン - 強い脈動 */
+@keyframes teaserRevealPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 20px rgba(204, 17, 51, 0.3), 0 0 40px rgba(204, 17, 51, 0.1);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 6px 30px rgba(204, 17, 51, 0.5), 0 0 60px rgba(204, 17, 51, 0.2);
+  }
+}
+
+.teaser-reveal-btn {
+  animation: teaserRevealPulse 2s ease-in-out infinite;
+}
+
+.teaser-reveal-btn:hover {
+  animation-play-state: paused;
+}
+
+/* 開封後のリビール演出 */
+@keyframes receivedReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+.received-reveal {
+  animation: receivedReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* リベンジセクション */
+@keyframes revengeGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(204, 17, 51, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(204, 17, 51, 0.3);
+  }
+}
+
+.revenge-section {
+  animation: revengeGlow 2.5s ease-in-out infinite;
+}
