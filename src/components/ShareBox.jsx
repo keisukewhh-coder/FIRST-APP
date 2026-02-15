@@ -31,9 +31,9 @@ export default function ShareBox({ typeId, modifier, resultName }) {
   };
 
   return (
-    <div className="bg-card rounded-3xl p-5 shadow-sm mb-5">
-      <h3 className="text-sm font-bold text-text-primary mb-1">結果をシェア</h3>
-      <p className="text-xs text-vivid-pink font-semibold mb-3">#あの人の裏の顔診断</p>
+    <div className="bg-card rounded-3xl p-6 shadow-lg mb-6 border border-vivid-pink/25">
+      <h3 className="text-base font-extrabold text-text-primary mb-1">この裏の顔、みんなに暴露する？</h3>
+      <p className="text-xs text-vivid-pink font-semibold mb-4">#あの人の裏の顔診断</p>
       <div className="flex gap-2 mb-3">
         <input
           type="text"
@@ -49,7 +49,7 @@ export default function ShareBox({ typeId, modifier, resultName }) {
         </button>
       </div>
       <button
-        className="w-full py-2.5 rounded-full bg-vivid-pink text-white text-xs font-bold border-0 cursor-pointer hover:bg-coral-dark transition-colors"
+        className="btn-primary w-full py-3 rounded-full bg-vivid-pink text-white text-sm font-bold border-0 cursor-pointer hover:bg-coral-dark pulse-gentle"
         onClick={handleTwitterShare}
       >
         Xでシェアする
