@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default function ShareBox({ typeId, modifier, resultName }) {
   const [copied, setCopied] = useState(false);
 
-  const shareUrl = `${window.location.origin}/result?t=${encodeURIComponent(typeId)}&m=${encodeURIComponent(modifier || '')}`;
+  const shareUrl = `${window.location.origin}/?type=${encodeURIComponent(typeId)}&modifier=${encodeURIComponent(modifier || '')}`;
   const displayName = modifier ? `${modifier}${resultName}` : resultName;
   const shareText = `#あの人の裏の顔診断\nあの人の裏の顔は「${displayName}」だった…！\n${shareUrl}`;
 

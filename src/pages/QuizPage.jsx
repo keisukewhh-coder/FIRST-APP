@@ -1,6 +1,4 @@
 import { useState, useRef, useMemo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Layout from '../components/Layout';
 import QuestionCard from '../components/QuestionCard';
 import ProgressBar from '../components/ProgressBar';
 import questions from '../data/questions.json';
@@ -59,8 +57,7 @@ function shuffleQuestions(qs) {
   return result;
 }
 
-export default function QuizPage() {
-  const navigate = useNavigate();
+export default function QuizPage({ onResult }) {
   const [answers, setAnswers] = useState({});
   const [showValidation, setShowValidation] = useState(false);
   const cardRefs = useRef({});
@@ -89,45 +86,43 @@ export default function QuizPage() {
       return;
     }
     const { typeKey, modifier } = calculateResult(answers);
-    navigate(`/result?t=${typeKeyToId(typeKey)}&m=${encodeURIComponent(modifier)}`);
+    onResult({ typeId: typeKeyToId(typeKey), modifier });
   };
 
   const canSubmit = isAllAnswered(answers);
 
   return (
-    <Layout>
-      <div className="pt-2">
-        <ProgressBar current={answeredCount} total={totalQuestions} />
+    <div className="pt-2">
+      <ProgressBar current={answeredCount} total={totalQuestions} />
 
-        <div className="space-y-0">
-          {shuffledQuestions.map((question, i) => (
-            <QuestionCard
-              key={question.id}
-              question={question}
-              value={answers[question.id] ?? null}
-              onChange={(value) => handleAnswer(question.id, value)}
-              index={i + 1}
-              total={totalQuestions}
-              highlighted={showValidation && answers[question.id] == null}
-              cardRef={(el) => { cardRefs.current[question.id] = el; }}
-            />
-          ))}
-        </div>
-
-        <div className="mt-4">
-          {showValidation && (
-            <p className="text-center text-sm text-green-400 font-bold mb-3">
-              未回答の質問があります（緑色の項目を確認してください）
-            </p>
-          )}
-          <button
-            className="w-full py-4 rounded-full bg-vivid-pink text-white font-bold text-base border-0 cursor-pointer hover:bg-coral-dark transition-colors"
-            onClick={handleSubmit}
-          >
-            {canSubmit ? 'あの人の本性を暴く' : `あと${totalQuestions - answeredCount}問`}
-          </button>
-        </div>
+      <div className="space-y-0">
+        {shuffledQuestions.map((question, i) => (
+          <QuestionCard
+            key={question.id}
+            question={question}
+            value={answers[question.id] ?? null}
+            onChange={(value) => handleAnswer(question.id, value)}
+            index={i + 1}
+            total={totalQuestions}
+            highlighted={showValidation && answers[question.id] == null}
+            cardRef={(el) => { cardRefs.current[question.id] = el; }}
+          />
+        ))}
       </div>
-    </Layout>
+
+      <div className="mt-4">
+        {showValidation && (
+          <p className="text-center text-sm text-green-400 font-bold mb-3">
+            未回答の質問があります（緑色の項目を確認してください）
+          </p>
+        )}
+        <button
+          className="w-full py-4 rounded-full bg-vivid-pink text-white font-bold text-base border-0 cursor-pointer hover:bg-coral-dark transition-colors"
+          onClick={handleSubmit}
+        >
+          {canSubmit ? 'あの人の本性を暴く' : `あと${totalQuestions - answeredCount}問`}
+        </button>
+      </div>
+    </div>
   );
 }
