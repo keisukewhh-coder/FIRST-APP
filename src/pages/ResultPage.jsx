@@ -3,7 +3,7 @@ import ResultCard from '../components/ResultCard';
 import ShareBox from '../components/ShareBox';
 import { getTypeByKey, idToTypeKey } from '../utils/scoring';
 
-export default function ResultPage({ typeId, modifier, onRestart, onGoHome }) {
+export default function ResultPage({ typeId, modifier, targetName, onRestart, onGoHome }) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const isRevenge = searchParams.get('revenge') === '1';
@@ -14,11 +14,13 @@ export default function ResultPage({ typeId, modifier, onRestart, onGoHome }) {
   const result = found.data;
 
   const displayName = modifier ? `${modifier}${result.name}` : result.name;
+  const nameLabel = targetName || 'あの人';
 
   const handleSend = () => {
     const params = new URLSearchParams();
     params.set('t', String(typeId));
     params.set('m', modifier);
+    if (targetName) params.set('n', targetName);
     navigate(`/send?${params.toString()}`);
     window.scrollTo(0, 0);
   };
@@ -43,23 +45,27 @@ export default function ResultPage({ typeId, modifier, onRestart, onGoHome }) {
           ANALYSIS COMPLETE
         </p>
         <h1 className="text-lg font-extrabold text-text-primary mb-1">
-          あの人の裏の顔、<span className="text-vivid-pink">暴いちゃいました</span>
+          {targetName ? (
+            <><span className="text-vivid-pink">{targetName}</span>の裏の顔、<span className="text-vivid-pink">暴いちゃいました</span></>
+          ) : (
+            <>あの人の裏の顔、<span className="text-vivid-pink">暴いちゃいました</span></>
+          )}
         </h1>
         <p className="text-xs text-text-secondary/60">
           ※ 本人に見せるかどうかはあんた次第やで
         </p>
       </div>
 
-      <ResultCard result={result} typeKey={resolvedKey} modifier={modifier} />
-      <ShareBox typeId={typeId} modifier={modifier} resultName={result.name} />
+      <ResultCard result={result} typeKey={resolvedKey} modifier={modifier} targetName={targetName} />
+      <ShareBox typeId={typeId} modifier={modifier} resultName={result.name} targetName={targetName} />
 
       {/* 送りつけるボタン */}
       <div className="bg-card rounded-3xl p-6 shadow-lg mb-6 border border-vivid-pink/30 text-center">
         <p className="text-lg font-extrabold text-text-primary mb-1">
-          さぁ、本人に突きつけたろか
+          さぁ、{targetName ? `${targetName}に` : '本人に'}突きつけたろか
         </p>
         <p className="text-xs text-text-secondary mb-4">
-          「{displayName}」を相手に送りつけられるで
+          「{displayName}」を{targetName ? `${targetName}に` : '相手に'}送りつけられるで
         </p>
         {isRevenge ? (
           <>

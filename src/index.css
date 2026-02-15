@@ -473,3 +473,54 @@ body {
 .revenge-section {
   animation: revengeGlow 2.5s ease-in-out infinite;
 }
+
+/* ========================================
+   GOKUHI MODE - top secret card effects
+   ======================================== */
+@keyframes gokuhiPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 10px rgba(204, 17, 51, 0.25),
+      0 0 30px rgba(204, 17, 51, 0.1),
+      inset 0 0 15px rgba(204, 17, 51, 0.04);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(204, 17, 51, 0.4),
+      0 0 50px rgba(204, 17, 51, 0.15),
+      inset 0 0 25px rgba(204, 17, 51, 0.06);
+  }
+}
+
+.gokuhi-card {
+  animation: gokuhiPulse 2.5s ease-in-out infinite;
+  position: relative;
+}
+
+.gokuhi-header {
+  background: linear-gradient(
+    135deg,
+    rgba(204, 17, 51, 0.35) 0%,
+    rgba(204, 17, 51, 0.15) 40%,
+    rgba(74, 32, 48, 0.25) 100%
+  );
+  position: relative;
+}
+
+@keyframes gokuhiScanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.gokuhi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #CC1133, transparent);
+  animation: gokuhiScanline 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 10;
+}

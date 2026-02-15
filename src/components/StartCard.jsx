@@ -1,4 +1,12 @@
+import { useState } from 'react';
+
 export default function StartCard({ onStart }) {
+  const [targetName, setTargetName] = useState('');
+
+  const handleStart = () => {
+    onStart(targetName.trim());
+  };
+
   return (
     <div className="text-center pt-6 pb-4">
       {/* 挑発的なアイコン */}
@@ -22,6 +30,24 @@ export default function StartCard({ onStart }) {
           <span className="text-vivid-pink font-extrabold">勝手に丸裸にして動物に例えて<br />
           本人に送りつけたれ。</span>
         </p>
+      </div>
+
+      {/* 相手の名前入力 */}
+      <div className="bg-card rounded-2xl p-5 mb-5 border border-vivid-pink/20 text-left">
+        <label className="block text-sm font-bold text-text-primary mb-1">
+          暴きたいあの人の名前
+        </label>
+        <p className="text-xs text-text-secondary mb-3">
+          ニックネームでもOK。入れると結果がもっとオモロくなるで
+        </p>
+        <input
+          type="text"
+          className="w-full px-4 py-3 rounded-full bg-sakura border border-coral/30 text-sm text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-vivid-pink/50 transition-colors text-center"
+          placeholder="例: たかし、推しの名前、元カレ…"
+          value={targetName}
+          onChange={(e) => setTargetName(e.target.value)}
+          maxLength={20}
+        />
       </div>
 
       <div className="flex justify-center gap-4 mb-5">
@@ -49,9 +75,9 @@ export default function StartCard({ onStart }) {
 
       <button
         className="pulse-gentle w-full max-w-xs mx-auto py-4 px-8 rounded-full bg-vivid-pink text-white font-extrabold text-lg border-0 cursor-pointer shadow-lg hover:bg-coral-dark transition-colors"
-        onClick={onStart}
+        onClick={handleStart}
       >
-        裏の顔を暴く
+        {targetName.trim() ? `${targetName.trim()}の裏の顔を暴く` : '裏の顔を暴く'}
       </button>
 
       <p className="mt-3 text-xs text-text-secondary/50">
