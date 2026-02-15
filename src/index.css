@@ -37,7 +37,9 @@ body {
   transform: scale(1.2);
 }
 
-/* Fade-in animation */
+/* ========================================
+   FADE IN ANIMATION
+   ======================================== */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -53,18 +55,280 @@ body {
   animation: fadeInUp 0.6s ease-out forwards;
 }
 
-/* Stagger animations for result sections */
+/* ========================================
+   HERO REVEAL - dramatic entrance for Section 1
+   ======================================== */
+@keyframes revealScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(30px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.03) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ========================================
+   STAGGER ANIMATIONS for result sections
+   ======================================== */
 .result-section {
   opacity: 0;
   animation: fadeInUp 0.6s ease-out forwards;
 }
 
-.result-section:nth-child(1) { animation-delay: 0.1s; }
-.result-section:nth-child(2) { animation-delay: 0.2s; }
-.result-section:nth-child(3) { animation-delay: 0.3s; }
-.result-section:nth-child(4) { animation-delay: 0.4s; }
-.result-section:nth-child(5) { animation-delay: 0.5s; }
-.result-section:nth-child(6) { animation-delay: 0.6s; }
+.result-section:nth-child(1) {
+  animation: revealScale 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 0.1s;
+}
+.result-section:nth-child(2) { animation-delay: 0.25s; }
+.result-section:nth-child(3) { animation-delay: 0.4s; }
+.result-section:nth-child(4) { animation-delay: 0.55s; }
+.result-section:nth-child(5) { animation-delay: 0.7s; }
+.result-section:nth-child(6) { animation-delay: 0.85s; }
+.result-section:nth-child(7) { animation-delay: 1.0s; }
+
+/* Torisetsu sub-items stagger */
+.torisetsu-item {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+  animation-delay: 0.7s;
+}
+
+.torisetsu-item:nth-child(3) { animation-delay: 0.8s; }
+.torisetsu-item:nth-child(4) { animation-delay: 0.9s; }
+.torisetsu-item:nth-child(5) { animation-delay: 1.0s; }
+
+/* ========================================
+   HERO SECTION - radial gradient mesh + glow
+   ======================================== */
+.hero-gradient {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(204, 17, 51, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 80% at 85% 90%, rgba(74, 32, 48, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(37, 16, 21, 0.4) 0%, transparent 70%),
+    #1C1212;
+}
+
+@keyframes heroGlow {
+  0%, 100% { box-shadow: 0 0 40px 8px rgba(204,17,51,0.25), 0 0 80px 20px rgba(204,17,51,0.08); }
+  50% { box-shadow: 0 0 60px 15px rgba(204,17,51,0.4), 0 0 100px 30px rgba(204,17,51,0.12); }
+}
+
+.hero-glow {
+  animation: heroGlow 3s ease-in-out infinite;
+  border-radius: 9999px;
+}
+
+.result-title-glow {
+  text-shadow: 0 0 20px rgba(204,17,51,0.5), 0 0 40px rgba(204,17,51,0.2);
+}
+
+/* ========================================
+   SHINE SWEEP - diagonal light on cards
+   ======================================== */
+@keyframes shineSweep {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(200%) rotate(25deg); }
+}
+
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 30%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02),
+    transparent
+  );
+  animation: shineSweep 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ========================================
+   GLASSMORPHISM - translucent card effect
+   ======================================== */
+.glass-card {
+  background: rgba(28, 18, 18, 0.7);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid rgba(204, 17, 51, 0.12);
+}
+
+.glass-inner {
+  background: rgba(37, 16, 21, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(168, 136, 136, 0.08);
+}
+
+/* ========================================
+   URA NO KAO - dramatic reveal section
+   ======================================== */
+@keyframes uraGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 8px rgba(204, 17, 51, 0.2),
+      0 0 20px rgba(204, 17, 51, 0.08),
+      inset 0 0 20px rgba(204, 17, 51, 0.03);
+  }
+  50% {
+    box-shadow:
+      0 0 15px rgba(204, 17, 51, 0.35),
+      0 0 40px rgba(204, 17, 51, 0.12),
+      inset 0 0 30px rgba(204, 17, 51, 0.05);
+  }
+}
+
+.ura-card {
+  animation: uraGlow 3s ease-in-out infinite;
+  position: relative;
+}
+
+.ura-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(204, 17, 51, 0.015) 2px,
+    rgba(204, 17, 51, 0.015) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+.ura-header {
+  background: linear-gradient(
+    135deg,
+    rgba(204, 17, 51, 0.3) 0%,
+    rgba(204, 17, 51, 0.15) 50%,
+    rgba(74, 32, 48, 0.2) 100%
+  );
+  position: relative;
+}
+
+@keyframes exposedLine {
+  0%, 100% { opacity: 0.4; transform: scaleX(0.8); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+.ura-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #CC1133, transparent);
+  animation: exposedLine 2.5s ease-in-out infinite;
+}
+
+.ura-body {
+  position: relative;
+  z-index: 2;
+}
+
+.modifier-reveal {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(204, 17, 51, 0.06) 0%,
+    rgba(204, 17, 51, 0.12) 100%
+  );
+  border: 1px solid rgba(204, 17, 51, 0.2);
+}
+
+/* ========================================
+   BUTTON SYSTEM - satisfying feedback
+   ======================================== */
+.btn-primary {
+  position: relative;
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(204, 17, 51, 0.25);
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(204, 17, 51, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(1px) scale(0.97);
+  box-shadow: 0 2px 6px rgba(204, 17, 51, 0.2);
+  transition-duration: 0.08s;
+}
+
+.btn-secondary {
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: rgba(204, 17, 51, 0.3);
+  background-color: rgba(74, 32, 48, 0.1);
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+  transition-duration: 0.08s;
+}
+
+/* ========================================
+   SCROLL-TRIGGERED REVEALS (progressive enhancement)
+   ======================================== */
+@keyframes scrollReveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.97);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .result-section:nth-child(n+2) {
+    animation: scrollReveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+    animation-delay: 0s;
+  }
+
+  .torisetsu-item {
+    animation: scrollReveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 25%;
+    animation-delay: 0s;
+  }
+}
 
 /* Progress bar animation */
 .progress-fill {
@@ -79,4 +343,17 @@ body {
 
 .pulse-gentle {
   animation: gentlePulse 2s ease-in-out infinite;
+}
+
+.pulse-gentle:hover {
+  animation-play-state: paused;
+}
+
+/* Card hover lift */
+.result-section {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.result-section:hover {
+  transform: translateY(-2px);
 }

@@ -93,6 +93,19 @@ export default function QuizPage({ onResult }) {
 
   return (
     <div className="pt-2">
+      {/* 案内注釈ボックス */}
+      <div className="bg-coral/10 border border-coral/30 rounded-2xl px-5 py-4 mb-4 flex items-start gap-3">
+        <span className="text-2xl leading-none mt-0.5" aria-hidden="true">📝</span>
+        <div>
+          <p className="text-text-primary font-bold text-base mb-1">
+            回答できる問題だけ回答してください
+          </p>
+          <p className="text-text-secondary text-sm leading-relaxed">
+            分からない・判断できない問題は「どっちとも言えん」（真ん中のボタン）を選んでください。
+          </p>
+        </div>
+      </div>
+
       <ProgressBar current={answeredCount} total={totalQuestions} />
 
       <div className="space-y-0">
