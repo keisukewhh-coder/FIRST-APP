@@ -8,12 +8,16 @@
  *   - "shout"   : 叫び（強調・大きめ）
  *   - "reveal"  : 暴露時のドラマチック演出
  */
+import ObachanIllustration from './ObachanIllustration';
+
 export default function ObachanBubble({ children, variant = 'default' }) {
   if (!children) return null;
 
   const isWhisper = variant === 'whisper';
   const isShout = variant === 'shout';
   const isReveal = variant === 'reveal';
+
+  const avatarSize = isShout || isReveal ? 44 : 36;
 
   return (
     <div
@@ -29,13 +33,13 @@ export default function ObachanBubble({ children, variant = 'default' }) {
     >
       {/* おばちゃんアバター */}
       <div className={`
-        shrink-0 flex items-center justify-center rounded-full
+        shrink-0 flex items-center justify-center rounded-full overflow-hidden
         ${isShout || isReveal
-          ? 'w-11 h-11 bg-vivid-pink/25 border-2 border-vivid-pink/40 shadow-[0_0_12px_rgba(204,17,51,0.2)]'
-          : 'w-9 h-9 bg-coral/30 border border-vivid-pink/20'
+          ? 'w-12 h-12 bg-vivid-pink/15 border-2 border-vivid-pink/40 shadow-[0_0_12px_rgba(204,17,51,0.2)]'
+          : 'w-10 h-10 bg-coral/20 border border-vivid-pink/20'
         }
       `}>
-        <span className={isShout || isReveal ? 'text-xl' : 'text-base'}>👵</span>
+        <ObachanIllustration size={avatarSize} />
       </div>
 
       {/* 吹き出し */}
@@ -64,14 +68,6 @@ export default function ObachanBubble({ children, variant = 'default' }) {
             }
           `}
         />
-
-        {/* おばちゃんラベル */}
-        <p className={`
-          text-[0.6rem] font-bold mb-1 tracking-wider
-          ${isShout || isReveal ? 'text-vivid-pink' : 'text-text-secondary/60'}
-        `}>
-          暴露のおばちゃん
-        </p>
 
         {/* セリフ */}
         <p className={`
