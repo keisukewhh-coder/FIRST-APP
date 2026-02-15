@@ -537,6 +537,22 @@ body {
 }
 
 /* ========================================
+   FLOATING BAKURO BAR - bottom sticky bar
+   ======================================== */
+.floating-bar-gradient {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(13, 8, 8, 0.85) 20%,
+    rgba(13, 8, 8, 0.98) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding-top: 12px;
+  border-top: 1px solid rgba(204, 17, 51, 0.15);
+}
+
+/* ========================================
    QUIZ ATMOSPHERE EFFECTS
    ======================================== */
 
