@@ -15,6 +15,7 @@ export default function SendPage() {
 
   const rawTypeId = searchParams.get('t');
   const rawModifier = searchParams.get('m');
+  const targetName = searchParams.get('n') || '';
 
   // --- バリデーション ---
   if (rawTypeId == null) {
@@ -71,6 +72,7 @@ export default function SendPage() {
     params.set('from', senderName.trim());
     params.set('msg', selectedMessage);
     params.set('exp', String(expiresAt));
+    if (targetName) params.set('n', targetName);
     navigate(`/send-complete?${params.toString()}`);
     window.scrollTo(0, 0);
   };

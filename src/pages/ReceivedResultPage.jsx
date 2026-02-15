@@ -26,7 +26,7 @@ function formatRemaining(ms) {
   return `${hours}時間${minutes}分`;
 }
 
-export default function ReceivedResultPage({ typeId, modifier, senderName }) {
+export default function ReceivedResultPage({ typeId, modifier, senderName, targetName }) {
   // 'teaser' → 'unlocking' → 'obachan-rage' → 'revealed' の4段階
   const [phase, setPhase] = useState('teaser');
   const navigate = useNavigate();
@@ -153,7 +153,7 @@ export default function ReceivedResultPage({ typeId, modifier, senderName }) {
       {/* ============================================ */}
       {phase === 'teaser' && (
         <>
-          <TeaserCard senderName={senderName} onReveal={handleReveal} />
+          <TeaserCard senderName={senderName} targetName={targetName} onReveal={handleReveal} />
 
           {/* カウントダウンタイマー（期限が設定されている場合のみ） */}
           {remaining !== null && remaining > 0 && (
@@ -192,10 +192,10 @@ export default function ReceivedResultPage({ typeId, modifier, senderName }) {
           {/* 開封演出ヘッダー */}
           <div className="text-center mb-6 animate-fade-in-up">
             <p className="text-xs tracking-[0.15em] text-vivid-pink/60 mb-2 font-semibold">
-              ― {senderName || '名無しの誰かさん'} さんの診断結果 ―
+              ― {senderName || '名無しの誰かさん'} が暴いた診断結果 ―
             </p>
             <h1 className="text-lg font-bold text-text-primary mb-1">
-              あんたの裏の顔は…
+              {targetName ? <><span className="text-vivid-pink">{targetName}</span>の裏の顔は…</> : 'あんたの裏の顔は…'}
             </h1>
           </div>
 
@@ -207,7 +207,7 @@ export default function ReceivedResultPage({ typeId, modifier, senderName }) {
           </div>
 
           {/* 結果カード（既存コンポーネント再利用） */}
-          <ResultCard result={result} typeKey={resolvedKey} modifier={modifier} />
+          <ResultCard result={result} typeKey={resolvedKey} modifier={modifier} targetName={targetName} />
 
           {/* ハッシュタグ */}
           <div className="text-center py-4 mb-4">
@@ -227,7 +227,7 @@ export default function ReceivedResultPage({ typeId, modifier, senderName }) {
               黙ってられへんやろ？
             </h2>
             <p className="text-sm text-text-secondary leading-relaxed mb-2">
-              <span className="text-vivid-pink font-bold">{senderName || '名無しの誰かさん'}</span> さんに
+              <span className="text-vivid-pink font-bold">{senderName || '名無しの誰かさん'}</span>に
               裏の顔を暴かれて悔しないんか？
             </p>
             <p className="text-sm text-text-secondary leading-relaxed mb-5">

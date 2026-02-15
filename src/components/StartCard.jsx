@@ -28,7 +28,7 @@ export default function StartCard({ onStart }) {
           あの人が<span className="text-vivid-pink font-extrabold">必死に隠してる</span>
           ダメなとこ、ヤバいクセ、黒い本性…<br /><br />
           本人の許可？<span className="text-vivid-pink font-bold">んなもん要らん。</span><br />
-          <span className="text-vivid-pink font-extrabold">勝手に丸裸にして動物に例えて<br />
+          <span className="text-vivid-pink font-extrabold">勝手に丸裸にして<br />
           本人に送りつけたれ。</span>
         </p>
       </div>

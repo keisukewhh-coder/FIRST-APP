@@ -1,8 +1,9 @@
 import ObachanBubble from './ObachanBubble';
 import ObachanIllustration from './ObachanIllustration';
 
-export default function TeaserCard({ senderName, onReveal }) {
+export default function TeaserCard({ senderName, targetName, onReveal }) {
   const displayName = senderName || '名無しの誰かさん';
+  const targetLabel = targetName || 'あんた';
 
   return (
     <div className="text-center pt-8 pb-4 animate-fade-in-up">
@@ -20,7 +21,7 @@ export default function TeaserCard({ senderName, onReveal }) {
       {/* おばちゃんの第一声 */}
       <div className="text-left mb-6">
         <ObachanBubble variant="shout">
-          ちょっとあんた！{displayName}さんがあんたのこと色々言うてるで！えげつないこと書かれとるわ〜
+          ちょっとあんた！{displayName}があんたのこと色々言うてるで！えげつないこと書かれとるわ〜
         </ObachanBubble>
       </div>
 
@@ -30,19 +31,21 @@ export default function TeaserCard({ senderName, onReveal }) {
           ― 裏の顔、バレてもうてるで ―
         </p>
         <h1 className="text-2xl font-extrabold text-text-primary mb-3 leading-tight">
-          あんたの<span className="text-vivid-pink">裏の顔</span>、<br />
-          暴かれてしもたわ
+          {targetName
+            ? <><span className="text-vivid-pink">{targetName}</span>の<span className="text-vivid-pink">裏の顔</span>、<br />暴かれてしもたわ</>
+            : <>あんたの<span className="text-vivid-pink">裏の顔</span>、<br />暴かれてしもたわ</>
+          }
         </h1>
       </div>
 
       {/* 送信者名 */}
       <div className="bg-card rounded-2xl p-5 mb-6 border border-vivid-pink/20 shadow-lg">
-        <p className="text-xs text-text-secondary mb-1">診断した人</p>
+        <p className="text-xs text-text-secondary mb-1">占った人</p>
         <p className="text-lg font-bold text-text-primary mb-2">
-          <span className="text-vivid-pink">{displayName}</span> さん
+          <span className="text-vivid-pink">{displayName}</span>
         </p>
         <p className="text-sm text-text-secondary leading-relaxed">
-          が、あんたのこと<br />
+          が、{targetLabel}のこと<br />
           <span className="text-vivid-pink font-semibold">勝手に丸裸にしよった</span>みたいやで。
         </p>
       </div>
@@ -50,7 +53,7 @@ export default function TeaserCard({ senderName, onReveal }) {
       {/* おばちゃんの煽り */}
       <div className="text-left mb-6">
         <ObachanBubble variant="whisper">
-          ダメなところ、ヤバいクセ、黒い本性…ぜーんぶ動物に例えて暴かれとるで。見る覚悟はあるんか？
+          ダメなところ、ヤバいクセ、黒い本性…ぜーんぶ暴かれとるで。見る覚悟はあるんか？
         </ObachanBubble>
       </div>
 

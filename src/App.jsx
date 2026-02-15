@@ -137,6 +137,7 @@ function ReceivedResultPageWrapper() {
   const rawTypeId = searchParams.get('t');
   const rawModifier = searchParams.get('m');
   const rawFrom = searchParams.get('from');
+  const targetName = searchParams.get('n') || '';
 
   // パラメータが全く無い場合はホームに戻す
   if (rawTypeId == null) {
@@ -166,6 +167,7 @@ function ReceivedResultPageWrapper() {
     params.set('t', correctedTypeId);
     params.set('m', modifier);
     if (senderName) params.set('from', senderName);
+    if (targetName) params.set('n', targetName);
     return <Navigate to={`/received?${params.toString()}`} replace />;
   }
 
@@ -174,6 +176,7 @@ function ReceivedResultPageWrapper() {
       typeId={typeId}
       modifier={modifier}
       senderName={senderName}
+      targetName={targetName}
     />
   );
 }
