@@ -48,7 +48,7 @@ function LockedSection({ id, label, emoji, unlocked, onUnlock, children }) {
 
   if (unlocked) {
     return (
-      <div ref={ref} style={{ opacity: 0, animation: 'fadeInUp 0.5s ease-out 0.1s forwards' }}>
+      <div ref={ref} className="unlock-burst" style={{ opacity: 0, animation: 'unlockBurst 0.6s ease-out forwards, fadeInUp 0.5s ease-out 0.1s forwards' }}>
         {children}
       </div>
     );
@@ -60,16 +60,16 @@ function LockedSection({ id, label, emoji, unlocked, onUnlock, children }) {
       <div className="blur-[6px] opacity-40 pointer-events-none select-none" aria-hidden="true">
         {children}
       </div>
-      {/* ロック解除オーバーレイ */}
+      {/* ロック解除オーバーレイ — パルスするボーダー */}
       <button
         onClick={handleUnlock}
-        className="absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-pointer bg-sakura/60 backdrop-blur-sm rounded-2xl border-2 border-dashed border-vivid-pink/30 transition-all hover:border-vivid-pink/60 hover:bg-sakura/40 group"
+        className="absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-pointer bg-sakura/60 backdrop-blur-sm rounded-2xl border-2 border-dashed border-vivid-pink/30 lock-overlay-pulse transition-all hover:border-vivid-pink/60 hover:bg-sakura/40 group"
         style={{ zIndex: 5 }}
       >
-        <span className="text-4xl group-hover:scale-125 transition-transform duration-300">
+        <span className="text-4xl group-hover:scale-125 transition-transform duration-300 drop-shadow-[0_0_12px_rgba(204,17,51,0.4)]">
           {emoji || '🔒'}
         </span>
-        <p className="text-sm font-extrabold text-vivid-pink">
+        <p className="text-sm font-extrabold text-vivid-pink drop-shadow-[0_0_8px_rgba(204,17,51,0.3)]">
           タップして暴く
         </p>
         <p className="text-xs text-text-secondary">
@@ -125,6 +125,10 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
   const dangerMatch = result.love?.match(/★/g);
   const dangerLevel = dangerMatch ? dangerMatch.length : 3;
 
+  // 名前の文字数からアニメーションタイミングを計算
+  const fullName = `${modifier || ''}${result.name}`;
+  const nameRevealEnd = 1.4 + fullName.length * 0.12 + 0.3; // 名前演出完了時刻
+
   // テキストをパースして各セクションに配置
   const manualParsed = parseSections(result.manual);
   const dateParsed = parseSections(result.date);
@@ -141,9 +145,14 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* ============================================ */}
       {/* Section 1: 診断結果 (Hero) — 常に表示 */}
       {/* ============================================ */}
-      <div className="result-section hero-gradient rounded-2xl p-8 shadow-xl border border-vivid-pink/20 card-shine">
+      <div className="result-section hero-gradient rounded-2xl p-8 shadow-xl border border-vivid-pink/20 card-shine relative">
+        {/* キラキラパーティクル */}
+        <div className="sparkle-field" aria-hidden="true">
+          <span /><span /><span /><span /><span /><span />
+        </div>
+
         {/* シルエット → 徐々に明るくなるイラスト */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-6 relative z-10">
           <div className="w-48 h-48 flex items-center justify-center hero-glow bg-sakura/50 rounded-full p-4 silhouette-reveal">
             <AnimalIllustration typeKey={typeKey} />
           </div>
@@ -165,30 +174,46 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
           </p>
         )}
 
-        <h2 className="text-center text-[1.75rem] sm:text-4xl font-extrabold text-text-primary mb-3 leading-tight result-title-glow tracking-tight dondon-item dondon-delay-2">
-          {modifier}{result.name}
+        {/* 診断名 — 1文字ずつ「ボン！」と出現 */}
+        <h2 className="text-center text-[1.75rem] sm:text-4xl font-extrabold text-text-primary mb-3 leading-tight result-title-glow tracking-tight">
+          {fullName.split('').map((char, i) => (
+            <span
+              key={i}
+              className="char-bon"
+              style={{ animationDelay: `${1.4 + i * 0.12}s` }}
+            >
+              {char}
+            </span>
+          ))}
         </h2>
 
-        <div className="flex justify-center mb-3 dondon-item dondon-delay-2">
+        <div className="flex justify-center mb-3" style={{ opacity: 0, animation: `fadeInUp 0.5s ease-out ${nameRevealEnd}s forwards` }}>
           <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-vivid-pink to-transparent rounded-full" />
         </div>
 
-        <p className="text-center text-sm text-vivid-pink font-semibold mb-5 px-2 dondon-item dondon-delay-3">
+        <p
+          className="text-center text-sm text-vivid-pink font-semibold mb-5 px-2 dondon-item"
+          style={{ animationDelay: `${nameRevealEnd + 0.3}s` }}
+        >
           {result.tagline}
         </p>
 
-        <div className="flex flex-wrap justify-center gap-2 dondon-item dondon-delay-4">
+        <div
+          className="flex flex-wrap justify-center gap-2 dondon-item"
+          style={{ animationDelay: `${nameRevealEnd + 0.7}s` }}
+        >
           {result.traits.map((trait, i) => (
             <span
               key={i}
-              className="text-sm font-bold bg-vivid-pink/20 text-vivid-pink px-4 py-2 rounded-full border border-vivid-pink/30 shadow-[0_0_12px_rgba(204,17,51,0.15)]"
+              className="text-sm font-bold bg-vivid-pink/20 text-vivid-pink px-4 py-2 rounded-full border border-vivid-pink/30 trait-badge-glow"
+              style={{ animationDelay: `${i * 0.3}s` }}
             >
               {trait}
             </span>
           ))}
         </div>
 
-        <div className="mt-6 dondon-item dondon-delay-5">
+        <div className="mt-6 dondon-item" style={{ animationDelay: `${nameRevealEnd + 1.1}s` }}>
           <RadarChart typeKey={typeKey} modifier={modifier} />
         </div>
       </div>

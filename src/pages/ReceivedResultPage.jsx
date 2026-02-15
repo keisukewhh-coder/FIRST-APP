@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import TeaserCard from '../components/TeaserCard';
 import ResultCard from '../components/ResultCard';
+import ObachanBubble from '../components/ObachanBubble';
 import { getTypeByKey, idToTypeKey } from '../utils/scoring';
 
 /**
@@ -157,16 +158,20 @@ export default function ReceivedResultPage({ typeId, modifier, senderName }) {
         <div id="received-result" className="received-reveal">
 
           {/* 開封演出ヘッダー */}
-          <div className="text-center mb-8 animate-fade-in-up">
+          <div className="text-center mb-6 animate-fade-in-up">
             <p className="text-xs tracking-[0.15em] text-vivid-pink/60 mb-2 font-semibold">
               ― {senderName || '名無しの誰かさん'} さんの診断結果 ―
             </p>
             <h1 className="text-lg font-bold text-text-primary mb-1">
               あんたの裏の顔は…
             </h1>
-            <p className="text-xs text-text-secondary">
-              もう見てもうたから、知らんぷりはでけへんで
-            </p>
+          </div>
+
+          {/* おばちゃんの開封リアクション */}
+          <div className="text-left mb-6">
+            <ObachanBubble variant="reveal">
+              開けてもうたな！もう知らんぷりはでけへんで。さぁ、あんたの裏の顔とご対面や！
+            </ObachanBubble>
           </div>
 
           {/* 結果カード（既存コンポーネント再利用） */}

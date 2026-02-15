@@ -617,26 +617,148 @@ body {
 }
 
 /* ========================================
-   OBACHAN BUBBLE - narrator animations
+   OBACHAN BUBBLE - 豪華ナレーター演出
    ======================================== */
-@keyframes obachanBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
+
+/* --- 登場アニメーション（ヌルッと出てくる） --- */
+@keyframes obachanEnter {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px) translateY(10px) scale(0.9);
+    filter: blur(4px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(3px) translateY(-2px) scale(1.03);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+    filter: blur(0);
+  }
 }
 
-@keyframes obachanRevealGlow {
+/* --- アバターの浮遊アニメーション --- */
+@keyframes obachanFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-5px) rotate(2deg); }
+}
+
+.obachan-avatar-float {
+  animation: obachanFloat 3s ease-in-out infinite;
+}
+
+/* --- シャウト時の小刻みシェイク --- */
+@keyframes obachanShake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-2px) rotate(-0.5deg); }
+  20% { transform: translateX(2px) rotate(0.5deg); }
+  30% { transform: translateX(-1px); }
+  40% { transform: translateX(1px); }
+  50% { transform: translateX(0); }
+}
+
+.obachan-shout-shake {
+  animation: obachanShake 0.6s ease-in-out 0.3s;
+}
+
+/* --- 通常の吹き出し — 温かみのあるグラデ --- */
+.obachan-default-bubble {
+  background: linear-gradient(135deg, rgba(28, 18, 18, 0.85) 0%, rgba(37, 16, 21, 0.7) 100%);
+  border: 1.5px solid rgba(204, 17, 51, 0.2);
+  box-shadow: 0 2px 12px rgba(204, 17, 51, 0.08), 0 0 0 1px rgba(168, 136, 136, 0.06);
+}
+
+/* --- ひそひそ話 — 点滅する控えめグロー --- */
+@keyframes whisperPulse {
+  0%, 100% { box-shadow: 0 0 6px rgba(74, 32, 48, 0.15); }
+  50% { box-shadow: 0 0 14px rgba(74, 32, 48, 0.3); }
+}
+
+.obachan-whisper-bubble {
+  background: linear-gradient(135deg, rgba(74, 32, 48, 0.15) 0%, rgba(28, 18, 18, 0.6) 100%);
+  border: 1px dashed rgba(168, 136, 136, 0.25);
+  animation: whisperPulse 3s ease-in-out infinite;
+}
+
+/* --- シャウト — ガッツリ派手なグロー + グラデ --- */
+@keyframes shoutGlow {
   0%, 100% {
-    box-shadow: 0 0 10px rgba(204, 17, 51, 0.15);
+    box-shadow: 0 0 12px rgba(204, 17, 51, 0.2), 0 0 30px rgba(204, 17, 51, 0.08);
     border-color: rgba(204, 17, 51, 0.4);
   }
   50% {
-    box-shadow: 0 0 25px rgba(204, 17, 51, 0.35), 0 0 50px rgba(204, 17, 51, 0.1);
-    border-color: rgba(204, 17, 51, 0.6);
+    box-shadow: 0 0 24px rgba(204, 17, 51, 0.4), 0 0 50px rgba(204, 17, 51, 0.15);
+    border-color: rgba(204, 17, 51, 0.65);
   }
 }
 
+.obachan-shout-bubble {
+  background: linear-gradient(135deg, rgba(204, 17, 51, 0.18) 0%, rgba(74, 32, 48, 0.25) 50%, rgba(28, 18, 18, 0.8) 100%);
+  border: 2px solid rgba(204, 17, 51, 0.4);
+  animation: shoutGlow 2s ease-in-out infinite;
+}
+
+/* --- リビール — フル演出（スキャンライン + パルスグロー） --- */
+@keyframes revealBubbleGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 15px rgba(204, 17, 51, 0.25),
+      0 0 40px rgba(204, 17, 51, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    border-color: rgba(204, 17, 51, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(204, 17, 51, 0.45),
+      0 0 70px rgba(204, 17, 51, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    border-color: rgba(204, 17, 51, 0.75);
+  }
+}
+
+.obachan-reveal-bubble {
+  background: linear-gradient(135deg, rgba(204, 17, 51, 0.22) 0%, rgba(153, 17, 34, 0.15) 40%, rgba(28, 18, 18, 0.85) 100%);
+  border: 2px solid rgba(204, 17, 51, 0.5);
+  animation: revealBubbleGlow 2s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+/* リビールバブルのスキャンライン効果 */
+.obachan-reveal-bubble::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(204, 17, 51, 0.06), transparent);
+  animation: bubbleScanline 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes bubbleScanline {
+  0% { left: -50%; }
+  100% { left: 150%; }
+}
+
+/* --- 全バブル共通のホバーエフェクト --- */
+.obachan-bubble-body {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.obachan-bubble-wrapper:hover .obachan-bubble-body {
+  transform: translateY(-1px);
+}
+
+.obachan-bubble-wrapper:hover .obachan-avatar-float {
+  animation-duration: 1.5s;
+}
+
+/* --- リビール全体のグロー（元のスタイル拡張） --- */
 .obachan-reveal {
-  animation: obachanRevealGlow 2s ease-in-out infinite;
   border-radius: 1rem;
 }
 
@@ -747,4 +869,180 @@ body {
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   border-top: 8px solid rgba(204, 17, 51, 0.25);
+}
+
+/* ========================================
+   CHAR BON - 1文字ずつ「ボン！」と出現
+   ======================================== */
+@keyframes charBon {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(20px);
+    filter: brightness(1);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.6) translateY(-8px);
+    filter: brightness(2.5);
+    text-shadow: 0 0 30px rgba(204, 17, 51, 0.8), 0 0 60px rgba(204, 17, 51, 0.4);
+  }
+  60% {
+    transform: scale(0.85) translateY(3px);
+    filter: brightness(1.2);
+  }
+  80% {
+    transform: scale(1.1) translateY(-1px);
+    filter: brightness(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: brightness(1);
+    text-shadow: 0 0 20px rgba(204, 17, 51, 0.5), 0 0 40px rgba(204, 17, 51, 0.2);
+  }
+}
+
+.char-bon {
+  display: inline-block;
+  opacity: 0;
+  animation: charBon 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 着地時の衝撃波 */
+@keyframes charImpact {
+  0% {
+    box-shadow: 0 0 0 0 rgba(204, 17, 51, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(204, 17, 51, 0);
+  }
+}
+
+.char-bon-impact {
+  display: inline-block;
+  opacity: 0;
+  animation:
+    charBon 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+    charImpact 0.6s ease-out forwards;
+  border-radius: 4px;
+}
+
+/* ========================================
+   SPARKLE PARTICLES - hero decoration
+   ======================================== */
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  20% { opacity: 1; transform: scale(1) rotate(90deg); }
+  50% { opacity: 0.8; transform: scale(0.8) rotate(180deg); }
+  80% { opacity: 0.3; transform: scale(0.4) rotate(270deg); }
+}
+
+.sparkle-field {
+  position: absolute;
+  inset: -20px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sparkle-field span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, rgba(204, 17, 51, 0.8) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+.sparkle-field span:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; animation-duration: 2.5s; }
+.sparkle-field span:nth-child(2) { top: 25%; right: 12%; animation-delay: 0.7s; animation-duration: 3s; }
+.sparkle-field span:nth-child(3) { bottom: 30%; left: 8%; animation-delay: 1.2s; animation-duration: 2.8s; }
+.sparkle-field span:nth-child(4) { bottom: 15%; right: 20%; animation-delay: 0.3s; animation-duration: 3.2s; }
+.sparkle-field span:nth-child(5) { top: 50%; left: 50%; animation-delay: 1.8s; animation-duration: 2.3s; }
+.sparkle-field span:nth-child(6) { top: 5%; right: 30%; animation-delay: 2.1s; animation-duration: 2.6s; }
+
+/* ========================================
+   LOCKED SECTION - enhanced unlock effects
+   ======================================== */
+@keyframes lockPulse {
+  0%, 100% {
+    border-color: rgba(204, 17, 51, 0.3);
+    box-shadow: 0 0 10px rgba(204, 17, 51, 0.05);
+  }
+  50% {
+    border-color: rgba(204, 17, 51, 0.5);
+    box-shadow: 0 0 25px rgba(204, 17, 51, 0.15);
+  }
+}
+
+.lock-overlay-pulse {
+  animation: lockPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes unlockBurst {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.02);
+    filter: brightness(1.5);
+    box-shadow: 0 0 40px rgba(204, 17, 51, 0.4);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
+    box-shadow: none;
+  }
+}
+
+.unlock-burst {
+  animation: unlockBurst 0.6s ease-out forwards;
+}
+
+/* ========================================
+   SECTION HEADERS - enhanced typography
+   ======================================== */
+@keyframes headerShine {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.section-header-shine {
+  background: linear-gradient(
+    90deg,
+    rgba(240, 224, 224, 1) 0%,
+    rgba(204, 17, 51, 0.9) 45%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(204, 17, 51, 0.9) 55%,
+    rgba(240, 224, 224, 1) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: headerShine 4s linear infinite;
+}
+
+/* ========================================
+   TRAIT BADGE - shimmer effect
+   ======================================== */
+@keyframes traitShimmer {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(204, 17, 51, 0.15), inset 0 0 8px rgba(204, 17, 51, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(204, 17, 51, 0.3), inset 0 0 12px rgba(204, 17, 51, 0.08);
+  }
+}
+
+.trait-badge-glow {
+  animation: traitShimmer 2.5s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+.trait-badge-glow:hover {
+  transform: scale(1.08);
 }
