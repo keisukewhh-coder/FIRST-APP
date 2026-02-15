@@ -1,35 +1,39 @@
 /**
- * 五角形レーダーチャート（SVG）
- * typeKey と modifier から5軸の値を算出し、五角形で描画する
+ * 六角形レーダーチャート（SVG）
+ * typeKey と modifier から6軸の値を算出し、ヘキサゴンで描画する
  */
 export default function RadarChart({ typeKey, modifier }) {
   if (!typeKey || typeKey.length < 4) return null;
 
-  // ゲス度を modifier から算出
-  const spiceModifiers = {
-    '加工上手の': 4.5,
-    '鍵アカストーカーの': 5,
-    '即泣き地雷原な': 4,
-    'べらべら': 3.5,
+  // modifier から承認欲求・情緒不安定度を算出
+  const modifierMap = {
+    '加工上手の':       { approval: 4.5, emotion: 2 },
+    '鍵アカストーカーの': { approval: 3,   emotion: 4.5 },
+    '即泣き地雷原な':   { approval: 2.5, emotion: 5 },
+    'べらべら':         { approval: 3.5, emotion: 3 },
+    '平凡な':           { approval: 2.5, emotion: 2.5 },
+    '量産型の':         { approval: 2.5, emotion: 2.5 },
+    '悟りを開いた':     { approval: 1.5, emotion: 1.5 },
+    '無害な':           { approval: 1.5, emotion: 1.5 },
   };
-  const gesudoValue = spiceModifiers[modifier] || 2;
+  const spice = modifierMap[modifier] || { approval: 2, emotion: 2 };
 
-  // 5軸の定義
+  // 6軸の定義
   const axes = [
-    { label: '支配欲', value: typeKey[0] === 'E' ? 4 : 1 },
-    { label: '計算高さ', value: typeKey[2] === 'T' ? 4 : 1.5 },
-    { label: '束縛力', value: typeKey[3] === 'J' ? 4 : 1 },
-    { label: '裏表度', value: typeKey[1] === 'N' ? 4 : 2 },
-    { label: 'ゲス度', value: gesudoValue },
+    { label: '支配欲',     value: typeKey[0] === 'E' ? 4 : 1.5 },
+    { label: '計算高さ',   value: typeKey[2] === 'T' ? 4 : 1.5 },
+    { label: '束縛力',     value: typeKey[3] === 'J' ? 4 : 1.5 },
+    { label: '裏表度',     value: typeKey[1] === 'N' ? 4 : 2 },
+    { label: '承認欲求',   value: spice.approval },
+    { label: '情緒不安定', value: spice.emotion },
   ];
 
   const cx = 100;
-  const cy = 100;
-  const radius = 70;
-  const total = 5;
+  const cy = 105;
+  const radius = 65;
+  const total = 6;
   const maxValue = 5;
 
-  // 上が0度から時計回り
   function getPoint(centerX, centerY, r, index) {
     const angle = (Math.PI * 2 * index) / total - Math.PI / 2;
     return {
@@ -64,16 +68,16 @@ export default function RadarChart({ typeKey, modifier }) {
   });
   const dataPolygon = dataPoints.map((p) => `${p.x},${p.y}`).join(' ');
 
-  // ラベル位置（五角形の外側）
-  const labelRadius = radius + 24;
+  // ラベル位置（六角形の外側）
+  const labelRadius = radius + 26;
   const labels = axes.map((axis, i) => {
     const p = getPoint(cx, cy, labelRadius, i);
     return { ...axis, x: p.x, y: p.y };
   });
 
   return (
-    <div className="w-full max-w-[240px] mx-auto">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <div className="w-full max-w-[260px] mx-auto">
+      <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
         {/* グリッド線（3段階） */}
         {gridPolygons.map((points, i) => (
           <polygon
@@ -101,7 +105,7 @@ export default function RadarChart({ typeKey, modifier }) {
         {/* データ領域 */}
         <polygon
           points={dataPolygon}
-          fill="rgba(204,17,51,0.3)"
+          fill="rgba(204,17,51,0.25)"
           stroke="rgba(204,17,51,0.7)"
           strokeWidth="1.5"
         />
@@ -119,7 +123,6 @@ export default function RadarChart({ typeKey, modifier }) {
 
         {/* 軸ラベルと値 */}
         {labels.map((label, i) => {
-          // テキストアンカーを位置に応じて調整
           let textAnchor = 'middle';
           if (label.x < cx - 10) textAnchor = 'end';
           else if (label.x > cx + 10) textAnchor = 'start';
@@ -136,11 +139,11 @@ export default function RadarChart({ typeKey, modifier }) {
                 textAnchor={textAnchor}
                 dominantBaseline="central"
                 fill="#A88888"
-                fontSize="9"
+                fontSize="8.5"
                 fontWeight="500"
               >
                 {label.label}
-                <tspan fill="#CC1133" fontSize="8" dx="2">
+                <tspan fill="#CC1133" fontSize="7.5" dx="2">
                   {displayValue}
                 </tspan>
               </text>
