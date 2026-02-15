@@ -524,3 +524,14 @@ body {
   pointer-events: none;
   z-index: 10;
 }
+
+/* ガイド矢印の上下バウンス */
+@keyframes gokuhiBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+.gokuhi-arrow {
+  animation: gokuhiBounce 1s ease-in-out infinite;
+  color: #CC1133;
+}

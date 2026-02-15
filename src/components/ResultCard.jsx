@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import AnimalIllustration from './AnimalIllustration';
 import RadarChart from './RadarChart';
 import AruAruChecklist from './AruAruChecklist';
@@ -44,6 +44,20 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
   const nameLabel = targetName || 'あの人';
   const modifierDetail = modifier ? MODIFIER_DETAILS[modifier] : null;
   const [gokuhi, setGokuhi] = useState(false);
+  const gokuhiRef = useRef(null);
+
+  const handleGokuhiToggle = useCallback(() => {
+    setGokuhi((prev) => {
+      const next = !prev;
+      if (next) {
+        // ON時: 少し待ってから極秘ファイルまでスクロール
+        setTimeout(() => {
+          gokuhiRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+      }
+      return next;
+    });
+  }, []);
 
   // ゲス度を typeKey から算出（1-5）
   const gesudoLevel = typeKey ? ((typeKey.charCodeAt(0) + typeKey.charCodeAt(1) + typeKey.charCodeAt(2) + typeKey.charCodeAt(3)) % 4) + 2 : 3;
@@ -121,7 +135,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
         {/* 極秘モード トグル */}
         <div className="mt-6 pt-4 border-t border-vivid-pink/15">
           <button
-            onClick={() => setGokuhi((prev) => !prev)}
+            onClick={handleGokuhiToggle}
             className={`
               w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-xl
               transition-all duration-500 cursor-pointer border-0
@@ -154,6 +168,20 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
               `} />
             </div>
           </button>
+
+          {/* ON時のガイドバナー */}
+          {gokuhi && (
+            <div
+              className="mt-3 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-vivid-pink/10 border border-vivid-pink/25"
+              style={{ opacity: 0, animation: 'fadeInUp 0.4s ease-out 0.1s forwards' }}
+            >
+              <span className="text-base gokuhi-arrow">↓</span>
+              <p className="text-xs font-bold text-vivid-pink">
+                極秘ファイルが下に出現したで…スクロールして確認しぃ
+              </p>
+              <span className="text-base gokuhi-arrow">↓</span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -367,6 +395,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
         <>
           <SectionDivider />
           <div
+            ref={gokuhiRef}
             className="result-section bg-card rounded-2xl shadow-xl border-2 border-vivid-pink/50 overflow-hidden gokuhi-card"
             style={{ opacity: 0, animation: 'fadeInUp 0.6s ease-out 0.1s forwards' }}
           >
