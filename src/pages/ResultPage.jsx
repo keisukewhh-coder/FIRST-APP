@@ -38,9 +38,17 @@ export default function ResultPage({ typeId, modifier, onRestart, onGoHome }) {
 
   return (
     <div className="pt-6 animate-fade-in-up">
-      <h1 className="text-center text-xs tracking-[0.2em] text-text-secondary/70 mb-6 font-semibold">
-        あの人の裏の顔、暴いちゃいました
-      </h1>
+      <div className="text-center mb-2">
+        <p className="text-xs tracking-[0.15em] text-vivid-pink/40 mb-2 font-medium">
+          ANALYSIS COMPLETE
+        </p>
+        <h1 className="text-lg font-extrabold text-text-primary mb-1">
+          あの人の裏の顔、<span className="text-vivid-pink">暴いちゃいました</span>
+        </h1>
+        <p className="text-xs text-text-secondary/60">
+          ※ 本人に見せるかどうかはあんた次第やで
+        </p>
+      </div>
 
       <ResultCard result={result} typeKey={resolvedKey} modifier={modifier} />
       <ShareBox typeId={typeId} modifier={modifier} resultName={result.name} />
@@ -48,7 +56,7 @@ export default function ResultPage({ typeId, modifier, onRestart, onGoHome }) {
       {/* 送りつけるボタン */}
       <div className="bg-card rounded-3xl p-6 shadow-lg mb-6 border border-vivid-pink/30 text-center">
         <p className="text-lg font-extrabold text-text-primary mb-1">
-          この結果、本人に届けたろか？
+          さぁ、本人に突きつけたろか
         </p>
         <p className="text-xs text-text-secondary mb-4">
           「{displayName}」を相手に送りつけられるで
@@ -71,7 +79,7 @@ export default function ResultPage({ typeId, modifier, onRestart, onGoHome }) {
               className="btn-primary w-full py-4 rounded-full bg-vivid-pink text-white font-extrabold text-base border-0 cursor-pointer hover:bg-coral-dark pulse-gentle"
               onClick={handleSend}
             >
-              この結果を送りつける
+              本人に送りつけたる
             </button>
             <p className="text-xs text-text-secondary/60 mt-2">
               有効期限48時間 / LINE・メール等で共有
