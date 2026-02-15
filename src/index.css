@@ -53,18 +53,30 @@ body {
   animation: fadeInUp 0.6s ease-out forwards;
 }
 
-/* Stagger animations for result sections */
+/* Stagger animations for result section cards */
 .result-section {
   opacity: 0;
   animation: fadeInUp 0.6s ease-out forwards;
 }
 
 .result-section:nth-child(1) { animation-delay: 0.1s; }
-.result-section:nth-child(2) { animation-delay: 0.2s; }
-.result-section:nth-child(3) { animation-delay: 0.3s; }
-.result-section:nth-child(4) { animation-delay: 0.4s; }
-.result-section:nth-child(5) { animation-delay: 0.5s; }
-.result-section:nth-child(6) { animation-delay: 0.6s; }
+.result-section:nth-child(2) { animation-delay: 0.25s; }
+.result-section:nth-child(3) { animation-delay: 0.4s; }
+.result-section:nth-child(4) { animation-delay: 0.55s; }
+.result-section:nth-child(5) { animation-delay: 0.7s; }
+.result-section:nth-child(6) { animation-delay: 0.85s; }
+.result-section:nth-child(7) { animation-delay: 1.0s; }
+
+/* Torisetsu sub-items stagger */
+.torisetsu-item {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+  animation-delay: 0.7s;
+}
+
+.torisetsu-item:nth-child(3) { animation-delay: 0.8s; }
+.torisetsu-item:nth-child(4) { animation-delay: 0.9s; }
+.torisetsu-item:nth-child(5) { animation-delay: 1.0s; }
 
 /* Progress bar animation */
 .progress-fill {

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>あの人勝手に占っちゃおう診断</title>
+    <script>
+      // GitHub Pages SPA フォールバック
+      // 404 ページが表示された場合、パスとクエリを保持してルートにリダイレクトし、
+      // SPA のクライアントサイドルーターが正しいページを表示する
+      (function () {
+        var pathSegmentsToKeep = 0; // GitHub Pages のサブディレクトリがある場合は 1 に変更
+        var l = window.location;
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?p=' +
+          l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+          (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+        );
+      })();
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

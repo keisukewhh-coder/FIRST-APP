@@ -5,6 +5,20 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>あの人勝手に占っちゃおう診断</title>
+    <!-- GitHub Pages SPA リダイレクトハンドラー（404.html からの転送を処理） -->
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var p = params.get('p');
+        if (p) {
+          var decoded = '/' + p.replace(/~and~/g, '&');
+          var q = params.get('q');
+          if (q) decoded += '?' + q.replace(/~and~/g, '&');
+          decoded += window.location.hash;
+          window.history.replaceState(null, '', decoded);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

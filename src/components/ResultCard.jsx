@@ -1,6 +1,23 @@
 import AnimalIllustration from './AnimalIllustration';
 import { MODIFIER_DETAILS } from '../utils/scoring';
 
+/**
+ * テキストを【見出し】で分割するユーティリティ
+ * 例: "前文【攻略法】本文【地雷ポイント】本文" → { prefix, sections: { 攻略法: "...", 地雷ポイント: "..." } }
+ */
+function parseSections(text) {
+  if (!text) return { prefix: '', sections: {} };
+  const parts = text.split(/【([^】]+)】/);
+  const prefix = parts[0].trim();
+  const sections = {};
+  for (let i = 1; i < parts.length; i += 2) {
+    const key = parts[i];
+    const value = (parts[i + 1] || '').trim();
+    sections[key] = value;
+  }
+  return { prefix, sections };
+}
+
 export default function ResultCard({ result, typeKey, modifier }) {
   if (!result) {
     return (
@@ -12,123 +29,222 @@ export default function ResultCard({ result, typeKey, modifier }) {
 
   const modifierDetail = modifier ? MODIFIER_DETAILS[modifier] : null;
 
+  // テキストをパースして各セクションに配置
+  const manualParsed = parseSections(result.manual);
+  const dateParsed = parseSections(result.date);
+
+  const attackStrategy = manualParsed.sections['攻略法'] || '';
+  const landmine = manualParsed.sections['地雷ポイント'] || '';
+  const dateSimulation = dateParsed.sections['シミュレーション'] || '';
+  const dateSpot = dateParsed.sections['おすすめスポット'] || '';
+
   return (
-    <div className="bg-card rounded-3xl p-6 shadow-md mb-5">
-      {/* Animal illustration */}
-      <div className="flex justify-center mb-4">
-        <AnimalIllustration typeKey={typeKey} />
-      </div>
+    <div className="space-y-4 mb-5">
 
-      {/* Modifier + Type name (seamless, same styling) */}
-      <h2 className="text-center text-2xl font-extrabold text-text-primary mb-1">
-        {modifier}{result.name}
-      </h2>
-      <p className="text-center text-sm text-vivid-pink font-semibold mb-4">
-        {result.tagline}
-      </p>
-
-      {/* Traits */}
-      <div className="flex flex-wrap justify-center gap-2 mb-5">
-        {result.traits.map((trait, i) => (
-          <span
-            key={i}
-            className="text-xs font-semibold bg-vivid-pink/15 text-vivid-pink px-3 py-1.5 rounded-full"
-          >
-            {trait}
-          </span>
-        ))}
-      </div>
-
-      {/* Result sections */}
-      <div className="space-y-5">
-        {/* 1. 表の顔と裏の顔 */}
-        <div className="result-section">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CC1133" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-            </span>
-            <h3 className="text-sm font-bold text-vivid-pink">表の顔</h3>
-          </div>
-          <div className="text-sm leading-relaxed text-text-primary pl-9 whitespace-pre-line">
-            {result.front}
+      {/* ============================================ */}
+      {/* Section 1: 診断結果 */}
+      {/* ============================================ */}
+      <div className="result-section bg-card rounded-2xl p-6 shadow-lg border border-coral/20">
+        {/* Animal illustration - large centered */}
+        <div className="flex justify-center mb-5">
+          <div className="w-40 h-40 flex items-center justify-center">
+            <AnimalIllustration typeKey={typeKey} />
           </div>
         </div>
 
-        <div className="result-section">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CC1133" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        {/* Modifier + Type name */}
+        <h2 className="text-center text-2xl font-extrabold text-text-primary mb-2 leading-tight">
+          {modifier}{result.name}
+        </h2>
+
+        {/* Tagline */}
+        <p className="text-center text-sm text-vivid-pink font-semibold mb-4 px-2">
+          {result.tagline}
+        </p>
+
+        {/* Traits badges */}
+        <div className="flex flex-wrap justify-center gap-2">
+          {result.traits.map((trait, i) => (
+            <span
+              key={i}
+              className="text-xs font-semibold bg-vivid-pink/15 text-vivid-pink px-3 py-1.5 rounded-full"
+            >
+              {trait}
             </span>
-            <h3 className="text-sm font-bold text-vivid-pink">裏の顔</h3>
-          </div>
-          <div className="text-sm leading-relaxed text-text-primary pl-9 whitespace-pre-line">
+          ))}
+        </div>
+      </div>
+
+      {/* ============================================ */}
+      {/* Section 2: 表の顔 */}
+      {/* ============================================ */}
+      <div className="result-section bg-card rounded-2xl shadow-lg border border-coral/20 overflow-hidden">
+        {/* Header */}
+        <div className="bg-coral/15 px-5 py-3 flex items-center gap-2">
+          <span className="text-lg">😇</span>
+          <h3 className="text-base font-bold text-text-primary">
+            表の顔
+          </h3>
+          <span className="text-xs text-text-secondary ml-auto">みんなが見ている姿</span>
+        </div>
+        {/* Body */}
+        <div className="p-5">
+          <p className="text-sm leading-relaxed text-text-primary whitespace-pre-line">
+            {result.front}
+          </p>
+        </div>
+      </div>
+
+      {/* ============================================ */}
+      {/* Section 3: 裏の顔 */}
+      {/* ============================================ */}
+      <div className="result-section bg-card rounded-2xl shadow-lg border-2 border-vivid-pink/40 overflow-hidden">
+        {/* Header - vivid pink accent */}
+        <div className="bg-vivid-pink/15 px-5 py-3 flex items-center gap-2">
+          <span className="text-lg">👿</span>
+          <h3 className="text-base font-bold text-vivid-pink">
+            裏の顔
+          </h3>
+          <span className="text-xs text-vivid-pink/70 ml-auto">ちょいゲスな本性</span>
+        </div>
+        {/* Body */}
+        <div className="p-5">
+          <p className="text-sm leading-relaxed text-text-primary whitespace-pre-line">
             {result.hidden}
-          </div>
+          </p>
+
+          {/* Modifier detail */}
           {modifierDetail && (
-            <p className="text-sm leading-relaxed text-text-primary pl-9 mt-3 pt-3 border-t border-coral/15">
-              さらにこの人は<span className="font-bold text-vivid-pink">「{modifier}」</span>タイプ。{modifierDetail}
-            </p>
+            <div className="mt-4 pt-4 border-t border-vivid-pink/20">
+              <div className="bg-vivid-pink/8 rounded-xl p-4">
+                <p className="text-sm leading-relaxed text-text-primary">
+                  <span className="font-bold text-vivid-pink">「{modifier}」</span>
+                  <span className="text-text-secondary text-xs ml-1">タイプの裏側</span>
+                </p>
+                <p className="text-sm leading-relaxed text-text-primary mt-2">
+                  {modifierDetail}
+                </p>
+              </div>
+            </div>
           )}
         </div>
+      </div>
 
-        {/* 2. 取扱説明書 */}
-        <div className="result-section">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CC1133" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-            </span>
-            <h3 className="text-sm font-bold text-vivid-pink">この人のトリセツ</h3>
-          </div>
-          <div className="text-sm leading-relaxed text-text-primary pl-9 whitespace-pre-line">
-            {result.manual}
-          </div>
+      {/* ============================================ */}
+      {/* Section 4: この人の取扱説明書 */}
+      {/* ============================================ */}
+      <div className="result-section bg-card rounded-2xl shadow-lg border border-coral/20 overflow-hidden">
+        {/* Header */}
+        <div className="bg-coral/15 px-5 py-3 flex items-center gap-2">
+          <span className="text-lg">📖</span>
+          <h3 className="text-base font-bold text-text-primary">
+            この人のトリセツ
+          </h3>
         </div>
+        {/* Body */}
+        <div className="p-5 space-y-5">
 
-        {/* 3. デートのシミュレーション */}
-        <div className="result-section">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CC1133" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            </span>
-            <h3 className="text-sm font-bold text-vivid-pink">デートのシミュレーション</h3>
-          </div>
-          <div className="text-sm leading-relaxed text-text-primary pl-9 whitespace-pre-line">
-            {result.date}
-          </div>
-        </div>
-
-        {/* 4. 付き合ったらどうなる？ */}
-        {result.love && (
-          <div className="result-section">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CC1133" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-              </span>
-              <h3 className="text-sm font-bold text-vivid-pink">付き合ったらどうなる？</h3>
+          {/* 攻略法 */}
+          {attackStrategy && (
+            <div className="bg-coral-light/40 rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-sm">✅</span>
+                <h4 className="text-sm font-bold text-text-primary">攻略法</h4>
+              </div>
+              <p className="text-sm leading-relaxed text-text-primary whitespace-pre-line">
+                {attackStrategy}
+              </p>
             </div>
-            <div className="text-sm leading-relaxed text-text-primary pl-9 whitespace-pre-line">
-              {result.love}
-            </div>
-          </div>
-        )}
+          )}
 
-        {/* 5. キラーフレーズ */}
-        <div className="result-section">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-7 h-7 rounded-full bg-vivid-pink/20 flex items-center justify-center text-sm shrink-0">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CC1133" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </span>
-            <h3 className="text-sm font-bold text-vivid-pink">相手の心を開かせるキラーフレーズ</h3>
-          </div>
-          <div className="text-sm leading-relaxed text-text-primary pl-9 font-semibold whitespace-pre-line">
-            {result.killer}
-          </div>
+          {/* デートのシミュレーション */}
+          {dateSimulation && (
+            <div className="bg-coral-light/40 rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-sm">🎬</span>
+                <h4 className="text-sm font-bold text-text-primary">デートのシミュレーション</h4>
+              </div>
+              <p className="text-sm leading-relaxed text-text-primary whitespace-pre-line">
+                {dateSimulation}
+              </p>
+            </div>
+          )}
+
+          {/* 喜ぶデートスポット */}
+          {dateSpot && (
+            <div className="torisetsu-item rounded-xl p-4 border border-coral/20 bg-coral-light/30">
+              <div className="flex items-start gap-3">
+                <span className="text-xl mt-0.5 shrink-0">🎯</span>
+                <div>
+                  <h4 className="text-sm font-bold text-vivid-pink mb-1">喜ぶデートスポット</h4>
+                  <p className="text-sm leading-relaxed text-text-primary whitespace-pre-line">
+                    {dateSpot}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 絶対にやってはいけないNG行動 */}
+          {landmine && (
+            <div className="torisetsu-item rounded-xl p-4 border border-vivid-pink/30 bg-vivid-pink/5">
+              <div className="flex items-start gap-3">
+                <span className="text-xl mt-0.5 shrink-0">⚠️</span>
+                <div>
+                  <h4 className="text-sm font-bold text-vivid-pink mb-1">絶対にやってはいけないNG行動</h4>
+                  <p className="text-sm leading-relaxed text-text-primary whitespace-pre-line">
+                    {landmine}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 最強の落とし方 */}
+          {result.killer && (
+            <div className="torisetsu-item rounded-xl p-4 border border-coral/20 bg-coral-light/30">
+              <div className="flex items-start gap-3">
+                <span className="text-xl mt-0.5 shrink-0">💘</span>
+                <div>
+                  <h4 className="text-sm font-bold text-vivid-pink mb-1">最強の落とし方</h4>
+                  <p className="text-sm leading-relaxed text-text-primary font-semibold whitespace-pre-line">
+                    {result.killer}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Hashtag */}
-      <div className="text-center mt-6 pt-4 border-t border-coral/20">
-        <span className="text-sm font-bold text-vivid-pink">#あの人の裏の顔診断</span>
+      {/* ============================================ */}
+      {/* Section 5: 付き合ったらどうなる？（conditional） */}
+      {/* ============================================ */}
+      {result.love && (
+        <div className="result-section bg-card rounded-2xl shadow-lg border border-coral/20 overflow-hidden">
+          {/* Header */}
+          <div className="bg-coral/15 px-5 py-3 flex items-center gap-2">
+            <span className="text-lg">💕</span>
+            <h3 className="text-base font-bold text-text-primary">
+              付き合ったらどうなる？
+            </h3>
+          </div>
+          {/* Body */}
+          <div className="p-5">
+            <p className="text-sm leading-relaxed text-text-primary whitespace-pre-line">
+              {result.love}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* ============================================ */}
+      {/* Section 6: ハッシュタグ */}
+      {/* ============================================ */}
+      <div className="result-section text-center py-4">
+        <span className="inline-block text-sm font-bold text-vivid-pink bg-vivid-pink/10 px-5 py-2 rounded-full">
+          #あの人の裏の顔診断
+        </span>
       </div>
     </div>
   );
