@@ -26,17 +26,18 @@ function NightCat() {
       <polygon points="128,62 122,38 112,58" fill="#2C2C2C" stroke="#1A1A1A" strokeWidth="2" />
       <polygon points="75,60 80,44 86,58" fill="#3A3A3A" />
       <polygon points="125,60 120,44 114,58" fill="#3A3A3A" />
-      {/* Eyes - glowing */}
-      <ellipse cx="88" cy="80" rx="4" ry="5" fill="#C8FF00" />
-      <ellipse cx="112" cy="80" rx="4" ry="5" fill="#C8FF00" />
-      <ellipse cx="88" cy="80" rx="2" ry="4" fill="#2C2C2C" />
-      <ellipse cx="112" cy="80" rx="2" ry="4" fill="#2C2C2C" />
-      <circle cx="89.5" cy="79" r="1" fill="#fff" />
-      <circle cx="113.5" cy="79" r="1" fill="#fff" />
+      {/* Eyes - evil slit */}
+      <ellipse cx="88" cy="80" rx="5" ry="3" fill="#C8FF00" />
+      <ellipse cx="112" cy="80" rx="5" ry="3" fill="#C8FF00" />
+      <ellipse cx="88" cy="80" rx="1.5" ry="3" fill="#2C2C2C" />
+      <ellipse cx="112" cy="80" rx="1.5" ry="3" fill="#2C2C2C" />
+      {/* Evil eyebrows */}
+      <path d="M80 74 L93 77" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M120 74 L107 77" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
       {/* Nose */}
       <ellipse cx="100" cy="90" rx="3" ry="2" fill="#555" />
-      {/* Mouth */}
-      <path d="M97 93 L100 96 L103 93" stroke="#666" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      {/* Smirk */}
+      <path d="M95 92 Q100 97 108 90" stroke="#666" strokeWidth="1.5" fill="none" strokeLinecap="round" />
       {/* Whiskers */}
       <line x1="75" y1="88" x2="60" y2="86" stroke="#555" strokeWidth="1" />
       <line x1="75" y1="92" x2="60" y2="94" stroke="#555" strokeWidth="1" />
@@ -72,19 +73,19 @@ function HighFlower() {
       <ellipse cx="100" cy="60" rx="34" ry="22" fill="#4A3040" />
       <ellipse cx="68" cy="75" rx="8" ry="18" fill="#4A3040" />
       <ellipse cx="132" cy="75" rx="8" ry="18" fill="#4A3040" />
-      {/* Eyes - almond shaped, looking away */}
-      <ellipse cx="88" cy="80" rx="5" ry="4" fill="#4A3040" />
-      <ellipse cx="112" cy="80" rx="5" ry="4" fill="#4A3040" />
-      <circle cx="87" cy="79" r="1.5" fill="#fff" />
-      <circle cx="111" cy="79" r="1.5" fill="#fff" />
-      {/* Eyelashes */}
-      <path d="M82 78 L80 75" stroke="#4A3040" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M118 78 L120 75" stroke="#4A3040" strokeWidth="1.5" strokeLinecap="round" />
-      {/* Blush */}
-      <circle cx="80" cy="88" r="5" fill="#FFB6C1" opacity="0.4" />
-      <circle cx="120" cy="88" r="5" fill="#FFB6C1" opacity="0.4" />
-      {/* Slight smile */}
-      <path d="M95 92 Q100 96 105 92" stroke="#C08080" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      {/* Eyes - narrowed, judging */}
+      <ellipse cx="88" cy="80" rx="6" ry="2.5" fill="#4A3040" />
+      <ellipse cx="112" cy="80" rx="6" ry="2.5" fill="#4A3040" />
+      <circle cx="87" cy="80" r="1" fill="#fff" />
+      <circle cx="111" cy="80" r="1" fill="#fff" />
+      {/* Eyelashes - sharp */}
+      <path d="M81 78 L79 74" stroke="#4A3040" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M119 78 L121 74" stroke="#4A3040" strokeWidth="1.5" strokeLinecap="round" />
+      {/* Evil eyebrows - raised inner */}
+      <path d="M82 74 L92 77" stroke="#4A3040" strokeWidth="2" strokeLinecap="round" />
+      <path d="M118 74 L108 77" stroke="#4A3040" strokeWidth="2" strokeLinecap="round" />
+      {/* Smirk */}
+      <path d="M93 92 Q100 96 108 91" stroke="#C08080" strokeWidth="1.5" fill="none" strokeLinecap="round" />
       {/* Flower crown */}
       <circle cx="80" cy="58" r="5" fill="#FF6B81" opacity="0.8" />
       <circle cx="92" cy="52" r="4" fill="#FFB6C1" />
@@ -121,11 +122,14 @@ function RobotFace() {
       <circle cx="100" cy="28" r="3" fill="#FF8A80" />
       {/* Screen face */}
       <rect x="72" y="58" width="56" height="48" rx="6" fill="#263238" />
-      {/* Digital eyes */}
-      <rect x="80" y="68" width="12" height="10" rx="2" fill="#00E5FF" />
-      <rect x="108" y="68" width="12" height="10" rx="2" fill="#00E5FF" />
-      {/* Flat mouth - deadpan */}
-      <rect x="88" y="92" width="24" height="4" rx="2" fill="#00E5FF" />
+      {/* Digital eyes - evil slits */}
+      <rect x="80" y="72" width="12" height="4" rx="1" fill="#FF1744" />
+      <rect x="108" y="72" width="12" height="4" rx="1" fill="#FF1744" />
+      {/* Evil digital eyebrows */}
+      <path d="M80 68 L92 71" stroke="#FF1744" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+      <path d="M120 68 L108 71" stroke="#FF1744" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+      {/* Sinister mouth */}
+      <path d="M88 92 Q95 96 102 92 Q108 88 112 92" stroke="#00E5FF" strokeWidth="2.5" fill="none" strokeLinecap="round" />
       {/* Bolts */}
       <circle cx="68" cy="82" r="4" fill="#90A4AE" />
       <circle cx="68" cy="82" r="2" fill="#78909C" />
@@ -156,19 +160,22 @@ function AlleyChihuahua() {
       <ellipse cx="135" cy="58" rx="14" ry="22" fill="#F5DEB3" transform="rotate(15,135,58)" />
       <ellipse cx="65" cy="58" rx="8" ry="14" fill="#FFB6C1" transform="rotate(-15,65,58)" />
       <ellipse cx="135" cy="58" rx="8" ry="14" fill="#FFB6C1" transform="rotate(15,135,58)" />
-      {/* Big sparkly eyes */}
+      {/* Eyes - scheming, half-lidded */}
       <circle cx="88" cy="78" r="8" fill="#2C1810" />
       <circle cx="112" cy="78" r="8" fill="#2C1810" />
-      <circle cx="91" cy="75" r="3" fill="#fff" />
-      <circle cx="115" cy="75" r="3" fill="#fff" />
-      <circle cx="86" cy="80" r="1.5" fill="#fff" />
-      <circle cx="110" cy="80" r="1.5" fill="#fff" />
+      <circle cx="90" cy="76" r="2.5" fill="#fff" />
+      <circle cx="114" cy="76" r="2.5" fill="#fff" />
+      {/* Heavy eyelids */}
+      <path d="M79 72 Q88 68 97 74" fill="#F5DEB3" />
+      <path d="M103 74 Q112 68 121 72" fill="#F5DEB3" />
+      {/* Evil eyebrows */}
+      <path d="M78 68 L92 73" stroke="#8B4513" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M122 68 L108 73" stroke="#8B4513" strokeWidth="2.5" strokeLinecap="round" />
       {/* Nose */}
       <circle cx="100" cy="90" r="3.5" fill="#2C1810" />
-      {/* Happy mouth */}
-      <path d="M92 96 Q100 105 108 96" stroke="#C08060" strokeWidth="2" fill="none" strokeLinecap="round" />
-      {/* Tongue */}
-      <ellipse cx="100" cy="100" rx="5" ry="4" fill="#FF8FA0" />
+      {/* Scheming grin */}
+      <path d="M90 96 Q100 103 110 96" stroke="#C08060" strokeWidth="2" fill="none" strokeLinecap="round" />
+      <path d="M92 96 L90 98" stroke="#C08060" strokeWidth="1.5" fill="none" strokeLinecap="round" />
       {/* Blush */}
       <circle cx="78" cy="88" r="6" fill="#FFB6C1" opacity="0.4" />
       <circle cx="122" cy="88" r="6" fill="#FFB6C1" opacity="0.4" />
@@ -205,18 +212,20 @@ function ChargingLion() {
       <circle cx="135" cy="100" r="10" fill="#C09030" />
       {/* Head */}
       <circle cx="100" cy="80" r="30" fill="#E8C060" />
-      {/* Eyes - confident */}
-      <ellipse cx="88" cy="76" rx="4" ry="4.5" fill="#2C1810" />
-      <ellipse cx="112" cy="76" rx="4" ry="4.5" fill="#2C1810" />
-      <circle cx="90" cy="74" r="1.5" fill="#fff" />
-      <circle cx="114" cy="74" r="1.5" fill="#fff" />
-      {/* Strong eyebrows */}
-      <path d="M82 68 L92 70" stroke="#8B6914" strokeWidth="3" strokeLinecap="round" />
-      <path d="M118 68 L108 70" stroke="#8B6914" strokeWidth="3" strokeLinecap="round" />
+      {/* Eyes - fierce, narrowed */}
+      <ellipse cx="88" cy="76" rx="5" ry="3" fill="#2C1810" />
+      <ellipse cx="112" cy="76" rx="5" ry="3" fill="#2C1810" />
+      <circle cx="90" cy="75" r="1" fill="#FF4444" opacity="0.6" />
+      <circle cx="114" cy="75" r="1" fill="#FF4444" opacity="0.6" />
+      {/* Angry eyebrows - steep V */}
+      <path d="M80 66 L93 72" stroke="#8B6914" strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M120 66 L107 72" stroke="#8B6914" strokeWidth="3.5" strokeLinecap="round" />
       {/* Nose */}
       <ellipse cx="100" cy="84" rx="5" ry="3.5" fill="#C09030" />
-      {/* Confident smile */}
-      <path d="M90 92 Q100 100 110 92" stroke="#8B5A2B" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+      {/* Fanged smirk */}
+      <path d="M88 92 Q100 100 112 92" stroke="#8B5A2B" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+      <path d="M90 94 L89 98" stroke="#FFF" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M110 94 L111 98" stroke="#FFF" strokeWidth="1.5" strokeLinecap="round" />
       {/* Smartphone in hand */}
       <rect x="138" y="130" width="12" height="20" rx="3" fill="#333" />
       <rect x="140" y="133" width="8" height="14" rx="1" fill="#4488CC" />
@@ -248,16 +257,16 @@ function BigMom() {
       <polygon points="80,48 85,32 90,45 95,28 100,42 105,28 110,45 115,32 120,48" fill="#DAA520" />
       <circle cx="95" cy="42" r="2" fill="#FF3355" />
       <circle cx="105" cy="42" r="2" fill="#FF3355" />
-      {/* Eyes - sharp and commanding */}
-      <ellipse cx="88" cy="80" rx="5" ry="4" fill="#2C1810" />
-      <ellipse cx="112" cy="80" rx="5" ry="4" fill="#2C1810" />
-      <circle cx="90" cy="79" r="1.5" fill="#fff" />
-      <circle cx="114" cy="79" r="1.5" fill="#fff" />
-      {/* Bold eyebrows */}
-      <path d="M80 73 L93 76" stroke="#1C1C1C" strokeWidth="3" strokeLinecap="round" />
-      <path d="M120 73 L107 76" stroke="#1C1C1C" strokeWidth="3" strokeLinecap="round" />
-      {/* Red lips */}
-      <path d="M93 92 Q100 98 107 92" stroke="#FF3355" strokeWidth="2.5" fill="#FF3355" strokeLinecap="round" />
+      {/* Eyes - intimidating, narrowed */}
+      <ellipse cx="88" cy="80" rx="6" ry="2.5" fill="#2C1810" />
+      <ellipse cx="112" cy="80" rx="6" ry="2.5" fill="#2C1810" />
+      <circle cx="90" cy="80" r="1" fill="#FF3355" opacity="0.5" />
+      <circle cx="114" cy="80" r="1" fill="#FF3355" opacity="0.5" />
+      {/* Heavy V-shape eyebrows */}
+      <path d="M78 72 L94 77" stroke="#1C1C1C" strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M122 72 L106 77" stroke="#1C1C1C" strokeWidth="3.5" strokeLinecap="round" />
+      {/* Evil red lips - smirk */}
+      <path d="M91 92 Q100 98 109 90" stroke="#FF3355" strokeWidth="2.5" fill="#FF3355" strokeLinecap="round" />
       {/* Blush */}
       <circle cx="78" cy="88" r="5" fill="#FFB6C1" opacity="0.3" />
       <circle cx="122" cy="88" r="5" fill="#FFB6C1" opacity="0.3" />
@@ -288,11 +297,14 @@ function MountParrot() {
       <ellipse cx="110" cy="48" rx="6" ry="16" fill="#FFC107" transform="rotate(15,110,48)" />
       {/* White face patch */}
       <circle cx="100" cy="82" r="20" fill="#FFFFFF" />
-      {/* Eyes - mischievous */}
-      <ellipse cx="90" cy="78" rx="5" ry="5" fill="#2C1810" />
-      <ellipse cx="110" cy="78" rx="5" ry="5" fill="#2C1810" />
-      <circle cx="92" cy="76" r="2" fill="#fff" />
-      <circle cx="112" cy="76" r="2" fill="#fff" />
+      {/* Eyes - scheming, half-lidded */}
+      <ellipse cx="90" cy="78" rx="5" ry="3" fill="#2C1810" />
+      <ellipse cx="110" cy="78" rx="5" ry="3" fill="#2C1810" />
+      <circle cx="92" cy="77" r="1.5" fill="#fff" />
+      <circle cx="112" cy="77" r="1.5" fill="#fff" />
+      {/* Evil eyebrows */}
+      <path d="M83 72 L95 76" stroke="#2C1810" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M117 72 L105 76" stroke="#2C1810" strokeWidth="2.5" strokeLinecap="round" />
       {/* Beak */}
       <path d="M95 88 L100 98 L105 88 Z" fill="#FF5722" />
       <line x1="95" y1="88" x2="105" y2="88" stroke="#E64A19" strokeWidth="1.5" />
@@ -326,16 +338,16 @@ function IronVault() {
       <line x1="100" y1="134" x2="100" y2="146" stroke="#546E7A" strokeWidth="2" />
       {/* Head - square-ish */}
       <rect x="68" y="48" width="64" height="58" rx="16" fill="#90A4AE" />
-      {/* Eyes - stern */}
-      <rect x="80" y="68" width="10" height="8" rx="4" fill="#37474F" />
-      <rect x="110" y="68" width="10" height="8" rx="4" fill="#37474F" />
-      <circle cx="87" cy="71" r="1.5" fill="#fff" />
-      <circle cx="117" cy="71" r="1.5" fill="#fff" />
-      {/* Stern eyebrows */}
-      <path d="M78 62 L92 66" stroke="#546E7A" strokeWidth="3" strokeLinecap="round" />
-      <path d="M122 62 L108 66" stroke="#546E7A" strokeWidth="3" strokeLinecap="round" />
-      {/* Straight mouth */}
-      <line x1="90" y1="88" x2="110" y2="88" stroke="#546E7A" strokeWidth="2.5" strokeLinecap="round" />
+      {/* Eyes - menacing slits */}
+      <rect x="80" y="70" width="12" height="4" rx="2" fill="#37474F" />
+      <rect x="108" y="70" width="12" height="4" rx="2" fill="#37474F" />
+      <circle cx="88" cy="72" r="1" fill="#FF3355" opacity="0.4" />
+      <circle cx="116" cy="72" r="1" fill="#FF3355" opacity="0.4" />
+      {/* Heavy angry eyebrows */}
+      <path d="M78 63 L94 68" stroke="#546E7A" strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M122 63 L106 68" stroke="#546E7A" strokeWidth="3.5" strokeLinecap="round" />
+      {/* Disapproving mouth */}
+      <path d="M90 88 Q100 84 110 88" stroke="#546E7A" strokeWidth="2.5" fill="none" strokeLinecap="round" />
       {/* Lock on forehead */}
       <rect x="94" y="50" width="12" height="10" rx="3" fill="#DAA520" />
       <circle cx="100" cy="56" r="2" fill="#B8860B" />
@@ -366,14 +378,18 @@ function SunnyRetriever() {
       {/* Eye patches */}
       <circle cx="88" cy="78" r="10" fill="#F0D888" />
       <circle cx="112" cy="78" r="10" fill="#F0D888" />
-      {/* Happy eyes - closed arc */}
-      <path d="M82 78 Q88 72 94 78" stroke="#5C3A1E" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <path d="M106 78 Q112 72 118 78" stroke="#5C3A1E" strokeWidth="3" fill="none" strokeLinecap="round" />
+      {/* Eyes - open, scheming behind smile */}
+      <ellipse cx="88" cy="76" rx="5" ry="4" fill="#5C3A1E" />
+      <ellipse cx="112" cy="76" rx="5" ry="4" fill="#5C3A1E" />
+      <circle cx="90" cy="75" r="1.5" fill="#fff" />
+      <circle cx="114" cy="75" r="1.5" fill="#fff" />
+      {/* Subtly evil eyebrows */}
+      <path d="M80 70 L92 73" stroke="#5C3A1E" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M120 70 L108 73" stroke="#5C3A1E" strokeWidth="2.5" strokeLinecap="round" />
       {/* Nose */}
       <ellipse cx="100" cy="88" rx="5" ry="3.5" fill="#5C3A1E" />
-      {/* Big happy smile */}
-      <path d="M88 94 Q100 108 112 94" stroke="#5C3A1E" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-      {/* Tongue */}
+      {/* Knowing grin */}
+      <path d="M86 94 Q100 106 114 94" stroke="#5C3A1E" strokeWidth="2.5" fill="none" strokeLinecap="round" />
       <ellipse cx="100" cy="100" rx="6" ry="5" fill="#FF8FA0" />
       {/* Blush */}
       <circle cx="76" cy="88" r="7" fill="#FFB6C1" opacity="0.4" />
@@ -408,15 +424,18 @@ function StrategyPenguin() {
       <ellipse cx="100" cy="78" rx="28" ry="26" fill="#2C3E50" />
       {/* White face patch */}
       <ellipse cx="100" cy="82" rx="18" ry="16" fill="#FFFFFF" />
-      {/* Eyes - focused */}
-      <circle cx="92" cy="78" r="4" fill="#2C3E50" />
-      <circle cx="108" cy="78" r="4" fill="#2C3E50" />
-      <circle cx="93.5" cy="76.5" r="1.5" fill="#fff" />
-      <circle cx="109.5" cy="76.5" r="1.5" fill="#fff" />
+      {/* Eyes - calculating, narrowed */}
+      <ellipse cx="92" cy="78" rx="4.5" ry="2.5" fill="#2C3E50" />
+      <ellipse cx="108" cy="78" rx="4.5" ry="2.5" fill="#2C3E50" />
+      <circle cx="94" cy="77.5" r="1" fill="#fff" />
+      <circle cx="110" cy="77.5" r="1" fill="#fff" />
+      {/* Calculating eyebrows */}
+      <path d="M86 73 L97 76" stroke="#2C3E50" strokeWidth="2" strokeLinecap="round" />
+      <path d="M114 73 L103 76" stroke="#2C3E50" strokeWidth="2" strokeLinecap="round" />
       {/* Beak */}
       <polygon points="95,88 100,95 105,88" fill="#E8A030" />
-      {/* Slight smile */}
-      <path d="M95 90 Q100 93 105 90" stroke="#C08020" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      {/* Smirk */}
+      <path d="M94 90 Q100 94 107 89" stroke="#C08020" strokeWidth="1.5" fill="none" strokeLinecap="round" />
       {/* Blush */}
       <circle cx="85" cy="86" r="4" fill="#FFB6C1" opacity="0.4" />
       <circle cx="115" cy="86" r="4" fill="#FFB6C1" opacity="0.4" />
@@ -452,17 +471,18 @@ function ShelterRabbit() {
       <ellipse cx="122" cy="45" rx="10" ry="28" fill="#FFFFFF" transform="rotate(10,122,45)" />
       <ellipse cx="78" cy="45" rx="5" ry="18" fill="#FFB6C1" transform="rotate(-10,78,45)" />
       <ellipse cx="122" cy="45" rx="5" ry="18" fill="#FFB6C1" transform="rotate(10,122,45)" />
-      {/* Eyes - gentle */}
-      <ellipse cx="90" cy="82" rx="5" ry="6" fill="#8B4060" />
-      <ellipse cx="110" cy="82" rx="5" ry="6" fill="#8B4060" />
-      <circle cx="92" cy="80" r="2" fill="#fff" />
-      <circle cx="112" cy="80" r="2" fill="#fff" />
-      <circle cx="89" cy="83" r="1" fill="#fff" />
-      <circle cx="109" cy="83" r="1" fill="#fff" />
+      {/* Eyes - side-eyeing, suspicious */}
+      <ellipse cx="90" cy="82" rx="5" ry="4" fill="#8B4060" />
+      <ellipse cx="110" cy="82" rx="5" ry="4" fill="#8B4060" />
+      <circle cx="87" cy="81" r="2" fill="#fff" />
+      <circle cx="107" cy="81" r="2" fill="#fff" />
+      {/* Slightly annoyed eyebrows */}
+      <path d="M84 76 L95 79" stroke="#8B4060" strokeWidth="2" strokeLinecap="round" />
+      <path d="M116 76 L105 79" stroke="#8B4060" strokeWidth="2" strokeLinecap="round" />
       {/* Nose */}
       <ellipse cx="100" cy="92" rx="3" ry="2" fill="#FFB6C1" />
-      {/* Gentle mouth */}
-      <path d="M97 95 L100 97 L103 95" stroke="#C0A0A0" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      {/* Pouty smirk */}
+      <path d="M95 95 Q100 98 107 94" stroke="#C0A0A0" strokeWidth="1.5" fill="none" strokeLinecap="round" />
       {/* Blush */}
       <circle cx="80" cy="90" r="6" fill="#FFB6C1" opacity="0.3" />
       <circle cx="120" cy="90" r="6" fill="#FFB6C1" opacity="0.3" />
@@ -491,19 +511,18 @@ function TofuMental() {
       <path d="M70 140 Q80 137 90 140 Q100 143 110 140 Q120 137 130 140" stroke="#F0D890" strokeWidth="1" fill="none" />
       {/* Head - soft round */}
       <circle cx="100" cy="78" r="32" fill="#FFF5E0" stroke="#F0E0C0" strokeWidth="2" />
-      {/* Teary eyes */}
-      <ellipse cx="88" cy="76" rx="5" ry="6" fill="#5C4033" />
-      <ellipse cx="112" cy="76" rx="5" ry="6" fill="#5C4033" />
-      <circle cx="90" cy="74" r="2" fill="#fff" />
-      <circle cx="114" cy="74" r="2" fill="#fff" />
-      {/* Tear drops */}
+      {/* Eyes - side-eyeing with resentment */}
+      <ellipse cx="88" cy="76" rx="5" ry="4" fill="#5C4033" />
+      <ellipse cx="112" cy="76" rx="5" ry="4" fill="#5C4033" />
+      <circle cx="86" cy="75" r="1.5" fill="#fff" />
+      <circle cx="110" cy="75" r="1.5" fill="#fff" />
+      {/* Tear drops (passive aggressive) */}
       <ellipse cx="82" cy="86" rx="2" ry="3" fill="#87CEEB" opacity="0.6" />
-      <ellipse cx="118" cy="88" rx="2" ry="3" fill="#87CEEB" opacity="0.5" />
-      {/* Worried eyebrows */}
-      <path d="M82 66 L90 70" stroke="#C0A080" strokeWidth="2" strokeLinecap="round" />
-      <path d="M118 66 L110 70" stroke="#C0A080" strokeWidth="2" strokeLinecap="round" />
-      {/* Wobbly mouth */}
-      <path d="M93 90 Q97 94 100 90 Q103 86 107 90" stroke="#C0A080" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      {/* Angry-sad eyebrows */}
+      <path d="M82 68 L92 72" stroke="#C0A080" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M118 68 L108 72" stroke="#C0A080" strokeWidth="2.5" strokeLinecap="round" />
+      {/* Passive-aggressive pout */}
+      <path d="M93 90 Q100 86 107 90" stroke="#C0A080" strokeWidth="1.5" fill="none" strokeLinecap="round" />
       {/* Blush */}
       <circle cx="78" cy="84" r="6" fill="#FFB6C1" opacity="0.3" />
       <circle cx="122" cy="84" r="6" fill="#FFB6C1" opacity="0.3" />
@@ -540,17 +559,20 @@ function CraftsmanWolf() {
       <polygon points="126,58 128,38 115,54" fill="#6B6B7B" />
       {/* Snout */}
       <ellipse cx="100" cy="88" rx="14" ry="10" fill="#A0A0B0" />
-      {/* Eyes - sharp */}
-      <ellipse cx="88" cy="76" rx="5" ry="4" fill="#DAA520" />
-      <ellipse cx="112" cy="76" rx="5" ry="4" fill="#DAA520" />
-      <ellipse cx="88" cy="76" rx="2.5" ry="3.5" fill="#2C2C2C" />
-      <ellipse cx="112" cy="76" rx="2.5" ry="3.5" fill="#2C2C2C" />
-      <circle cx="89.5" cy="75" r="1" fill="#fff" />
-      <circle cx="113.5" cy="75" r="1" fill="#fff" />
+      {/* Eyes - predatory, slit pupils */}
+      <ellipse cx="88" cy="76" rx="6" ry="3" fill="#DAA520" />
+      <ellipse cx="112" cy="76" rx="6" ry="3" fill="#DAA520" />
+      <ellipse cx="88" cy="76" rx="1.5" ry="3" fill="#2C2C2C" />
+      <ellipse cx="112" cy="76" rx="1.5" ry="3" fill="#2C2C2C" />
+      {/* Predator eyebrows */}
+      <path d="M80 69 L92 74" stroke="#6B6B7B" strokeWidth="3" strokeLinecap="round" />
+      <path d="M120 69 L108 74" stroke="#6B6B7B" strokeWidth="3" strokeLinecap="round" />
       {/* Nose */}
       <ellipse cx="100" cy="86" rx="5" ry="3.5" fill="#4A4A5A" />
-      {/* Slight smirk */}
-      <path d="M94 93 Q100 96 106 93" stroke="#5A5A6A" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      {/* Fanged smirk */}
+      <path d="M92 93 Q100 98 108 93" stroke="#5A5A6A" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      <path d="M94 95 L93 99" stroke="#FFF" strokeWidth="1.5" strokeLinecap="round" opacity="0.8" />
+      <path d="M106 95 L107 99" stroke="#FFF" strokeWidth="1.5" strokeLinecap="round" opacity="0.8" />
       {/* Laptop */}
       <g transform="translate(140,130)">
         <rect x="0" y="5" width="24" height="16" rx="2" fill="#555" />
@@ -596,18 +618,20 @@ function FestivalPanda() {
       {/* Eye patches */}
       <ellipse cx="85" cy="78" rx="12" ry="10" fill="#2C2C2C" transform="rotate(-10,85,78)" />
       <ellipse cx="115" cy="78" rx="12" ry="10" fill="#2C2C2C" transform="rotate(10,115,78)" />
-      {/* Eyes - joyful */}
+      {/* Eyes - mischievous, half-lidded */}
       <circle cx="85" cy="78" r="5" fill="#FFFFFF" />
       <circle cx="115" cy="78" r="5" fill="#FFFFFF" />
-      <circle cx="87" cy="77" r="3" fill="#2C2C2C" />
-      <circle cx="117" cy="77" r="3" fill="#2C2C2C" />
-      <circle cx="88" cy="76" r="1" fill="#fff" />
-      <circle cx="118" cy="76" r="1" fill="#fff" />
+      <circle cx="87" cy="78" r="3" fill="#2C2C2C" />
+      <circle cx="117" cy="78" r="3" fill="#2C2C2C" />
+      <circle cx="88" cy="77" r="1" fill="#fff" />
+      <circle cx="118" cy="77" r="1" fill="#fff" />
+      {/* Sneaky eyelids */}
+      <path d="M79 74 Q85 72 91 76" fill="#2C2C2C" />
+      <path d="M109 76 Q115 72 121 74" fill="#2C2C2C" />
       {/* Nose */}
       <ellipse cx="100" cy="90" rx="4" ry="3" fill="#2C2C2C" />
-      {/* Big happy smile */}
-      <path d="M88 96 Q100 110 112 96" stroke="#2C2C2C" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-      {/* Tongue */}
+      {/* Scheming grin */}
+      <path d="M86 96 Q100 108 114 96" stroke="#2C2C2C" strokeWidth="2.5" fill="none" strokeLinecap="round" />
       <ellipse cx="100" cy="102" rx="6" ry="5" fill="#FF8FA0" />
       {/* Blush */}
       <circle cx="74" cy="90" r="6" fill="#FFB6C1" opacity="0.5" />
@@ -648,15 +672,18 @@ function SeaTurtle() {
       <circle cx="100" cy="80" r="26" fill="#81C784" />
       {/* Face */}
       <circle cx="100" cy="82" r="20" fill="#A5D6A7" />
-      {/* Eyes - innocent looking but sly */}
+      {/* Eyes - sly, side-glancing */}
       <circle cx="90" cy="78" r="6" fill="#FFF" />
       <circle cx="110" cy="78" r="6" fill="#FFF" />
-      <circle cx="92" cy="77" r="3.5" fill="#2E7D32" />
-      <circle cx="112" cy="77" r="3.5" fill="#2E7D32" />
-      <circle cx="93" cy="76" r="1.5" fill="#fff" />
-      <circle cx="113" cy="76" r="1.5" fill="#fff" />
-      {/* Gentle smile (fake) */}
-      <path d="M92 90 Q100 97 108 90" stroke="#2E7D32" strokeWidth="2" fill="none" strokeLinecap="round" />
+      <circle cx="87" cy="78" r="3.5" fill="#2E7D32" />
+      <circle cx="107" cy="78" r="3.5" fill="#2E7D32" />
+      <circle cx="86" cy="77" r="1.5" fill="#fff" />
+      <circle cx="106" cy="77" r="1.5" fill="#fff" />
+      {/* Scheming eyebrows */}
+      <path d="M83 72 L96 76" stroke="#2E7D32" strokeWidth="2" strokeLinecap="round" />
+      <path d="M117 72 L104 76" stroke="#2E7D32" strokeWidth="2" strokeLinecap="round" />
+      {/* Fake smile - asymmetric smirk */}
+      <path d="M90 90 Q100 97 110 88" stroke="#2E7D32" strokeWidth="2" fill="none" strokeLinecap="round" />
       {/* Blush */}
       <circle cx="80" cy="86" r="5" fill="#FFB6C1" opacity="0.3" />
       <circle cx="120" cy="86" r="5" fill="#FFB6C1" opacity="0.3" />
