@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useCallback } from 'react';
+import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import QuestionCard from '../components/QuestionCard';
 import ProgressBar from '../components/ProgressBar';
 import questions from '../data/questions.json';
@@ -60,12 +60,34 @@ function shuffleQuestions(qs) {
 export default function QuizPage({ onResult, targetName }) {
   const [answers, setAnswers] = useState({});
   const [showValidation, setShowValidation] = useState(false);
+  const [taunt, setTaunt] = useState('');
   const cardRefs = useRef({});
 
   const shuffledQuestions = useMemo(() => shuffleQuestions([...questions]), []);
 
   const totalQuestions = shuffledQuestions.length;
   const answeredCount = Object.keys(answers).length;
+
+  // Progressive vignette intensity — starts at 30% progress
+  const progress = answeredCount / totalQuestions;
+  const vignetteIntensity = Math.max(0, progress - 0.3) * 0.15;
+  const vignetteSpread = Math.round(40 + progress * 120);
+  const vignetteSize = Math.round(20 + progress * 80);
+
+  // Milestone taunts
+  useEffect(() => {
+    const taunts = {
+      10: 'だんだん見えてきたで…',
+      20: 'もう隠しきれへんな…',
+      25: 'あと少しで丸裸や',
+      29: '覚悟はええか？',
+    };
+    if (taunts[answeredCount]) {
+      setTaunt(taunts[answeredCount]);
+      const timer = setTimeout(() => setTaunt(''), 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [answeredCount]);
 
   const handleAnswer = useCallback((questionId, value) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
@@ -90,9 +112,24 @@ export default function QuizPage({ onResult, targetName }) {
   };
 
   const canSubmit = isAllAnswered(answers);
+  const almostDone = answeredCount >= 28;
 
   return (
-    <div className="pt-2">
+    <div
+      className="pt-2 transition-all duration-700"
+      style={{
+        boxShadow: vignetteIntensity > 0
+          ? `inset 0 0 ${vignetteSize}px ${vignetteSpread}px rgba(204,17,51,${vignetteIntensity.toFixed(3)})`
+          : 'none',
+      }}
+    >
+      {/* Milestone taunt banner */}
+      {taunt && (
+        <div className="quiz-taunt-banner">
+          {taunt}
+        </div>
+      )}
+
       {/* 対象者名の表示 */}
       {targetName && (
         <div className="text-center mb-4 py-3 bg-vivid-pink/10 rounded-2xl border border-vivid-pink/20">
@@ -116,7 +153,10 @@ export default function QuizPage({ onResult, targetName }) {
         </div>
       </div>
 
-      <ProgressBar current={answeredCount} total={totalQuestions} />
+      {/* Progress bar with glow wrapper at 80%+ */}
+      <div className={progress > 0.8 ? 'progress-glow-wrapper' : ''}>
+        <ProgressBar current={answeredCount} total={totalQuestions} />
+      </div>
 
       <div className="space-y-0">
         {shuffledQuestions.map((question, i) => (
@@ -140,7 +180,7 @@ export default function QuizPage({ onResult, targetName }) {
           </p>
         )}
         <button
-          className="w-full py-4 rounded-full bg-vivid-pink text-white font-bold text-base border-0 cursor-pointer hover:bg-coral-dark transition-colors"
+          className={`w-full py-4 rounded-full bg-vivid-pink text-white font-bold text-base border-0 cursor-pointer hover:bg-coral-dark transition-colors${almostDone ? ' quiz-submit-escalate' : ''}`}
           onClick={handleSubmit}
         >
           {canSubmit ? '暴いたれ！' : `あと${totalQuestions - answeredCount}問`}

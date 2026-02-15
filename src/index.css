@@ -535,3 +535,67 @@ body {
   animation: gokuhiBounce 1s ease-in-out infinite;
   color: #CC1133;
 }
+
+/* ========================================
+   QUIZ ATMOSPHERE EFFECTS
+   ======================================== */
+
+/* Milestone taunt banner — fade in/out */
+@keyframes tauntFadeIn {
+  0% { opacity: 0; transform: translateY(-12px); }
+  15% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+.quiz-taunt-banner {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  text-align: center;
+  padding: 10px 20px;
+  margin-bottom: 12px;
+  border-radius: 9999px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(204, 17, 51, 0.9) 0%, rgba(153, 17, 34, 0.85) 100%);
+  border: 1px solid rgba(255, 51, 85, 0.4);
+  box-shadow: 0 4px 20px rgba(204, 17, 51, 0.4), 0 0 40px rgba(204, 17, 51, 0.15);
+  animation: tauntFadeIn 2.5s ease-in-out forwards;
+  pointer-events: none;
+}
+
+/* Progress bar pulsing glow at 80%+ */
+@keyframes progressGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(204, 17, 51, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(204, 17, 51, 0.6)) drop-shadow(0 0 24px rgba(204, 17, 51, 0.2));
+  }
+}
+
+.progress-glow-wrapper {
+  animation: progressGlow 1.5s ease-in-out infinite;
+}
+
+/* Submit button escalation pulse at 28+ answers */
+@keyframes submitEscalate {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(204, 17, 51, 0.35);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 6px 30px rgba(204, 17, 51, 0.55), 0 0 50px rgba(204, 17, 51, 0.2);
+  }
+}
+
+.quiz-submit-escalate {
+  animation: submitEscalate 1.2s ease-in-out infinite;
+}
+
+.quiz-submit-escalate:hover {
+  animation-play-state: paused;
+}

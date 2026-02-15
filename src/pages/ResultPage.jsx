@@ -1,12 +1,17 @@
+import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import ResultCard from '../components/ResultCard';
 import ShareBox from '../components/ShareBox';
+import FileOpenReveal from '../components/FileOpenReveal';
 import { getTypeByKey, idToTypeKey } from '../utils/scoring';
 
 export default function ResultPage({ typeId, modifier, targetName, onRestart, onGoHome }) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const isRevenge = searchParams.get('revenge') === '1';
+  // 直リンク（URLバー直打ち・シェアリンク）の場合は演出スキップ
+  const isDirectLink = searchParams.get('reveal') === '0';
+  const [revealDone, setRevealDone] = useState(isDirectLink);
 
   const typeKey = idToTypeKey(typeId);
   const found = getTypeByKey(typeKey);
@@ -39,7 +44,16 @@ export default function ResultPage({ typeId, modifier, targetName, onRestart, on
   };
 
   return (
-    <div className="pt-6 animate-fade-in-up">
+    <>
+      {/* ファイル開封演出（初回のみ） */}
+      {!revealDone && (
+        <FileOpenReveal
+          targetName={targetName}
+          onComplete={() => setRevealDone(true)}
+        />
+      )}
+
+    <div className={`pt-6 ${revealDone ? 'animate-fade-in-up' : 'opacity-0'}`}>
       <div className="text-center mb-2">
         <p className="text-xs tracking-[0.15em] text-vivid-pink/40 mb-2 font-medium">
           ANALYSIS COMPLETE
@@ -109,5 +123,6 @@ export default function ResultPage({ typeId, modifier, targetName, onRestart, on
         </button>
       </div>
     </div>
+    </>
   );
 }
