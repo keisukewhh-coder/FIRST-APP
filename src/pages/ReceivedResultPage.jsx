@@ -4,6 +4,7 @@ import TeaserCard from '../components/TeaserCard';
 import ResultCard from '../components/ResultCard';
 import ObachanBubble from '../components/ObachanBubble';
 import FileUnlockReveal from '../components/FileUnlockReveal';
+import ObachanRageReveal from '../components/ObachanRageReveal';
 import { getTypeByKey, idToTypeKey } from '../utils/scoring';
 
 /**
@@ -26,7 +27,7 @@ function formatRemaining(ms) {
 }
 
 export default function ReceivedResultPage({ typeId, modifier, senderName }) {
-  // 'teaser' → 'unlocking' → 'revealed' の3段階
+  // 'teaser' → 'unlocking' → 'obachan-rage' → 'revealed' の4段階
   const [phase, setPhase] = useState('teaser');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -76,8 +77,14 @@ export default function ReceivedResultPage({ typeId, modifier, senderName }) {
     window.scrollTo(0, 0);
   };
 
-  // 開封アニメーション完了 → 結果表示
+  // 開封アニメーション完了 → おばちゃん発狂フェーズへ
   const handleUnlockComplete = () => {
+    setPhase('obachan-rage');
+    window.scrollTo(0, 0);
+  };
+
+  // おばちゃん発狂完了 → 結果表示
+  const handleRageComplete = () => {
     setPhase('revealed');
     setTimeout(() => {
       const el = document.getElementById('received-result');
@@ -167,6 +174,13 @@ export default function ReceivedResultPage({ typeId, modifier, senderName }) {
           senderName={senderName}
           onComplete={handleUnlockComplete}
         />
+      )}
+
+      {/* ============================================ */}
+      {/* おばちゃん発狂演出 */}
+      {/* ============================================ */}
+      {phase === 'obachan-rage' && (
+        <ObachanRageReveal onComplete={handleRageComplete} />
       )}
 
       {/* ============================================ */}
