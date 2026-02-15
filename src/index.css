@@ -1046,3 +1046,167 @@ body {
 .trait-badge-glow:hover {
   transform: scale(1.08);
 }
+
+/* ========================================
+   OBACHAN RAGE REVEAL - 発狂巨大化演出
+   ======================================== */
+
+/* --- フェーズ0: 登場 --- */
+@keyframes obachanRageEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(40px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.obachan-rage-enter {
+  animation: obachanRageEnter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* --- フェーズ1: 小刻み震え（発狂） --- */
+@keyframes obachanRageTremble {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  10% { transform: translate(-3px, 2px) rotate(-2deg) scale(1.02); }
+  20% { transform: translate(4px, -1px) rotate(2deg) scale(1); }
+  30% { transform: translate(-2px, -3px) rotate(-1deg) scale(1.03); }
+  40% { transform: translate(3px, 1px) rotate(1.5deg) scale(1.01); }
+  50% { transform: translate(-1px, 3px) rotate(-2.5deg) scale(1.04); }
+  60% { transform: translate(4px, -2px) rotate(2deg) scale(1.02); }
+  70% { transform: translate(-3px, 1px) rotate(-1.5deg) scale(1.03); }
+  80% { transform: translate(2px, -3px) rotate(1deg) scale(1.01); }
+  90% { transform: translate(-2px, 2px) rotate(-2deg) scale(1.05); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1.02); }
+}
+
+.obachan-rage-tremble {
+  animation: obachanRageTremble 0.15s linear infinite;
+}
+
+/* --- フェーズ2: 巨大化（どんどん迫ってくる） --- */
+@keyframes obachanRageGrow {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.8) translateY(-10px);
+  }
+  40% {
+    transform: scale(3) translateY(-20px);
+  }
+  60% {
+    transform: scale(5) translateY(-30px);
+  }
+  80% {
+    transform: scale(8);
+  }
+  100% {
+    transform: scale(14);
+  }
+}
+
+.obachan-rage-grow {
+  animation: obachanRageGrow 1.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+/* --- フェーズ3: 画面埋め尽くし --- */
+.obachan-rage-fill {
+  transform: scale(20);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* --- フェーズ4: フラッシュ後消える --- */
+.obachan-rage-flash {
+  opacity: 0;
+}
+
+/* --- ホワイトアウト --- */
+@keyframes obachanRageWhiteout {
+  0% {
+    background: rgba(204, 17, 51, 0);
+  }
+  30% {
+    background: rgba(204, 17, 51, 0.8);
+  }
+  70% {
+    background: rgba(255, 255, 255, 0.9);
+  }
+  100% {
+    background: rgba(13, 8, 8, 1);
+  }
+}
+
+.obachan-rage-whiteout {
+  animation: obachanRageWhiteout 0.7s ease-out forwards;
+}
+
+/* --- 画面全体のシェイク（軽め） --- */
+@keyframes obachanScreenShake {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-2px, 1px); }
+  20% { transform: translate(2px, -1px); }
+  30% { transform: translate(-1px, 2px); }
+  40% { transform: translate(1px, -2px); }
+  50% { transform: translate(-2px, 0px); }
+  60% { transform: translate(2px, 1px); }
+  70% { transform: translate(-1px, -1px); }
+  80% { transform: translate(1px, 2px); }
+  90% { transform: translate(-2px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+
+.obachan-rage-screen-shake {
+  animation: obachanScreenShake 0.12s linear infinite;
+}
+
+/* --- 画面全体のシェイク（激しめ） --- */
+@keyframes obachanScreenShakeHeavy {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5px, 3px); }
+  20% { transform: translate(6px, -4px); }
+  30% { transform: translate(-4px, 5px); }
+  40% { transform: translate(5px, -3px); }
+  50% { transform: translate(-6px, 2px); }
+  60% { transform: translate(4px, -5px); }
+  70% { transform: translate(-3px, 6px); }
+  80% { transform: translate(5px, -2px); }
+  90% { transform: translate(-4px, 4px); }
+  100% { transform: translate(0, 0); }
+}
+
+.obachan-rage-screen-shake-heavy {
+  animation: obachanScreenShakeHeavy 0.1s linear infinite;
+}
+
+/* --- 怒りマーク（ポコポコ出る） --- */
+@keyframes obachanAngerPop {
+  0% { opacity: 0; transform: scale(0) rotate(-20deg); }
+  50% { opacity: 1; transform: scale(1.3) rotate(10deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.obachan-rage-anger-mark {
+  opacity: 0;
+  animation: obachanAngerPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* --- テキストのシェイク --- */
+@keyframes obachanTextShake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-3px) skewX(-2deg); }
+  50% { transform: translateX(3px) skewX(2deg); }
+  75% { transform: translateX(-2px) skewX(-1deg); }
+  100% { transform: translateX(0) skewX(0deg); }
+}
+
+.obachan-rage-text-shake {
+  animation: obachanTextShake 0.08s linear infinite;
+}
