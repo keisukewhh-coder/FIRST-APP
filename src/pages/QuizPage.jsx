@@ -133,7 +133,7 @@ export default function QuizPage({ onResult }) {
           className="w-full py-4 rounded-full bg-vivid-pink text-white font-bold text-base border-0 cursor-pointer hover:bg-coral-dark transition-colors"
           onClick={handleSubmit}
         >
-          {canSubmit ? 'あの人の本性を暴く' : `あと${totalQuestions - answeredCount}問`}
+          {canSubmit ? '暴いたれ！' : `あと${totalQuestions - answeredCount}問`}
         </button>
       </div>
     </div>

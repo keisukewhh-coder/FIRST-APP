@@ -1,4 +1,5 @@
 import AnimalIllustration from './AnimalIllustration';
+import RadarChart from './RadarChart';
 import { MODIFIER_DETAILS } from '../utils/scoring';
 
 /**
@@ -39,6 +40,13 @@ export default function ResultCard({ result, typeKey, modifier }) {
   }
 
   const modifierDetail = modifier ? MODIFIER_DETAILS[modifier] : null;
+
+  // ゲス度を typeKey から算出（1-5）
+  const gesudoLevel = typeKey ? ((typeKey.charCodeAt(0) + typeKey.charCodeAt(1) + typeKey.charCodeAt(2) + typeKey.charCodeAt(3)) % 4) + 2 : 3;
+
+  // ★の数を数えて恋愛キケン度を算出（1-5）
+  const dangerMatch = result.love?.match(/★/g);
+  const dangerLevel = dangerMatch ? dangerMatch.length : 3;
 
   // テキストをパースして各セクションに配置
   const manualParsed = parseSections(result.manual);
@@ -93,6 +101,11 @@ export default function ResultCard({ result, typeKey, modifier }) {
             </span>
           ))}
         </div>
+
+        {/* レーダーチャート */}
+        <div className="mt-6">
+          <RadarChart typeKey={typeKey} modifier={modifier} />
+        </div>
       </div>
 
       <SectionDivider />
@@ -111,7 +124,8 @@ export default function ResultCard({ result, typeKey, modifier }) {
         </div>
         {/* Body */}
         <div className="px-5 py-6">
-          <p className="text-sm leading-7 text-text-primary whitespace-pre-line">
+          <p className="text-xs text-vivid-pink/50 italic mb-3">こんな顔して裏ではね…</p>
+          <p className="text-sm leading-8 text-text-primary whitespace-pre-line">
             {result.front}
           </p>
         </div>
@@ -131,9 +145,20 @@ export default function ResultCard({ result, typeKey, modifier }) {
           </h3>
           <span className="text-[0.65rem] text-vivid-pink/60 ml-auto font-medium tracking-wider">ちょいゲスな本性</span>
         </div>
+        {/* ゲス度メーター */}
+        <div className="px-5 pt-3 pb-0 flex items-center gap-3">
+          <span className="text-xs font-bold text-vivid-pink/70">ゲス度</span>
+          <div className="flex gap-1.5">
+            {[1,2,3,4,5].map(i => (
+              <span key={i} className={`w-4 h-4 rounded-full ${i <= gesudoLevel ? 'bg-vivid-pink shadow-[0_0_6px_rgba(204,17,51,0.4)]' : 'bg-coral/30'}`} />
+            ))}
+          </div>
+          <span className="text-xs text-vivid-pink/50 ml-auto">{gesudoLevel}/5</span>
+        </div>
         {/* Body */}
         <div className="px-5 py-6 ura-body">
-          <p className="text-sm leading-7 text-text-primary whitespace-pre-line">
+          <p className="text-xs text-vivid-pink/50 italic mb-3">さぁ、ここからが本番やで</p>
+          <p className="text-sm leading-8 text-text-primary whitespace-pre-line">
             {result.hidden}
           </p>
 
@@ -145,7 +170,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
                   <span className="font-bold text-vivid-pink">「{modifier}」</span>
                   <span className="text-text-secondary text-xs ml-1">タイプの裏側</span>
                 </p>
-                <p className="text-sm leading-7 text-text-primary mt-2">
+                <p className="text-sm leading-8 text-text-primary mt-2">
                   {modifierDetail}
                 </p>
               </div>
@@ -169,6 +194,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
         </div>
         {/* Body */}
         <div className="px-5 py-6 space-y-5">
+          <p className="text-xs text-vivid-pink/50 italic">攻略するも地雷を踏むも、あんた次第や</p>
 
           {/* 攻略法 */}
           {attackStrategy && (
@@ -177,7 +203,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
                 <span className="text-base">✅</span>
                 <h4 className="text-[0.95rem] font-extrabold text-text-primary tracking-wide">攻略法</h4>
               </div>
-              <p className="text-sm leading-7 text-text-primary whitespace-pre-line">
+              <p className="text-sm leading-8 text-text-primary whitespace-pre-line">
                 {attackStrategy}
               </p>
             </div>
@@ -190,7 +216,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
                 <span className="text-base">🎬</span>
                 <h4 className="text-[0.95rem] font-extrabold text-text-primary tracking-wide">デートのシミュレーション</h4>
               </div>
-              <p className="text-sm leading-7 text-text-primary whitespace-pre-line">
+              <p className="text-sm leading-8 text-text-primary whitespace-pre-line">
                 {dateSimulation}
               </p>
             </div>
@@ -203,7 +229,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
                 <span className="text-xl mt-0.5 shrink-0">🎯</span>
                 <div>
                   <h4 className="text-[0.95rem] font-extrabold text-vivid-pink mb-1 tracking-wide">喜ぶデートスポット</h4>
-                  <p className="text-sm leading-7 text-text-primary whitespace-pre-line">
+                  <p className="text-sm leading-8 text-text-primary whitespace-pre-line">
                     {dateSpot}
                   </p>
                 </div>
@@ -218,7 +244,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
                 <span className="text-xl mt-0.5 shrink-0">⚠️</span>
                 <div>
                   <h4 className="text-[0.95rem] font-extrabold text-vivid-pink mb-1 tracking-wide">絶対にやってはいけないNG行動</h4>
-                  <p className="text-sm leading-7 text-text-primary whitespace-pre-line">
+                  <p className="text-sm leading-8 text-text-primary whitespace-pre-line">
                     {landmine}
                   </p>
                 </div>
@@ -233,7 +259,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
                 <span className="text-xl mt-0.5 shrink-0">💘</span>
                 <div>
                   <h4 className="text-[0.95rem] font-extrabold text-vivid-pink mb-1 tracking-wide">最強の落とし方</h4>
-                  <p className="text-sm leading-7 text-text-primary font-semibold whitespace-pre-line">
+                  <p className="text-sm leading-8 text-text-primary font-semibold whitespace-pre-line">
                     {result.killer}
                   </p>
                 </div>
@@ -257,9 +283,19 @@ export default function ResultCard({ result, typeKey, modifier }) {
                 付き合ったらどうなる？
               </h3>
             </div>
+            {/* 恋愛キケン度メーター */}
+            <div className="px-5 pt-3 pb-0 flex items-center gap-3">
+              <span className="text-xs font-bold text-vivid-pink/70">恋愛キケン度</span>
+              <div className="flex gap-1">
+                {[1,2,3,4,5].map(i => (
+                  <span key={i} className={`text-sm ${i <= dangerLevel ? '' : 'opacity-20'}`}>💀</span>
+                ))}
+              </div>
+            </div>
             {/* Body */}
             <div className="px-5 py-6">
-              <p className="text-sm leading-7 text-text-primary whitespace-pre-line">
+              <p className="text-xs text-vivid-pink/50 italic mb-3">覚悟はええか？</p>
+              <p className="text-sm leading-8 text-text-primary whitespace-pre-line">
                 {result.love}
               </p>
             </div>
