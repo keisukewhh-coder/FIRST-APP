@@ -1,6 +1,7 @@
 /**
  * 六角形レーダーチャート（SVG）
  * typeKey と modifier から6軸の値を算出し、ヘキサゴンで描画する
+ * viewBox を十分に広げてラベルがクリップされないようにする
  */
 export default function RadarChart({ typeKey, modifier }) {
   if (!typeKey || typeKey.length < 4) return null;
@@ -28,8 +29,9 @@ export default function RadarChart({ typeKey, modifier }) {
     { label: '情緒不安定', value: spice.emotion },
   ];
 
-  const cx = 100;
-  const cy = 105;
+  // viewBox を広くとってラベルが切れないようにする
+  const cx = 140;
+  const cy = 120;
   const radius = 65;
   const total = 6;
   const maxValue = 5;
@@ -68,16 +70,16 @@ export default function RadarChart({ typeKey, modifier }) {
   });
   const dataPolygon = dataPoints.map((p) => `${p.x},${p.y}`).join(' ');
 
-  // ラベル位置（六角形の外側）
-  const labelRadius = radius + 26;
+  // ラベル位置（六角形の外側に十分な余白）
+  const labelRadius = radius + 30;
   const labels = axes.map((axis, i) => {
     const p = getPoint(cx, cy, labelRadius, i);
     return { ...axis, x: p.x, y: p.y };
   });
 
   return (
-    <div className="w-full max-w-[260px] mx-auto">
-      <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
+    <div className="w-full max-w-[300px] mx-auto">
+      <svg viewBox="0 0 280 245" xmlns="http://www.w3.org/2000/svg">
         {/* グリッド線（3段階） */}
         {gridPolygons.map((points, i) => (
           <polygon
@@ -121,7 +123,7 @@ export default function RadarChart({ typeKey, modifier }) {
           />
         ))}
 
-        {/* 軸ラベルと値 */}
+        {/* 軸ラベル（ラベルと値を上下2行で表示） */}
         {labels.map((label, i) => {
           let textAnchor = 'middle';
           if (label.x < cx - 10) textAnchor = 'end';
@@ -131,21 +133,34 @@ export default function RadarChart({ typeKey, modifier }) {
             ? label.value
             : label.value.toFixed(1);
 
+          // 上頂点と下頂点はラベルの上下位置を微調整
+          const isTop = i === 0;
+          const isBottom = i === 3;
+          const yOffset = isTop ? -5 : isBottom ? 5 : 0;
+
           return (
             <g key={`label-${i}`}>
               <text
                 x={label.x}
-                y={label.y}
+                y={label.y + yOffset}
                 textAnchor={textAnchor}
                 dominantBaseline="central"
-                fill="#A88888"
-                fontSize="8.5"
-                fontWeight="500"
+                fill="#F0E0E0"
+                fontSize="11"
+                fontWeight="600"
               >
                 {label.label}
-                <tspan fill="#CC1133" fontSize="7.5" dx="2">
-                  {displayValue}
-                </tspan>
+              </text>
+              <text
+                x={label.x}
+                y={label.y + yOffset + 13}
+                textAnchor={textAnchor}
+                dominantBaseline="central"
+                fill="#CC1133"
+                fontSize="10"
+                fontWeight="700"
+              >
+                {displayValue}
               </text>
             </g>
           );

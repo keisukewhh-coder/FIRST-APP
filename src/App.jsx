@@ -30,8 +30,11 @@ function HomePageWrapper() {
     return <Navigate to={`/result?${newParams.toString()}`} replace />;
   }
 
-  const handleStartQuiz = () => {
-    navigate('/quiz');
+  const handleStartQuiz = (targetName) => {
+    const params = new URLSearchParams();
+    if (targetName) params.set('n', targetName);
+    const qs = params.toString();
+    navigate(`/quiz${qs ? `?${qs}` : ''}`);
     window.scrollTo(0, 0);
   };
 
@@ -44,16 +47,19 @@ function HomePageWrapper() {
  */
 function QuizPageWrapper() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const targetName = searchParams.get('n') || '';
 
   const handleShowResult = ({ typeId, modifier }) => {
     const params = new URLSearchParams();
     params.set('t', String(typeId));
     if (modifier) params.set('m', modifier);
+    if (targetName) params.set('n', targetName);
     navigate(`/result?${params.toString()}`);
     window.scrollTo(0, 0);
   };
 
-  return <QuizPage onResult={handleShowResult} />;
+  return <QuizPage onResult={handleShowResult} targetName={targetName} />;
 }
 
 /**
@@ -67,6 +73,7 @@ function ResultPageWrapper() {
 
   const rawTypeId = searchParams.get('t');
   const rawModifier = searchParams.get('m');
+  const targetName = searchParams.get('n') || '';
 
   // パラメータが全く無い場合（/result に直接アクセス）はホームに戻す
   if (rawTypeId == null) {
@@ -92,11 +99,15 @@ function ResultPageWrapper() {
     const params = new URLSearchParams();
     params.set('t', correctedTypeId);
     params.set('m', modifier);
+    if (targetName) params.set('n', targetName);
     return <Navigate to={`/result?${params.toString()}`} replace />;
   }
 
   const handleRestart = () => {
-    navigate('/quiz');
+    const params = new URLSearchParams();
+    if (targetName) params.set('n', targetName);
+    const qs = params.toString();
+    navigate(`/quiz${qs ? `?${qs}` : ''}`);
     window.scrollTo(0, 0);
   };
 
@@ -109,6 +120,7 @@ function ResultPageWrapper() {
     <ResultPage
       typeId={typeId}
       modifier={modifier}
+      targetName={targetName}
       onRestart={handleRestart}
       onGoHome={handleGoHome}
     />

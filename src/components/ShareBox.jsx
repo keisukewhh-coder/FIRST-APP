@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
-export default function ShareBox({ typeId, modifier, resultName }) {
+export default function ShareBox({ typeId, modifier, resultName, targetName }) {
   const [copied, setCopied] = useState(false);
 
-  const shareUrl = `${window.location.origin}/result?t=${encodeURIComponent(typeId)}&m=${encodeURIComponent(modifier || '')}`;
+  const nameLabel = targetName || 'あの人';
+  const shareUrl = `${window.location.origin}/result?t=${encodeURIComponent(typeId)}&m=${encodeURIComponent(modifier || '')}${targetName ? `&n=${encodeURIComponent(targetName)}` : ''}`;
   const displayName = modifier ? `${modifier}${resultName}` : resultName;
-  const shareText = `#あの人の裏の顔診断\nあの人の裏の顔は「${displayName}」だった…！\n${shareUrl}`;
+  const shareText = `#あの人の裏の顔診断\n${nameLabel}の裏の顔は「${displayName}」だった…！\n${shareUrl}`;
 
   const handleCopy = async () => {
     try {
@@ -25,14 +26,14 @@ export default function ShareBox({ typeId, modifier, resultName }) {
   };
 
   const handleTwitterShare = () => {
-    const text = encodeURIComponent(`#あの人の裏の顔診断\nあの人の裏の顔を暴いた結果…！`);
+    const text = encodeURIComponent(`#あの人の裏の顔診断\n${nameLabel}の裏の顔を暴いた結果…！`);
     const url = encodeURIComponent(shareUrl);
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
   };
 
   return (
     <div className="bg-card rounded-3xl p-6 shadow-lg mb-6 border border-vivid-pink/25">
-      <h3 className="text-base font-extrabold text-text-primary mb-1">この裏の顔、みんなに暴露する？</h3>
+      <h3 className="text-base font-extrabold text-text-primary mb-1">{targetName ? `${targetName}の` : 'この'}裏の顔、みんなに暴露する？</h3>
       <p className="text-xs text-vivid-pink font-semibold mb-4">#あの人の裏の顔診断</p>
       <div className="flex gap-2 mb-3">
         <input

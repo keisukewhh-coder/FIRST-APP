@@ -57,7 +57,7 @@ function shuffleQuestions(qs) {
   return result;
 }
 
-export default function QuizPage({ onResult }) {
+export default function QuizPage({ onResult, targetName }) {
   const [answers, setAnswers] = useState({});
   const [showValidation, setShowValidation] = useState(false);
   const cardRefs = useRef({});
@@ -93,6 +93,16 @@ export default function QuizPage({ onResult }) {
 
   return (
     <div className="pt-2">
+      {/* 対象者名の表示 */}
+      {targetName && (
+        <div className="text-center mb-4 py-3 bg-vivid-pink/10 rounded-2xl border border-vivid-pink/20">
+          <p className="text-sm text-text-primary">
+            <span className="text-vivid-pink font-extrabold">{targetName}</span>
+            <span className="text-text-secondary"> のことを思い浮かべて答えてな</span>
+          </p>
+        </div>
+      )}
+
       {/* 案内注釈ボックス */}
       <div className="bg-coral/10 border border-coral/30 rounded-2xl px-5 py-4 mb-4 flex items-start gap-3">
         <span className="text-2xl leading-none mt-0.5" aria-hidden="true">📝</span>
