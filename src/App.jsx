@@ -3,6 +3,7 @@ import Layout from './components/Layout';
 import StartCard from './components/StartCard';
 import QuizPage from './pages/QuizPage';
 import ResultPage from './pages/ResultPage';
+import ReceivedResultPage from './pages/ReceivedResultPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { MODIFIER_DETAILS } from './utils/scoring';
 
@@ -109,6 +110,57 @@ function ResultPageWrapper() {
   );
 }
 
+/**
+ * 受信結果ページラッパー
+ * URLクエリパラメータ: ?t={typeId}&m={modifier}&from={送信者名}
+ */
+function ReceivedResultPageWrapper() {
+  const [searchParams] = useSearchParams();
+
+  const rawTypeId = searchParams.get('t');
+  const rawModifier = searchParams.get('m');
+  const rawFrom = searchParams.get('from');
+
+  // パラメータが全く無い場合はホームに戻す
+  if (rawTypeId == null) {
+    return <Navigate to="/" replace />;
+  }
+
+  // typeId のバリデーション: 0〜15 の整数であること
+  let typeId = parseInt(rawTypeId, 10);
+  if (isNaN(typeId) || typeId < 0 || typeId > 15) {
+    typeId = 0;
+  }
+
+  // modifier のバリデーション
+  const validModifiers = Object.keys(MODIFIER_DETAILS);
+  let modifier = rawModifier;
+  if (!modifier || !validModifiers.includes(modifier)) {
+    modifier = '量産型の';
+  }
+
+  // 送信者名（デコード済み、フォールバック付き）
+  const senderName = rawFrom ? decodeURIComponent(rawFrom) : '';
+
+  // バリデーション後の正規化されたURLに書き換え（不正値を修正）
+  const correctedTypeId = String(typeId);
+  if (rawTypeId !== correctedTypeId || rawModifier !== modifier) {
+    const params = new URLSearchParams();
+    params.set('t', correctedTypeId);
+    params.set('m', modifier);
+    if (senderName) params.set('from', senderName);
+    return <Navigate to={`/received?${params.toString()}`} replace />;
+  }
+
+  return (
+    <ReceivedResultPage
+      typeId={typeId}
+      modifier={modifier}
+      senderName={senderName}
+    />
+  );
+}
+
 function App() {
   return (
     <Layout>
@@ -116,6 +168,7 @@ function App() {
         <Route path="/" element={<HomePageWrapper />} />
         <Route path="/quiz" element={<QuizPageWrapper />} />
         <Route path="/result" element={<ResultPageWrapper />} />
+        <Route path="/received" element={<ReceivedResultPageWrapper />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
