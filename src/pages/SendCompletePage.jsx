@@ -1,6 +1,5 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { useSearchParams, Navigate, useNavigate } from 'react-router-dom';
-import sendMessagesData from '../data/sendMessages.json';
 import { MODIFIER_DETAILS } from '../utils/scoring';
 import ObachanBubble from '../components/ObachanBubble';
 
@@ -48,14 +47,8 @@ export default function SendCompletePage() {
   const expirationDate = new Date(expirationTimestamp);
   const expirationDisplay = `${expirationDate.getMonth() + 1}月${expirationDate.getDate()}日 ${String(expirationDate.getHours()).padStart(2, '0')}時${String(expirationDate.getMinutes()).padStart(2, '0')}分`;
 
-  // --- teaserメッセージからランダム1つ取得 ---
-  const teaserMessage = useMemo(() => {
-    const teasers = sendMessagesData.sendMessages.teaser;
-    return teasers[Math.floor(Math.random() * teasers.length)];
-  }, []);
-
-  // --- 共有用テキスト ---
-  const shareText = `${teaserMessage}\n\n${receivedUrl}`;
+  // --- 共有用テキスト（ユーザーが選んだメッセージを使用） ---
+  const shareText = `${message}\n\n${receivedUrl}`;
 
   // --- URLのみコピー ---
   const handleCopyUrl = async () => {
@@ -93,22 +86,22 @@ export default function SendCompletePage() {
     }
   };
 
-  // --- LINE共有 ---
+  // --- LINE共有（ユーザーが選んだメッセージを送信） ---
   const handleLineShare = () => {
-    const lineText = encodeURIComponent(`${teaserMessage}\n\n${receivedUrl}`);
+    const lineText = encodeURIComponent(`${message}\n\n${receivedUrl}`);
     window.open(`https://line.me/R/share?text=${lineText}`, '_blank');
   };
 
   // --- メール共有 ---
   const handleMailShare = () => {
     const subject = encodeURIComponent('あんたの裏の顔、暴いたったで');
-    const body = encodeURIComponent(`${teaserMessage}\n\n${receivedUrl}`);
+    const body = encodeURIComponent(`${message}\n\n${receivedUrl}`);
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   };
 
   // --- Xシェア ---
   const handleXShare = () => {
-    const text = encodeURIComponent(teaserMessage);
+    const text = encodeURIComponent(message);
     const url = encodeURIComponent(receivedUrl);
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
   };
