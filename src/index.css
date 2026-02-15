@@ -748,3 +748,59 @@ body {
   border-right: 8px solid transparent;
   border-top: 8px solid rgba(204, 17, 51, 0.25);
 }
+
+/* ========================================
+   CHAR BON - 1文字ずつ「ボン！」と出現
+   ======================================== */
+@keyframes charBon {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(20px);
+    filter: brightness(1);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.6) translateY(-8px);
+    filter: brightness(2.5);
+    text-shadow: 0 0 30px rgba(204, 17, 51, 0.8), 0 0 60px rgba(204, 17, 51, 0.4);
+  }
+  60% {
+    transform: scale(0.85) translateY(3px);
+    filter: brightness(1.2);
+  }
+  80% {
+    transform: scale(1.1) translateY(-1px);
+    filter: brightness(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: brightness(1);
+    text-shadow: 0 0 20px rgba(204, 17, 51, 0.5), 0 0 40px rgba(204, 17, 51, 0.2);
+  }
+}
+
+.char-bon {
+  display: inline-block;
+  opacity: 0;
+  animation: charBon 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 着地時の衝撃波 */
+@keyframes charImpact {
+  0% {
+    box-shadow: 0 0 0 0 rgba(204, 17, 51, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(204, 17, 51, 0);
+  }
+}
+
+.char-bon-impact {
+  display: inline-block;
+  opacity: 0;
+  animation:
+    charBon 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+    charImpact 0.6s ease-out forwards;
+  border-radius: 4px;
+}

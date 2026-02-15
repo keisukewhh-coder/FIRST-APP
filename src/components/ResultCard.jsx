@@ -125,6 +125,10 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
   const dangerMatch = result.love?.match(/★/g);
   const dangerLevel = dangerMatch ? dangerMatch.length : 3;
 
+  // 名前の文字数からアニメーションタイミングを計算
+  const fullName = `${modifier || ''}${result.name}`;
+  const nameRevealEnd = 1.4 + fullName.length * 0.12 + 0.3; // 名前演出完了時刻
+
   // テキストをパースして各セクションに配置
   const manualParsed = parseSections(result.manual);
   const dateParsed = parseSections(result.date);
@@ -165,19 +169,34 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
           </p>
         )}
 
-        <h2 className="text-center text-[1.75rem] sm:text-4xl font-extrabold text-text-primary mb-3 leading-tight result-title-glow tracking-tight dondon-item dondon-delay-2">
-          {modifier}{result.name}
+        {/* 診断名 — 1文字ずつ「ボン！」と出現 */}
+        <h2 className="text-center text-[1.75rem] sm:text-4xl font-extrabold text-text-primary mb-3 leading-tight result-title-glow tracking-tight">
+          {fullName.split('').map((char, i) => (
+            <span
+              key={i}
+              className="char-bon"
+              style={{ animationDelay: `${1.4 + i * 0.12}s` }}
+            >
+              {char}
+            </span>
+          ))}
         </h2>
 
-        <div className="flex justify-center mb-3 dondon-item dondon-delay-2">
+        <div className="flex justify-center mb-3" style={{ opacity: 0, animation: `fadeInUp 0.5s ease-out ${nameRevealEnd}s forwards` }}>
           <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-vivid-pink to-transparent rounded-full" />
         </div>
 
-        <p className="text-center text-sm text-vivid-pink font-semibold mb-5 px-2 dondon-item dondon-delay-3">
+        <p
+          className="text-center text-sm text-vivid-pink font-semibold mb-5 px-2 dondon-item"
+          style={{ animationDelay: `${nameRevealEnd + 0.3}s` }}
+        >
           {result.tagline}
         </p>
 
-        <div className="flex flex-wrap justify-center gap-2 dondon-item dondon-delay-4">
+        <div
+          className="flex flex-wrap justify-center gap-2 dondon-item"
+          style={{ animationDelay: `${nameRevealEnd + 0.7}s` }}
+        >
           {result.traits.map((trait, i) => (
             <span
               key={i}
@@ -188,7 +207,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
           ))}
         </div>
 
-        <div className="mt-6 dondon-item dondon-delay-5">
+        <div className="mt-6 dondon-item" style={{ animationDelay: `${nameRevealEnd + 1.1}s` }}>
           <RadarChart typeKey={typeKey} modifier={modifier} />
         </div>
       </div>
