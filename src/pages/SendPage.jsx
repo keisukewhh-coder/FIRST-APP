@@ -52,7 +52,6 @@ export default function SendPage() {
   }, []);
 
   // --- State ---
-  const [isAnonymous, setIsAnonymous] = useState(true);
   const [senderName, setSenderName] = useState('');
   const [selectedMessageIndex, setSelectedMessageIndex] = useState(0);
 
@@ -60,7 +59,7 @@ export default function SendPage() {
   const selectedMessage = randomTeasers[selectedMessageIndex] || '';
 
   // プレビュー用の送信者表示
-  const senderDisplay = isAnonymous ? '匿名の誰か' : (senderName.trim() || '名無しさん');
+  const senderDisplay = senderName.trim() || '名無しの誰かさん';
 
   // --- 送信処理 ---
   const handleSend = () => {
@@ -68,7 +67,7 @@ export default function SendPage() {
     const params = new URLSearchParams();
     params.set('t', String(typeId));
     params.set('m', modifier);
-    params.set('from', isAnonymous ? '' : (senderName.trim() || '名無しさん'));
+    params.set('from', senderName.trim());
     params.set('msg', selectedMessage);
     params.set('exp', String(expiresAt));
     navigate(`/send-complete?${params.toString()}`);
@@ -119,42 +118,22 @@ export default function SendPage() {
       {/* ============================================ */}
       <div className="bg-card rounded-2xl p-5 mb-6 border border-coral/20">
 
-        {/* 匿名/記名トグル */}
+        {/* 送信者名入力 */}
         <div className="mb-5">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-bold text-text-primary">匿名で送る</span>
-            <button
-              type="button"
-              className={`relative w-12 h-7 rounded-full transition-colors duration-200 cursor-pointer border-0 ${
-                isAnonymous ? 'bg-vivid-pink' : 'bg-coral/40'
-              }`}
-              onClick={() => setIsAnonymous(!isAnonymous)}
-              aria-label="匿名トグル"
-            >
-              <span
-                className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-md transition-transform duration-200 ${
-                  isAnonymous ? 'left-[calc(100%-1.625rem)]' : 'left-0.5'
-                }`}
-              />
-            </button>
-          </div>
-
-          {/* 記名時のみ名前入力を表示 */}
-          {!isAnonymous && (
-            <div className="animate-fade-in-up">
-              <label className="block text-xs text-text-secondary mb-1.5">
-                あなたの名前（ニックネーム可）
-              </label>
-              <input
-                type="text"
-                className="w-full px-4 py-2.5 rounded-full bg-sakura border border-coral/30 text-sm text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-vivid-pink/50 transition-colors"
-                placeholder="例: まさお"
-                value={senderName}
-                onChange={(e) => setSenderName(e.target.value)}
-                maxLength={20}
-              />
-            </div>
-          )}
+          <label className="block text-sm font-bold text-text-primary mb-1.5">
+            あなたの名前
+          </label>
+          <p className="text-xs text-text-secondary mb-2">
+            入力しなければ「名無しの誰かさん」として届くで
+          </p>
+          <input
+            type="text"
+            className="w-full px-4 py-2.5 rounded-full bg-sakura border border-coral/30 text-sm text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-vivid-pink/50 transition-colors"
+            placeholder="例: まさお"
+            value={senderName}
+            onChange={(e) => setSenderName(e.target.value)}
+            maxLength={20}
+          />
         </div>
 
         {/* メッセージ選択 */}

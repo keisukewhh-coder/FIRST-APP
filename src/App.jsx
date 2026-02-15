@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import Layout from './components/Layout';
+import ScrollToTop from './components/ScrollToTop';
 import StartCard from './components/StartCard';
 import QuizPage from './pages/QuizPage';
 import ResultPage from './pages/ResultPage';
@@ -168,6 +169,7 @@ function ReceivedResultPageWrapper() {
 function App() {
   return (
     <Layout>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePageWrapper />} />
         <Route path="/quiz" element={<QuizPageWrapper />} />

@@ -1,5 +1,5 @@
 export default function TeaserCard({ senderName, onReveal }) {
-  const displayName = senderName || '誰か';
+  const displayName = senderName || '名無しの誰かさん';
 
   return (
     <div className="text-center pt-8 pb-4 animate-fade-in-up">

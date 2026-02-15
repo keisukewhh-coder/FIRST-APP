@@ -159,7 +159,7 @@ export default function ReceivedResultPage({ typeId, modifier, senderName }) {
           {/* 開封演出ヘッダー */}
           <div className="text-center mb-8 animate-fade-in-up">
             <p className="text-xs tracking-[0.15em] text-vivid-pink/60 mb-2 font-semibold">
-              ― {senderName || '誰か'} さんの診断結果 ―
+              ― {senderName || '名無しの誰かさん'} さんの診断結果 ―
             </p>
             <h1 className="text-lg font-bold text-text-primary mb-1">
               あんたの裏の顔は…
@@ -190,7 +190,7 @@ export default function ReceivedResultPage({ typeId, modifier, senderName }) {
               黙ってられへんやろ？
             </h2>
             <p className="text-sm text-text-secondary leading-relaxed mb-2">
-              <span className="text-vivid-pink font-bold">{senderName || '誰か'}</span> さんに
+              <span className="text-vivid-pink font-bold">{senderName || '名無しの誰かさん'}</span> さんに
               裏の顔を暴かれて悔しないんか？
             </p>
             <p className="text-sm text-text-secondary leading-relaxed mb-5">
