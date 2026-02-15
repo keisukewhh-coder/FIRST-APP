@@ -39,7 +39,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
   const dateSpot = dateParsed.sections['おすすめスポット'] || '';
 
   return (
-    <div className="space-y-4 mb-5">
+    <div className="space-y-6 mb-5">
 
       {/* ============================================ */}
       {/* Section 1: 診断結果 */}
@@ -53,7 +53,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
         </div>
 
         {/* Modifier + Type name */}
-        <h2 className="text-center text-2xl font-extrabold text-text-primary mb-2 leading-tight">
+        <h2 className="text-center text-3xl font-extrabold text-text-primary mb-2 leading-tight">
           {modifier}{result.name}
         </h2>
 
@@ -78,11 +78,11 @@ export default function ResultCard({ result, typeKey, modifier }) {
       {/* ============================================ */}
       {/* Section 2: 表の顔 */}
       {/* ============================================ */}
-      <div className="result-section bg-card rounded-2xl shadow-lg border border-coral/20 overflow-hidden">
+      <div className="result-section bg-card rounded-2xl shadow-lg border border-coral/30 overflow-hidden">
         {/* Header */}
-        <div className="bg-coral/15 px-5 py-3 flex items-center gap-2">
-          <span className="text-lg">😇</span>
-          <h3 className="text-base font-bold text-text-primary">
+        <div className="bg-coral/20 px-5 py-4 flex items-center gap-3">
+          <span className="text-2xl">😇</span>
+          <h3 className="text-xl font-bold text-text-primary">
             表の顔
           </h3>
           <span className="text-xs text-text-secondary ml-auto">みんなが見ている姿</span>
@@ -98,11 +98,11 @@ export default function ResultCard({ result, typeKey, modifier }) {
       {/* ============================================ */}
       {/* Section 3: 裏の顔 */}
       {/* ============================================ */}
-      <div className="result-section bg-card rounded-2xl shadow-lg border-2 border-vivid-pink/40 overflow-hidden">
+      <div className="result-section bg-card rounded-2xl shadow-xl border-2 border-vivid-pink/50 overflow-hidden">
         {/* Header - vivid pink accent */}
-        <div className="bg-vivid-pink/15 px-5 py-3 flex items-center gap-2">
-          <span className="text-lg">👿</span>
-          <h3 className="text-base font-bold text-vivid-pink">
+        <div className="bg-vivid-pink/25 px-5 py-5 flex items-center gap-3">
+          <span className="text-3xl">👿</span>
+          <h3 className="text-2xl font-extrabold text-vivid-pink">
             裏の顔
           </h3>
           <span className="text-xs text-vivid-pink/70 ml-auto">ちょいゲスな本性</span>
@@ -135,9 +135,9 @@ export default function ResultCard({ result, typeKey, modifier }) {
       {/* ============================================ */}
       <div className="result-section bg-card rounded-2xl shadow-lg border border-coral/20 overflow-hidden">
         {/* Header */}
-        <div className="bg-coral/15 px-5 py-3 flex items-center gap-2">
-          <span className="text-lg">📖</span>
-          <h3 className="text-base font-bold text-text-primary">
+        <div className="bg-coral/25 px-5 py-4 flex items-center gap-3">
+          <span className="text-2xl">📖</span>
+          <h3 className="text-xl font-bold text-text-primary">
             この人のトリセツ
           </h3>
         </div>
@@ -148,8 +148,8 @@ export default function ResultCard({ result, typeKey, modifier }) {
           {attackStrategy && (
             <div className="bg-coral-light/40 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm">✅</span>
-                <h4 className="text-sm font-bold text-text-primary">攻略法</h4>
+                <span className="text-base">✅</span>
+                <h4 className="text-base font-bold text-text-primary">攻略法</h4>
               </div>
               <p className="text-sm leading-relaxed text-text-primary whitespace-pre-line">
                 {attackStrategy}
@@ -161,8 +161,8 @@ export default function ResultCard({ result, typeKey, modifier }) {
           {dateSimulation && (
             <div className="bg-coral-light/40 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm">🎬</span>
-                <h4 className="text-sm font-bold text-text-primary">デートのシミュレーション</h4>
+                <span className="text-base">🎬</span>
+                <h4 className="text-base font-bold text-text-primary">デートのシミュレーション</h4>
               </div>
               <p className="text-sm leading-relaxed text-text-primary whitespace-pre-line">
                 {dateSimulation}
@@ -176,7 +176,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
               <div className="flex items-start gap-3">
                 <span className="text-xl mt-0.5 shrink-0">🎯</span>
                 <div>
-                  <h4 className="text-sm font-bold text-vivid-pink mb-1">喜ぶデートスポット</h4>
+                  <h4 className="text-base font-bold text-vivid-pink mb-1">喜ぶデートスポット</h4>
                   <p className="text-sm leading-relaxed text-text-primary whitespace-pre-line">
                     {dateSpot}
                   </p>
@@ -191,7 +191,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
               <div className="flex items-start gap-3">
                 <span className="text-xl mt-0.5 shrink-0">⚠️</span>
                 <div>
-                  <h4 className="text-sm font-bold text-vivid-pink mb-1">絶対にやってはいけないNG行動</h4>
+                  <h4 className="text-base font-bold text-vivid-pink mb-1">絶対にやってはいけないNG行動</h4>
                   <p className="text-sm leading-relaxed text-text-primary whitespace-pre-line">
                     {landmine}
                   </p>
@@ -206,7 +206,7 @@ export default function ResultCard({ result, typeKey, modifier }) {
               <div className="flex items-start gap-3">
                 <span className="text-xl mt-0.5 shrink-0">💘</span>
                 <div>
-                  <h4 className="text-sm font-bold text-vivid-pink mb-1">最強の落とし方</h4>
+                  <h4 className="text-base font-bold text-vivid-pink mb-1">最強の落とし方</h4>
                   <p className="text-sm leading-relaxed text-text-primary font-semibold whitespace-pre-line">
                     {result.killer}
                   </p>
@@ -221,11 +221,11 @@ export default function ResultCard({ result, typeKey, modifier }) {
       {/* Section 5: 付き合ったらどうなる？（conditional） */}
       {/* ============================================ */}
       {result.love && (
-        <div className="result-section bg-card rounded-2xl shadow-lg border border-coral/20 overflow-hidden">
+        <div className="result-section bg-card rounded-2xl shadow-lg border border-coral/30 overflow-hidden">
           {/* Header */}
-          <div className="bg-coral/15 px-5 py-3 flex items-center gap-2">
-            <span className="text-lg">💕</span>
-            <h3 className="text-base font-bold text-text-primary">
+          <div className="bg-coral/20 px-5 py-4 flex items-center gap-3">
+            <span className="text-2xl">💕</span>
+            <h3 className="text-xl font-bold text-text-primary">
               付き合ったらどうなる？
             </h3>
           </div>
