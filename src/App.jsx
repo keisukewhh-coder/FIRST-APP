@@ -4,6 +4,10 @@ import StartCard from './components/StartCard';
 import QuizPage from './pages/QuizPage';
 import ResultPage from './pages/ResultPage';
 import ReceivedResultPage from './pages/ReceivedResultPage';
+import SendPage from './pages/SendPage';
+import SendCompletePage from './pages/SendCompletePage';
+import LegalPage from './pages/LegalPage';
+import PrivacyPage from './pages/PrivacyPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { MODIFIER_DETAILS } from './utils/scoring';
 
@@ -169,6 +173,10 @@ function App() {
         <Route path="/quiz" element={<QuizPageWrapper />} />
         <Route path="/result" element={<ResultPageWrapper />} />
         <Route path="/received" element={<ReceivedResultPageWrapper />} />
+        <Route path="/send" element={<SendPage />} />
+        <Route path="/send-complete" element={<SendCompletePage />} />
+        <Route path="/legal" element={<LegalPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
