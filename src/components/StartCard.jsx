@@ -1,8 +1,4 @@
-import { useNavigate } from 'react-router-dom';
-
-export default function StartCard() {
-  const navigate = useNavigate();
-
+export default function StartCard({ onStart }) {
   return (
     <div className="text-center pt-6 pb-4">
       {/* Hero illustration */}
@@ -81,7 +77,7 @@ export default function StartCard() {
 
       <button
         className="pulse-gentle w-full max-w-xs mx-auto py-3.5 px-8 rounded-full bg-vivid-pink text-white font-bold text-base border-0 cursor-pointer shadow-md hover:bg-coral-dark transition-colors"
-        onClick={() => navigate('/quiz')}
+        onClick={onStart}
       >
         勝手に覗き見する
       </button>
