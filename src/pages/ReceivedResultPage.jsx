@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import TeaserCard from '../components/TeaserCard';
 import ResultCard from '../components/ResultCard';
 import ObachanBubble from '../components/ObachanBubble';
+import FileUnlockReveal from '../components/FileUnlockReveal';
 import { getTypeByKey, idToTypeKey } from '../utils/scoring';
 
 /**
@@ -25,7 +26,8 @@ function formatRemaining(ms) {
 }
 
 export default function ReceivedResultPage({ typeId, modifier, senderName }) {
-  const [revealed, setRevealed] = useState(false);
+  // 'teaser' → 'unlocking' → 'revealed' の3段階
+  const [phase, setPhase] = useState('teaser');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -68,9 +70,15 @@ export default function ReceivedResultPage({ typeId, modifier, senderName }) {
 
   const displayName = modifier ? `${modifier}${result.name}` : result.name;
 
+  // ボタン押下 → 開封アニメーション開始
   const handleReveal = () => {
-    setRevealed(true);
-    // 開封後、少し待ってから結果セクションまでスクロール
+    setPhase('unlocking');
+    window.scrollTo(0, 0);
+  };
+
+  // 開封アニメーション完了 → 結果表示
+  const handleUnlockComplete = () => {
+    setPhase('revealed');
     setTimeout(() => {
       const el = document.getElementById('received-result');
       if (el) {
@@ -136,7 +144,7 @@ export default function ReceivedResultPage({ typeId, modifier, senderName }) {
       {/* ============================================ */}
       {/* ティザーセクション */}
       {/* ============================================ */}
-      {!revealed && (
+      {phase === 'teaser' && (
         <>
           <TeaserCard senderName={senderName} onReveal={handleReveal} />
 
@@ -152,9 +160,19 @@ export default function ReceivedResultPage({ typeId, modifier, senderName }) {
       )}
 
       {/* ============================================ */}
+      {/* 鍵付きファイル開封アニメーション */}
+      {/* ============================================ */}
+      {phase === 'unlocking' && (
+        <FileUnlockReveal
+          senderName={senderName}
+          onComplete={handleUnlockComplete}
+        />
+      )}
+
+      {/* ============================================ */}
       {/* 開封後の結果表示 */}
       {/* ============================================ */}
-      {revealed && (
+      {phase === 'revealed' && (
         <div id="received-result" className="received-reveal">
 
           {/* 開封演出ヘッダー */}
