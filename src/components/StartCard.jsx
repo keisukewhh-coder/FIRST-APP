@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ObachanBubble from './ObachanBubble';
 
 export default function StartCard({ onStart }) {
   const [targetName, setTargetName] = useState('');
@@ -30,6 +31,13 @@ export default function StartCard({ onStart }) {
           <span className="text-vivid-pink font-extrabold">勝手に丸裸にして動物に例えて<br />
           本人に送りつけたれ。</span>
         </p>
+      </div>
+
+      {/* おばちゃんの挨拶 */}
+      <div className="mb-3 text-left">
+        <ObachanBubble>
+          あんた、誰かの裏の顔が気になっとるんやな？ほな、おばちゃんが全部暴いたるわ。遠慮せんと名前入れてや！
+        </ObachanBubble>
       </div>
 
       {/* 相手の名前入力 */}
