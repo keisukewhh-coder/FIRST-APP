@@ -48,7 +48,7 @@ function LockedSection({ id, label, emoji, unlocked, onUnlock, children }) {
 
   if (unlocked) {
     return (
-      <div ref={ref} style={{ opacity: 0, animation: 'fadeInUp 0.5s ease-out 0.1s forwards' }}>
+      <div ref={ref} className="unlock-burst" style={{ opacity: 0, animation: 'unlockBurst 0.6s ease-out forwards, fadeInUp 0.5s ease-out 0.1s forwards' }}>
         {children}
       </div>
     );
@@ -60,16 +60,16 @@ function LockedSection({ id, label, emoji, unlocked, onUnlock, children }) {
       <div className="blur-[6px] opacity-40 pointer-events-none select-none" aria-hidden="true">
         {children}
       </div>
-      {/* ロック解除オーバーレイ */}
+      {/* ロック解除オーバーレイ — パルスするボーダー */}
       <button
         onClick={handleUnlock}
-        className="absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-pointer bg-sakura/60 backdrop-blur-sm rounded-2xl border-2 border-dashed border-vivid-pink/30 transition-all hover:border-vivid-pink/60 hover:bg-sakura/40 group"
+        className="absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-pointer bg-sakura/60 backdrop-blur-sm rounded-2xl border-2 border-dashed border-vivid-pink/30 lock-overlay-pulse transition-all hover:border-vivid-pink/60 hover:bg-sakura/40 group"
         style={{ zIndex: 5 }}
       >
-        <span className="text-4xl group-hover:scale-125 transition-transform duration-300">
+        <span className="text-4xl group-hover:scale-125 transition-transform duration-300 drop-shadow-[0_0_12px_rgba(204,17,51,0.4)]">
           {emoji || '🔒'}
         </span>
-        <p className="text-sm font-extrabold text-vivid-pink">
+        <p className="text-sm font-extrabold text-vivid-pink drop-shadow-[0_0_8px_rgba(204,17,51,0.3)]">
           タップして暴く
         </p>
         <p className="text-xs text-text-secondary">
@@ -145,9 +145,14 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* ============================================ */}
       {/* Section 1: 診断結果 (Hero) — 常に表示 */}
       {/* ============================================ */}
-      <div className="result-section hero-gradient rounded-2xl p-8 shadow-xl border border-vivid-pink/20 card-shine">
+      <div className="result-section hero-gradient rounded-2xl p-8 shadow-xl border border-vivid-pink/20 card-shine relative">
+        {/* キラキラパーティクル */}
+        <div className="sparkle-field" aria-hidden="true">
+          <span /><span /><span /><span /><span /><span />
+        </div>
+
         {/* シルエット → 徐々に明るくなるイラスト */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-6 relative z-10">
           <div className="w-48 h-48 flex items-center justify-center hero-glow bg-sakura/50 rounded-full p-4 silhouette-reveal">
             <AnimalIllustration typeKey={typeKey} />
           </div>
@@ -200,7 +205,8 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
           {result.traits.map((trait, i) => (
             <span
               key={i}
-              className="text-sm font-bold bg-vivid-pink/20 text-vivid-pink px-4 py-2 rounded-full border border-vivid-pink/30 shadow-[0_0_12px_rgba(204,17,51,0.15)]"
+              className="text-sm font-bold bg-vivid-pink/20 text-vivid-pink px-4 py-2 rounded-full border border-vivid-pink/30 trait-badge-glow"
+              style={{ animationDelay: `${i * 0.3}s` }}
             >
               {trait}
             </span>
