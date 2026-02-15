@@ -1,6 +1,7 @@
 import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import QuestionCard from '../components/QuestionCard';
 import ProgressBar from '../components/ProgressBar';
+import ObachanBubble from '../components/ObachanBubble';
 import questions from '../data/questions.json';
 import { calculateResult, isAllAnswered, typeKeyToId } from '../utils/scoring';
 
@@ -77,10 +78,10 @@ export default function QuizPage({ onResult, targetName }) {
   // Milestone taunts
   useEffect(() => {
     const taunts = {
-      10: 'だんだん見えてきたで…',
-      20: 'もう隠しきれへんな…',
-      25: 'あと少しで丸裸や',
-      29: '覚悟はええか？',
+      10: 'あらあら、だんだん見えてきたで…ニヤニヤ',
+      20: 'うわぁ、もう隠しきれへんなこれ…',
+      25: 'あと少しで丸裸やで！覚悟しいや！',
+      29: '最後の1問や…！さぁ暴いたれ！',
     };
     if (taunts[answeredCount]) {
       setTaunt(taunts[answeredCount]);
@@ -123,34 +124,22 @@ export default function QuizPage({ onResult, targetName }) {
           : 'none',
       }}
     >
-      {/* Milestone taunt banner */}
+      {/* Milestone taunt banner - おばちゃん style */}
       {taunt && (
         <div className="quiz-taunt-banner">
-          {taunt}
+          <span className="mr-2">👵</span>{taunt}
         </div>
       )}
 
-      {/* 対象者名の表示 */}
-      {targetName && (
-        <div className="text-center mb-4 py-3 bg-vivid-pink/10 rounded-2xl border border-vivid-pink/20">
-          <p className="text-sm text-text-primary">
-            <span className="text-vivid-pink font-extrabold">{targetName}</span>
-            <span className="text-text-secondary"> のことを思い浮かべて答えてな</span>
-          </p>
-        </div>
-      )}
 
-      {/* 案内注釈ボックス */}
-      <div className="bg-coral/10 border border-coral/30 rounded-2xl px-5 py-4 mb-4 flex items-start gap-3">
-        <span className="text-2xl leading-none mt-0.5" aria-hidden="true">📝</span>
-        <div>
-          <p className="text-text-primary font-bold text-base mb-1">
-            回答できる問題だけ回答してください
-          </p>
-          <p className="text-text-secondary text-sm leading-relaxed">
-            分からない・判断できない問題は「どっちとも言えん」（真ん中のボタン）を選んでください。
-          </p>
-        </div>
+      {/* おばちゃんの案内 */}
+      <div className="mb-4">
+        <ObachanBubble>
+          {targetName
+            ? `ほな${targetName}のこと思い出しながら答えてな！分からん問題は真ん中の「どっちとも言えん」押しときゃええねん。気楽にいこ！`
+            : 'さぁ始めるで！分からん問題は真ん中の「どっちとも言えん」押しときゃええねん。深く考えんと、パパッと答えたってな！'
+          }
+        </ObachanBubble>
       </div>
 
       {/* Progress bar with glow wrapper at 80%+ */}

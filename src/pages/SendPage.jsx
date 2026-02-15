@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useSearchParams, useNavigate, Navigate } from 'react-router-dom';
 import { idToTypeKey, getTypeByKey, MODIFIER_DETAILS } from '../utils/scoring';
 import sendMessagesData from '../data/sendMessages.json';
+import ObachanBubble from '../components/ObachanBubble';
 
 /**
  * 送信設定ページ
@@ -89,13 +90,19 @@ export default function SendPage() {
       {/* ============================================ */}
       {/* ヘッダーセクション */}
       {/* ============================================ */}
-      <div className="text-center mb-6">
+      <div className="text-center mb-4">
         <h1 className="text-xl font-extrabold text-text-primary mb-2">
-          この結果を送りつける
+          裏の顔、叩きつけたる
         </h1>
         <p className="text-sm text-vivid-pink font-semibold">
-          あの人の裏の顔、本人に届けたろか？
+          逃げ場なんかあらへんで？
         </p>
+      </div>
+
+      <div className="mb-5">
+        <ObachanBubble variant="shout">
+          ほな送りつけるで！名前入れて、えげつないメッセージ選んだれ！知らんぷりはさせへんで！
+        </ObachanBubble>
       </div>
 
       {/* ============================================ */}
@@ -106,7 +113,7 @@ export default function SendPage() {
           <span className="text-lg">👿</span>
         </div>
         <div className="min-w-0">
-          <p className="text-[0.65rem] text-text-secondary mb-0.5">送りつける診断結果</p>
+          <p className="text-[0.65rem] text-text-secondary mb-0.5">叩きつける診断結果</p>
           <p className="text-sm font-bold text-text-primary truncate">
             {displayName}
           </p>
@@ -138,7 +145,7 @@ export default function SendPage() {
 
         {/* メッセージ選択 */}
         <div className="mb-5">
-          <p className="text-sm font-bold text-text-primary mb-3">送りつけメッセージを選ぶ</p>
+          <p className="text-sm font-bold text-text-primary mb-3">えげつないメッセージを選べ</p>
           <div className="space-y-2">
             {randomTeasers.map((msg, i) => (
               <button
@@ -176,7 +183,7 @@ export default function SendPage() {
 
         {/* 送信プレビュー */}
         <div className="mb-2">
-          <p className="text-xs text-text-secondary mb-2 font-semibold">受信者に届くメッセージ</p>
+          <p className="text-xs text-text-secondary mb-2 font-semibold">相手に届く爆弾のプレビュー</p>
           <div className="bg-sakura rounded-xl p-4 border border-coral/15">
             <p className="text-[0.65rem] text-text-secondary mb-2">
               From: {senderDisplay}
@@ -197,14 +204,14 @@ export default function SendPage() {
       {/* ============================================ */}
       <div className="bg-card rounded-2xl p-5 mb-6 border border-vivid-pink/25 text-center">
         <p className="text-[0.65rem] text-text-secondary mb-4">
-          あの人の裏の顔を本人に届けます
+          裏の顔を本人にぶつけたる
         </p>
         <button
           type="button"
-          className="btn-primary w-full py-4 rounded-full bg-vivid-pink text-white font-bold text-base border-0 cursor-pointer hover:bg-coral-dark pulse-gentle"
+          className="btn-primary w-full py-4 rounded-full bg-vivid-pink text-white font-extrabold text-base border-0 cursor-pointer hover:bg-coral-dark pulse-gentle"
           onClick={handleSend}
         >
-          送りつける
+          叩きつけたる！
         </button>
       </div>
 

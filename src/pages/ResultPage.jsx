@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import ResultCard from '../components/ResultCard';
 import ShareBox from '../components/ShareBox';
 import FileOpenReveal from '../components/FileOpenReveal';
+import ObachanBubble from '../components/ObachanBubble';
 import { getTypeByKey, idToTypeKey } from '../utils/scoring';
 
 export default function ResultPage({ typeId, modifier, targetName, onRestart, onGoHome }) {
@@ -73,13 +74,21 @@ export default function ResultPage({ typeId, modifier, targetName, onRestart, on
       <ResultCard result={result} typeKey={resolvedKey} modifier={modifier} targetName={targetName} />
       <ShareBox typeId={typeId} modifier={modifier} resultName={result.name} targetName={targetName} />
 
+      {/* おばちゃんの煽り */}
+      <ObachanBubble variant="shout">
+        {targetName
+          ? `ここまで暴いたんやから、${targetName}本人に突きつけたらんと意味ないやろ！遠慮すんな！`
+          : 'ここまで暴いたんやから、本人に突きつけたらんと意味ないやろ！ビビってんちゃうやろな？'
+        }
+      </ObachanBubble>
+
       {/* 送りつけるボタン */}
       <div className="bg-card rounded-3xl p-6 shadow-lg mb-6 border border-vivid-pink/30 text-center">
         <p className="text-lg font-extrabold text-text-primary mb-1">
-          さぁ、{targetName ? `${targetName}に` : '本人に'}突きつけたろか
+          {targetName ? `${targetName}に` : '本人に'}叩きつけたれ
         </p>
         <p className="text-xs text-text-secondary mb-4">
-          「{displayName}」を{targetName ? `${targetName}に` : '相手に'}送りつけられるで
+          「{displayName}」を{targetName ? `${targetName}に` : '相手に'}送りつけたる
         </p>
         {isRevenge ? (
           <>
@@ -87,10 +96,10 @@ export default function ResultPage({ typeId, modifier, targetName, onRestart, on
               className="btn-primary w-full py-4 rounded-full bg-vivid-pink text-white font-extrabold text-base border-0 cursor-pointer hover:bg-coral-dark pulse-gentle"
               onClick={handleRevengeSend}
             >
-              無料でやり返す（送りつける）
+              タダでやり返したる！
             </button>
             <p className="text-xs text-vivid-pink/70 mt-2">
-              リベンジ初回は無料やで
+              リベンジは無料や。やったもん勝ちやで
             </p>
           </>
         ) : (
@@ -99,7 +108,7 @@ export default function ResultPage({ typeId, modifier, targetName, onRestart, on
               className="btn-primary w-full py-4 rounded-full bg-vivid-pink text-white font-extrabold text-base border-0 cursor-pointer hover:bg-coral-dark pulse-gentle"
               onClick={handleSend}
             >
-              本人に送りつけたる
+              本人に叩きつけたる！
             </button>
             <p className="text-xs text-text-secondary/60 mt-2">
               有効期限48時間 / LINE・メール等で共有

@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useSearchParams, Navigate, useNavigate } from 'react-router-dom';
 import sendMessagesData from '../data/sendMessages.json';
 import { MODIFIER_DETAILS } from '../utils/scoring';
+import ObachanBubble from '../components/ObachanBubble';
 
 export default function SendCompletePage() {
   const navigate = useNavigate();
@@ -100,7 +101,7 @@ export default function SendCompletePage() {
 
   // --- メール共有 ---
   const handleMailShare = () => {
-    const subject = encodeURIComponent('裏の顔診断結果');
+    const subject = encodeURIComponent('あんたの裏の顔、暴いたったで');
     const body = encodeURIComponent(`${teaserMessage}\n\n${receivedUrl}`);
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   };
@@ -120,7 +121,7 @@ export default function SendCompletePage() {
   return (
     <div className="pt-6 animate-fade-in-up">
       {/* ===== 1. 成功演出セクション ===== */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-6">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-vivid-pink/15 mb-4">
           <svg
             className="w-10 h-10 text-vivid-pink"
@@ -137,20 +138,26 @@ export default function SendCompletePage() {
           </svg>
         </div>
         <h1 className="text-2xl font-extrabold text-text-primary mb-2">
-          送りつけ完了やで！
+          叩きつけ完了や！
         </h1>
         <p className="text-sm text-text-secondary">
-          ほんまにすんません…（反省はしてない）
+          もう後戻りはでけへんで…
         </p>
+      </div>
+
+      <div className="mb-5">
+        <ObachanBubble variant="reveal">
+          やってもうたな！あとはあの人がリンク開くのを待つだけや。震えて待っときや〜
+        </ObachanBubble>
       </div>
 
       {/* ===== 2. 送信用URL表示 ===== */}
       <div className="bg-card rounded-3xl p-5 shadow-lg mb-5 border border-coral/20">
         <h2 className="text-sm font-bold text-text-primary mb-1">
-          受信者に送るURL
+          このURLを叩きつけろ
         </h2>
         <p className="text-xs text-text-secondary mb-3">
-          このURLを相手に送ったれ
+          相手にこれ送りつけたれ。逃げ場はないで
         </p>
         <div className="flex gap-2">
           <input
@@ -171,7 +178,7 @@ export default function SendCompletePage() {
       {/* ===== 3. 共有ボタン群 ===== */}
       <div className="bg-card rounded-3xl p-5 shadow-lg mb-5 border border-coral/20">
         <h2 className="text-sm font-bold text-text-primary mb-4">
-          メッセージ付きで送りつける
+          メッセージ付きで叩きつける
         </h2>
         <div className="flex flex-col gap-3">
           {/* LINEで送る */}
@@ -214,7 +221,7 @@ export default function SendCompletePage() {
           <span className="text-xl mt-0.5">&#9200;</span>
           <div>
             <p className="text-sm font-bold text-vivid-pink mb-1">
-              この結果は 48時間後に消えるで
+              48時間で証拠は消えるで
             </p>
             <p className="text-xs text-text-secondary">
               有効期限: {expirationDisplay}
@@ -226,10 +233,10 @@ export default function SendCompletePage() {
       {/* ===== 5. プレビューセクション ===== */}
       <div className="bg-card rounded-3xl p-5 shadow-lg mb-5 border border-coral/20">
         <h2 className="text-sm font-bold text-text-primary mb-1">
-          受信者にはこう見えるで
+          相手にはこう届くで
         </h2>
         <p className="text-xs text-text-secondary mb-3">
-          送信メッセージのプレビュー
+          逃げられへん証拠のプレビュー
         </p>
         <div className="bg-sakura rounded-2xl p-4 border border-coral/15 mb-4">
           <p className="text-sm text-text-primary whitespace-pre-wrap leading-relaxed">
@@ -253,7 +260,7 @@ export default function SendCompletePage() {
             window.scrollTo(0, 0);
           }}
         >
-          もう一人に送りつける
+          もう一人叩きつけたる
         </button>
         <button
           className="btn-secondary w-full py-3.5 rounded-full bg-card text-text-secondary font-semibold text-sm border border-coral/30 cursor-pointer hover:border-vivid-pink/30 hover:bg-coral/10 transition-colors"

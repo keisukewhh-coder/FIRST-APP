@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 import AnimalIllustration from './AnimalIllustration';
 import RadarChart from './RadarChart';
-import AruAruChecklist from './AruAruChecklist';
+import ObachanBubble from './ObachanBubble';
 import { MODIFIER_DETAILS } from '../utils/scoring';
 
 /**
@@ -114,7 +114,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
   }, []);
 
   // 暴露度計算（開封されたセクション数）
-  const totalSections = 5; // front, hidden, manual, love, aruaru
+  const totalSections = 4; // front, hidden, manual, love
   const unlockedCount = Object.values(unlocked).filter(Boolean).length;
   const bakuroPercent = Math.round((unlockedCount / totalSections) * 100);
 
@@ -142,51 +142,63 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* Section 1: 診断結果 (Hero) — 常に表示 */}
       {/* ============================================ */}
       <div className="result-section hero-gradient rounded-2xl p-8 shadow-xl border border-vivid-pink/20 card-shine">
+        {/* シルエット → 徐々に明るくなるイラスト */}
         <div className="flex justify-center mb-6">
-          <div className="w-48 h-48 flex items-center justify-center hero-glow bg-sakura/50 rounded-full p-4">
+          <div className="w-48 h-48 flex items-center justify-center hero-glow bg-sakura/50 rounded-full p-4 silhouette-reveal">
             <AnimalIllustration typeKey={typeKey} />
           </div>
         </div>
 
+        {/* おばちゃんの第一声 */}
+        <div className="dondon-item dondon-delay-1">
+          <ObachanBubble variant="reveal">
+            {targetName
+              ? `出たわ…！${targetName}の裏の顔、まさかの…！`
+              : 'あちゃー、出てもうたわ…！まさかの…！'
+            }
+          </ObachanBubble>
+        </div>
+
         {targetName && (
-          <p className="text-center text-sm text-vivid-pink/70 font-bold mb-2 tracking-wide">
+          <p className="text-center text-sm text-vivid-pink/70 font-bold mb-2 tracking-wide dondon-item dondon-delay-2">
             {targetName}の裏の顔は…
           </p>
         )}
 
-        <h2 className="text-center text-[1.75rem] sm:text-4xl font-extrabold text-text-primary mb-3 leading-tight result-title-glow tracking-tight">
+        <h2 className="text-center text-[1.75rem] sm:text-4xl font-extrabold text-text-primary mb-3 leading-tight result-title-glow tracking-tight dondon-item dondon-delay-2">
           {modifier}{result.name}
         </h2>
 
-        <div className="flex justify-center mb-3">
+        <div className="flex justify-center mb-3 dondon-item dondon-delay-2">
           <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-vivid-pink to-transparent rounded-full" />
         </div>
 
-        <p className="text-center text-sm text-vivid-pink font-semibold mb-5 px-2">
+        <p className="text-center text-sm text-vivid-pink font-semibold mb-5 px-2 dondon-item dondon-delay-3">
           {result.tagline}
         </p>
 
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-2 dondon-item dondon-delay-4">
           {result.traits.map((trait, i) => (
             <span
               key={i}
               className="text-sm font-bold bg-vivid-pink/20 text-vivid-pink px-4 py-2 rounded-full border border-vivid-pink/30 shadow-[0_0_12px_rgba(204,17,51,0.15)]"
-              style={{
-                opacity: 0,
-                animation: `fadeInUp 0.4s ease-out ${0.5 + i * 0.1}s forwards`
-              }}
             >
               {trait}
             </span>
           ))}
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 dondon-item dondon-delay-5">
           <RadarChart typeKey={typeKey} modifier={modifier} />
         </div>
       </div>
 
       <SectionDivider />
+      <div className="dondon-item dondon-delay-6">
+        <ObachanBubble variant="whisper">
+          まずは表の顔から見せたるわ…裏はもっとエグいで？
+        </ObachanBubble>
+      </div>
 
       {/* ============================================ */}
       {/* Section 2: 表の顔 — 常に開放 */}
@@ -208,6 +220,9 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       </div>
 
       <SectionDivider />
+      <ObachanBubble variant="shout">
+        さぁここからが本番や！タップして暴いたれ！
+      </ObachanBubble>
 
       {/* ============================================ */}
       {/* Section 3: 裏の顔 — ロック付き */}
@@ -259,6 +274,9 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       </LockedSection>
 
       <SectionDivider />
+      <ObachanBubble>
+        攻略法教えたるわ。でも地雷踏んでも知らんで？
+      </ObachanBubble>
 
       {/* ============================================ */}
       {/* Section 4: トリセツ — ロック付き */}
@@ -345,6 +363,9 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {result.love && (
         <>
           <SectionDivider />
+          <ObachanBubble variant="whisper">
+            ここだけの話やけど…恋愛面はなかなかヤバいで。
+          </ObachanBubble>
           <LockedSection
             id="love"
             label="恋愛のヤバい真実、覗いてみるか？"
@@ -377,27 +398,14 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       )}
 
       {/* ============================================ */}
-      {/* Section 6: あるあるチェック — ロック付き */}
-      {/* ============================================ */}
-      <SectionDivider />
-      <LockedSection
-        id="aruaru"
-        label={`${nameLabel}のあるある、チェックしてみるか？`}
-        emoji="🔍"
-        unlocked={unlocked.aruaru}
-        onUnlock={handleUnlock}
-      >
-        <div className="result-section">
-          <AruAruChecklist typeKey={typeKey} targetName={targetName} />
-        </div>
-      </LockedSection>
-
-      {/* ============================================ */}
       {/* Section 7: 極秘ファイル（フローティングバーから開放） */}
       {/* ============================================ */}
       {gokuhi && (
         <>
           <SectionDivider />
+          <ObachanBubble variant="reveal">
+            極秘ファイル開いてもうたな…！もう後戻りできひんで！
+          </ObachanBubble>
           <div
             ref={gokuhiRef}
             className="result-section bg-card rounded-2xl shadow-xl border-2 border-vivid-pink/50 overflow-hidden gokuhi-card"
