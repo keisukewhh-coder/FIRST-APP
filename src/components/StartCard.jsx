@@ -42,15 +42,16 @@ export default function StartCard() {
       <h1 className="text-2xl font-extrabold text-text-primary mb-1">
         あの人の裏の顔診断
       </h1>
-      <p className="text-xs text-vivid-pink font-bold mb-3">（ちょいゲス）</p>
+      <p className="text-xs text-vivid-pink font-bold mb-3">- 勝手に覗き見エディション -</p>
       <p className="text-sm text-text-secondary mb-6 leading-relaxed">
-        あの人の「ちょっとダメなところ」や<br />
-        「日常のクセ」を観察。その裏の顔を<br />
-        <span className="text-vivid-pink font-bold">動物に例えてこっそり暴く</span>、<br />
-        ちょいゲスな人間観察エンタメ。
+        あの人が<span className="text-vivid-pink font-bold">絶対に見せたくない</span><br />
+        ダメなところ、ヤバいクセ、黒い本性。<br />
+        本人の許可なく<span className="text-vivid-pink font-bold">勝手に丸裸にして<br />
+        動物に例えて暴いちゃう</span>、<br />
+        悪趣味全開の人間観察エンタメ。
       </p>
 
-      <div className="flex justify-center gap-6 mb-5">
+      <div className="flex justify-center gap-4 mb-5">
         <div className="flex flex-col items-center gap-1">
           <span className="text-xs text-text-secondary">所要時間</span>
           <span className="text-base font-bold text-vivid-pink">約3分</span>
@@ -60,24 +61,29 @@ export default function StartCard() {
           <span className="text-base font-bold text-vivid-pink">30問</span>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <span className="text-xs text-text-secondary">タイプ</span>
-          <span className="text-base font-bold text-vivid-pink">16種</span>
+          <span className="text-xs text-text-secondary">結果</span>
+          <span className="text-base font-bold text-vivid-pink">128通り</span>
         </div>
       </div>
+      <p className="text-xs text-text-secondary mb-5">
+        16種の動物タイプ × 8種の修飾語 =<br />
+        <span className="text-vivid-pink font-bold">全128通りの裏の顔レシピ</span>
+      </p>
 
       <p className="text-sm text-text-primary mb-2 leading-relaxed">
         あの人の行動を思い出しながら、<br />
-        30問の質問に答えてみてください。
+        30問の質問に答えるだけ。<br />
+        <span className="text-vivid-pink font-semibold">本人にバレずにこっそりどうぞ。</span>
       </p>
       <p className="text-xs text-text-secondary mb-6">
-        ※ エンタメ目的の診断です。性格を断定するものではありません。
+        ※ 悪趣味エンタメです。本気にしないでね。
       </p>
 
       <button
         className="pulse-gentle w-full max-w-xs mx-auto py-3.5 px-8 rounded-full bg-vivid-pink text-white font-bold text-base border-0 cursor-pointer shadow-md hover:bg-coral-dark transition-colors"
         onClick={() => navigate('/quiz')}
       >
-        あの人の裏の顔を暴く
+        勝手に覗き見する
       </button>
 
       <p className="mt-4 text-xs text-text-secondary">
