@@ -41,11 +41,11 @@ export default function SendPage() {
   const result = found.data;
   const displayName = `${modifier}${result.name}`;
 
-  // --- ランダムにティーザーメッセージ3つを選択（初回マウント時のみ） ---
+  // --- ランダムにティーザーメッセージ5つを選択（初回マウント時のみ） ---
   const randomTeasers = useMemo(() => {
     const allTeasers = [...sendMessagesData.sendMessages.teaser];
     const selected = [];
-    while (selected.length < 3 && allTeasers.length > 0) {
+    while (selected.length < 5 && allTeasers.length > 0) {
       const idx = Math.floor(Math.random() * allTeasers.length);
       selected.push(allTeasers.splice(idx, 1)[0]);
     }
