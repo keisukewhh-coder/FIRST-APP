@@ -1635,3 +1635,133 @@ body {
 .analyzing-obachan-reveal {
   animation: analyzingReveal 0.5s ease-out forwards;
 }
+
+/* ========================================
+   PROGRESSIVE REVEAL - scroll-triggered section reveal
+   ======================================== */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+  filter: blur(4px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              filter 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal-section.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* ========================================
+   TEASER TEXT - provocation between sections
+   ======================================== */
+@keyframes teaserPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+    text-shadow: 0 0 8px rgba(204, 17, 51, 0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+    text-shadow: 0 0 16px rgba(204, 17, 51, 0.5), 0 0 30px rgba(204, 17, 51, 0.2);
+  }
+}
+
+.teaser-text {
+  animation: teaserPulse 2.5s ease-in-out infinite;
+}
+
+.teaser-text.revealed {
+  animation-delay: 0s;
+}
+
+/* ========================================
+   SHAKE EFFECT - screen shake on ura reveal
+   ======================================== */
+@keyframes uraShake {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  10% { transform: translate(-4px, 2px) rotate(-0.5deg); }
+  20% { transform: translate(4px, -2px) rotate(0.5deg); }
+  30% { transform: translate(-3px, -2px) rotate(-0.3deg); }
+  40% { transform: translate(3px, 2px) rotate(0.3deg); }
+  50% { transform: translate(-2px, 1px) rotate(-0.2deg); }
+  60% { transform: translate(2px, -1px) rotate(0.2deg); }
+  70% { transform: translate(-1px, 1px) rotate(-0.1deg); }
+  80% { transform: translate(1px, -1px) rotate(0.1deg); }
+  90% { transform: translate(-1px, 0px) rotate(0deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.ura-shake {
+  animation: uraShake 0.5s ease-out;
+}
+
+/* ========================================
+   DANGER METER - animated gauge bars
+   ======================================== */
+@keyframes meterFill {
+  from {
+    width: 0%;
+  }
+}
+
+.meter-bar-fill {
+  animation: meterFill 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  background: linear-gradient(90deg, #5A1520, #CC1133, #FF3355);
+  background-size: 200% 100%;
+  animation: meterFill 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
+             progressGradientFlow 2s linear infinite;
+}
+
+@keyframes meterGlow {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(204, 17, 51, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(204, 17, 51, 0.5), 0 0 24px rgba(204, 17, 51, 0.2);
+  }
+}
+
+.meter-bar-glow {
+  animation: meterGlow 2s ease-in-out infinite;
+}
+
+@keyframes starPop {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-30deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4) rotate(10deg);
+  }
+  70% {
+    transform: scale(0.85) rotate(-5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.star-pop {
+  opacity: 0;
+  animation: starPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ========================================
+   TEASER DIVIDER - animated divider with eye emoji
+   ======================================== */
+@keyframes teaserEyeBlink {
+  0%, 40%, 100% { transform: scaleY(1); }
+  45% { transform: scaleY(0.1); }
+  50% { transform: scaleY(1); }
+}
+
+.teaser-eye {
+  display: inline-block;
+  animation: teaserEyeBlink 3s ease-in-out infinite;
+}

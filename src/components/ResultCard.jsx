@@ -103,6 +103,124 @@ function SectionDivider() {
 }
 
 /**
+ * TeaserDivider — セクション間の煽りテキスト付きディバイダ（スクロールで表示）
+ */
+function TeaserDivider({ text }) {
+  const [ref, isVisible] = useScrollReveal(0.1);
+
+  return (
+    <div
+      ref={ref}
+      className={`reveal-section py-3 ${isVisible ? 'revealed' : ''}`}
+    >
+      <SectionDivider />
+      <div className="text-center py-3">
+        <p className={`teaser-text text-sm font-extrabold text-vivid-pink/80 tracking-wide ${isVisible ? 'revealed' : ''}`}>
+          {text}
+        </p>
+      </div>
+      <SectionDivider />
+    </div>
+  );
+}
+
+/**
+ * DangerMeter — アニメーション付きゲージバー
+ */
+function DangerMeter({ label, level, maxLevel = 5, icon, visible }) {
+  const percent = (level / maxLevel) * 100;
+
+  return (
+    <div className="flex items-center gap-3 py-1.5">
+      <span className="text-xs font-bold text-vivid-pink/70 shrink-0 w-20">{icon} {label}</span>
+      <div className="flex-1 h-3 bg-coral/30 rounded-full overflow-hidden meter-bar-glow">
+        <div
+          className="h-full rounded-full meter-bar-fill"
+          style={{
+            width: visible ? `${percent}%` : '0%',
+            transitionDelay: '0.3s',
+          }}
+        />
+      </div>
+      <span className="text-xs font-extrabold text-vivid-pink shrink-0">{level}/{maxLevel}</span>
+    </div>
+  );
+}
+
+/**
+ * AnimatedStars — 星がポップするアニメーション付き
+ */
+function AnimatedStars({ level, visible }) {
+  return (
+    <div className="flex gap-1.5">
+      {[1,2,3,4,5].map(i => (
+        <span
+          key={i}
+          className={`text-sm star-pop ${i <= level ? '' : 'opacity-20'}`}
+          style={{
+            animationDelay: visible ? `${0.3 + i * 0.15}s` : '0s',
+            opacity: visible ? undefined : 0,
+          }}
+        >
+          {i <= level ? '💀' : '💀'}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * useScrollReveal — Intersection Observer を使ったスクロール表示制御
+ */
+function useScrollReveal(threshold = 0.15) {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(node);
+        }
+      },
+      { threshold, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return [ref, isVisible];
+}
+
+/**
+ * RevealSection — スクロールで表示されるセクションラッパー
+ */
+function RevealSection({ children, delay = 0, onReveal }) {
+  const [ref, isVisible] = useScrollReveal(0.1);
+
+  useEffect(() => {
+    if (isVisible && onReveal) {
+      onReveal();
+    }
+  }, [isVisible, onReveal]);
+
+  return (
+    <div
+      ref={ref}
+      className={`reveal-section ${isVisible ? 'revealed' : ''}`}
+      style={{ transitionDelay: `${delay}s` }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/**
  * LockedSection — タップで開封するロック付きセクション
  * ロック中: ブラー + 鍵マーク + 煽りテキスト
  * 解除後: 通常表示 + 開封アニメーション
@@ -151,6 +269,15 @@ function LockedSection({ id, label, emoji, unlocked, onUnlock, children }) {
   );
 }
 
+/** セクション間の煽りテキスト一覧 */
+const TEASER_TEXTS = [
+  'ここからが本番やで…覚悟しとき 👀',
+  'まだまだ暴くで…逃げられへんで 🔥',
+  '攻略法わかったやろ？次はデートや 💕',
+  '最終兵器、見せたるわ… 💣',
+  'ラスト。これ知ったらもう戻れへんで… 💀',
+];
+
 export default function ResultCard({ result, typeKey, modifier, targetName }) {
   if (!result) {
     return (
@@ -168,8 +295,22 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
   const [gokuhi, setGokuhi] = useState(false);
   const gokuhiRef = useRef(null);
 
+  // シェイク演出: 裏の顔が開封された時に画面をシェイク
+  const [shaking, setShaking] = useState(false);
+  const shakeContainerRef = useRef(null);
+
+  // メーターの表示制御
+  const [metersVisible, setMetersVisible] = useState(false);
+  const [loveMetersVisible, setLoveMetersVisible] = useState(false);
+
   const handleUnlock = useCallback((id) => {
     setUnlocked((prev) => ({ ...prev, [id]: true }));
+
+    // 裏の顔セクションが開封されたら画面シェイク
+    if (id === 'hidden') {
+      setShaking(true);
+      setTimeout(() => setShaking(false), 500);
+    }
   }, []);
 
   const handleGokuhiToggle = useCallback(() => {
@@ -191,6 +332,9 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
 
   // ゲス度を typeKey から算出（1-5）
   const gesudoLevel = typeKey ? ((typeKey.charCodeAt(0) + typeKey.charCodeAt(1) + typeKey.charCodeAt(2) + typeKey.charCodeAt(3)) % 4) + 2 : 3;
+
+  // 面倒くさ度を算出（1-5: traitsの文字数 + typeKeyから）
+  const mendokusaLevel = typeKey ? ((typeKey.charCodeAt(1) + typeKey.charCodeAt(3)) % 4) + 2 : 3;
 
   // ★の数を数えて恋愛キケン度を算出（1-5）
   const dangerMatch = result.love?.match(/★/g);
@@ -217,7 +361,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
     {/* Confetti effect */}
     <ConfettiEffect />
 
-    <div className="space-y-8 mb-6 pb-24">
+    <div ref={shakeContainerRef} className={`space-y-8 mb-6 pb-24 ${shaking ? 'ura-shake' : ''}`}>
 
       {/* ============================================ */}
       {/* Section 1: 診断結果 (Hero) — 常に表示 */}
@@ -294,209 +438,247 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
         </div>
       </div>
 
-      <SectionDivider />
-      <div className="dondon-item dondon-delay-6">
+      {/* ============================================ */}
+      {/* 煽りテキスト 1 */}
+      {/* ============================================ */}
+      <TeaserDivider text={TEASER_TEXTS[0]} />
+
+      <RevealSection delay={0.1}>
         <ObachanBubble variant="whisper">
           まずは表の顔から見せたるわ…裏はもっとエグいで？
         </ObachanBubble>
-      </div>
+      </RevealSection>
 
       {/* ============================================ */}
       {/* Section 2: 表の顔 — 常に開放 */}
       {/* ============================================ */}
-      <div className="result-section glass-card rounded-2xl shadow-lg overflow-hidden border-l-4 border-l-blue-400/70">
-        <div className="bg-coral/20 px-5 py-4 flex items-center gap-3">
-          <span className="text-2xl">😇</span>
-          <h3 className="text-xl font-bold text-text-primary">
-            {nameLabel}の表の顔
-          </h3>
-          <span className="text-xs text-text-secondary ml-auto">みんなが見ている姿</span>
-        </div>
-        <div className="px-5 py-6">
-          <p className="text-xs text-vivid-pink/50 italic mb-3">こんな顔して裏ではね…</p>
-          <p className="text-sm leading-8 text-text-primary whitespace-pre-line">
-            {result.front}
-          </p>
-        </div>
-      </div>
-
-      <SectionDivider />
-      <ObachanBubble variant="shout">
-        さぁここからが本番や！タップして暴いたれ！
-      </ObachanBubble>
-
-      {/* ============================================ */}
-      {/* Section 3: 裏の顔 — ロック付き */}
-      {/* ============================================ */}
-      <LockedSection
-        id="hidden"
-        label={`${nameLabel}の黒い本性、見る覚悟あるか？`}
-        emoji="👿"
-        unlocked={unlocked.hidden}
-        onUnlock={handleUnlock}
-      >
-        <div className="result-section bg-card rounded-2xl shadow-xl border-2 border-vivid-pink/40 overflow-hidden ura-card">
-          <div className="ura-header px-5 py-5 flex items-center gap-3">
-            <span className="text-3xl">👿</span>
-            <h3 className="text-2xl font-extrabold text-vivid-pink">
-              {nameLabel}の裏の顔
+      <RevealSection delay={0.15}>
+        <div className="result-section glass-card rounded-2xl shadow-lg overflow-hidden border-l-4 border-l-blue-400/70" style={{ opacity: 1 }}>
+          <div className="bg-coral/20 px-5 py-4 flex items-center gap-3">
+            <span className="text-2xl">😇</span>
+            <h3 className="text-xl font-bold text-text-primary">
+              {nameLabel}の表の顔
             </h3>
-            <span className="text-[0.65rem] text-vivid-pink/60 ml-auto font-medium tracking-wider">ちょいゲスな本性</span>
+            <span className="text-xs text-text-secondary ml-auto">みんなが見ている姿</span>
           </div>
-          <div className="px-5 pt-3 pb-0 flex items-center gap-3">
-            <span className="text-xs font-bold text-vivid-pink/70">ゲス度</span>
-            <div className="flex gap-1.5">
-              {[1,2,3,4,5].map(i => (
-                <span key={i} className={`w-4 h-4 rounded-full ${i <= gesudoLevel ? 'bg-vivid-pink shadow-[0_0_6px_rgba(204,17,51,0.4)]' : 'bg-coral/30'}`} />
-              ))}
-            </div>
-            <span className="text-xs text-vivid-pink/50 ml-auto">{gesudoLevel}/5</span>
-          </div>
-          <div className="px-5 py-6 ura-body">
-            <p className="text-xs text-vivid-pink/50 italic mb-3">さぁ、ここからが本番やで</p>
+          <div className="px-5 py-6">
+            <p className="text-xs text-vivid-pink/50 italic mb-3">こんな顔して裏ではね…</p>
             <p className="text-sm leading-8 text-text-primary whitespace-pre-line">
-              {result.hidden}
+              {result.front}
             </p>
-            {modifierDetail && (
-              <div className="mt-4 pt-4 border-t border-vivid-pink/20">
-                <div className="modifier-reveal rounded-xl p-4">
-                  <p className="text-sm leading-relaxed text-text-primary">
-                    <span className="font-bold text-vivid-pink">「{modifier}」</span>
-                    <span className="text-text-secondary text-xs ml-1">タイプの裏側</span>
-                  </p>
-                  <p className="text-sm leading-8 text-text-primary mt-2">
-                    {modifierDetail}
-                  </p>
-                </div>
-              </div>
-            )}
           </div>
         </div>
-      </LockedSection>
+      </RevealSection>
 
-      <SectionDivider />
-      <ObachanBubble>
-        攻略法教えたるわ。でも地雷踏んでも知らんで？
-      </ObachanBubble>
+      {/* ============================================ */}
+      {/* 煽りテキスト 2 */}
+      {/* ============================================ */}
+      <TeaserDivider text={TEASER_TEXTS[1]} />
+
+      <RevealSection delay={0.1}>
+        <ObachanBubble variant="shout">
+          さぁここからが本番や！タップして暴いたれ！
+        </ObachanBubble>
+      </RevealSection>
+
+      {/* ============================================ */}
+      {/* Section 3: 裏の顔 — ロック付き + シェイク演出 */}
+      {/* ============================================ */}
+      <RevealSection delay={0.15}>
+        <LockedSection
+          id="hidden"
+          label={`${nameLabel}の黒い本性、見る覚悟あるか？`}
+          emoji="👿"
+          unlocked={unlocked.hidden}
+          onUnlock={handleUnlock}
+        >
+          <div className="result-section bg-card rounded-2xl shadow-xl border-2 border-vivid-pink/40 overflow-hidden ura-card" style={{ opacity: 1 }}>
+            <div className="ura-header px-5 py-5 flex items-center gap-3">
+              <span className="text-3xl">👿</span>
+              <h3 className="text-2xl font-extrabold text-vivid-pink">
+                {nameLabel}の裏の顔
+              </h3>
+              <span className="text-[0.65rem] text-vivid-pink/60 ml-auto font-medium tracking-wider">ちょいゲスな本性</span>
+            </div>
+
+            {/* 危険度メーター群 */}
+            <div className="px-5 pt-4 pb-2 space-y-1">
+              <RevealSection delay={0} onReveal={() => setMetersVisible(true)}>
+                <DangerMeter label="ゲス度" level={gesudoLevel} icon="👿" visible={metersVisible && unlocked.hidden} />
+                <DangerMeter label="面倒くさ度" level={mendokusaLevel} icon="😮‍💨" visible={metersVisible && unlocked.hidden} />
+              </RevealSection>
+            </div>
+
+            <div className="px-5 py-6 ura-body">
+              <p className="text-xs text-vivid-pink/50 italic mb-3">さぁ、ここからが本番やで</p>
+              <p className="text-sm leading-8 text-text-primary whitespace-pre-line">
+                {result.hidden}
+              </p>
+              {modifierDetail && (
+                <div className="mt-4 pt-4 border-t border-vivid-pink/20">
+                  <div className="modifier-reveal rounded-xl p-4">
+                    <p className="text-sm leading-relaxed text-text-primary">
+                      <span className="font-bold text-vivid-pink">「{modifier}」</span>
+                      <span className="text-text-secondary text-xs ml-1">タイプの裏側</span>
+                    </p>
+                    <p className="text-sm leading-8 text-text-primary mt-2">
+                      {modifierDetail}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </LockedSection>
+      </RevealSection>
+
+      {/* ============================================ */}
+      {/* 煽りテキスト 3 */}
+      {/* ============================================ */}
+      <TeaserDivider text={TEASER_TEXTS[2]} />
+
+      <RevealSection delay={0.1}>
+        <ObachanBubble>
+          攻略法教えたるわ。でも地雷踏んでも知らんで？
+        </ObachanBubble>
+      </RevealSection>
 
       {/* ============================================ */}
       {/* Section 4: トリセツ — ロック付き */}
       {/* ============================================ */}
-      <LockedSection
-        id="manual"
-        label={`${nameLabel}の攻略法と地雷、知りたいか？`}
-        emoji="📖"
-        unlocked={unlocked.manual}
-        onUnlock={handleUnlock}
-      >
-        <div className="result-section glass-card rounded-2xl shadow-lg overflow-hidden border-l-4 border-l-amber-500/70">
-          <div className="bg-coral/25 px-5 py-4 flex items-center gap-3">
-            <span className="text-2xl">📖</span>
-            <h3 className="text-xl font-bold text-text-primary">
-              {nameLabel}のトリセツ
-            </h3>
+      <RevealSection delay={0.15}>
+        <LockedSection
+          id="manual"
+          label={`${nameLabel}の攻略法と地雷、知りたいか？`}
+          emoji="📖"
+          unlocked={unlocked.manual}
+          onUnlock={handleUnlock}
+        >
+          <div className="result-section glass-card rounded-2xl shadow-lg overflow-hidden border-l-4 border-l-amber-500/70" style={{ opacity: 1 }}>
+            <div className="bg-coral/25 px-5 py-4 flex items-center gap-3">
+              <span className="text-2xl">📖</span>
+              <h3 className="text-xl font-bold text-text-primary">
+                {nameLabel}のトリセツ
+              </h3>
+            </div>
+            <div className="px-5 py-6 space-y-5">
+              <p className="text-xs text-vivid-pink/50 italic">{targetName ? `${targetName}を` : ''}攻略するも地雷を踏むも、あんた次第や</p>
+
+              {attackStrategy && (
+                <div className="glass-inner rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-base">✅</span>
+                    <h4 className="text-[0.95rem] font-extrabold text-text-primary tracking-wide">攻略法</h4>
+                  </div>
+                  <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{attackStrategy}</p>
+                </div>
+              )}
+
+              {dateSimulation && (
+                <div className="torisetsu-item glass-inner rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-base">🎬</span>
+                    <h4 className="text-[0.95rem] font-extrabold text-text-primary tracking-wide">デートのシミュレーション</h4>
+                  </div>
+                  <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{dateSimulation}</p>
+                </div>
+              )}
+
+              {dateSpot && (
+                <div className="torisetsu-item rounded-xl p-4 glass-inner">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl mt-0.5 shrink-0">🎯</span>
+                    <div>
+                      <h4 className="text-[0.95rem] font-extrabold text-vivid-pink mb-1 tracking-wide">喜ぶデートスポット</h4>
+                      <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{dateSpot}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {landmine && (
+                <div className="torisetsu-item rounded-xl p-4 border border-vivid-pink/30 bg-vivid-pink/5">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl mt-0.5 shrink-0">⚠️</span>
+                    <div>
+                      <h4 className="text-[0.95rem] font-extrabold text-vivid-pink mb-1 tracking-wide">絶対にやってはいけないNG行動</h4>
+                      <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{landmine}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {result.killer && (
+                <div className="torisetsu-item rounded-xl p-4 glass-inner">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl mt-0.5 shrink-0">💘</span>
+                    <div>
+                      <h4 className="text-[0.95rem] font-extrabold text-vivid-pink mb-1 tracking-wide">最強の落とし方</h4>
+                      <p className="text-sm leading-8 text-text-primary font-semibold whitespace-pre-line">{result.killer}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-          <div className="px-5 py-6 space-y-5">
-            <p className="text-xs text-vivid-pink/50 italic">{targetName ? `${targetName}を` : ''}攻略するも地雷を踏むも、あんた次第や</p>
-
-            {attackStrategy && (
-              <div className="glass-inner rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-base">✅</span>
-                  <h4 className="text-[0.95rem] font-extrabold text-text-primary tracking-wide">攻略法</h4>
-                </div>
-                <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{attackStrategy}</p>
-              </div>
-            )}
-
-            {dateSimulation && (
-              <div className="torisetsu-item glass-inner rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-base">🎬</span>
-                  <h4 className="text-[0.95rem] font-extrabold text-text-primary tracking-wide">デートのシミュレーション</h4>
-                </div>
-                <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{dateSimulation}</p>
-              </div>
-            )}
-
-            {dateSpot && (
-              <div className="torisetsu-item rounded-xl p-4 glass-inner">
-                <div className="flex items-start gap-3">
-                  <span className="text-xl mt-0.5 shrink-0">🎯</span>
-                  <div>
-                    <h4 className="text-[0.95rem] font-extrabold text-vivid-pink mb-1 tracking-wide">喜ぶデートスポット</h4>
-                    <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{dateSpot}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {landmine && (
-              <div className="torisetsu-item rounded-xl p-4 border border-vivid-pink/30 bg-vivid-pink/5">
-                <div className="flex items-start gap-3">
-                  <span className="text-xl mt-0.5 shrink-0">⚠️</span>
-                  <div>
-                    <h4 className="text-[0.95rem] font-extrabold text-vivid-pink mb-1 tracking-wide">絶対にやってはいけないNG行動</h4>
-                    <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{landmine}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {result.killer && (
-              <div className="torisetsu-item rounded-xl p-4 glass-inner">
-                <div className="flex items-start gap-3">
-                  <span className="text-xl mt-0.5 shrink-0">💘</span>
-                  <div>
-                    <h4 className="text-[0.95rem] font-extrabold text-vivid-pink mb-1 tracking-wide">最強の落とし方</h4>
-                    <p className="text-sm leading-8 text-text-primary font-semibold whitespace-pre-line">{result.killer}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </LockedSection>
+        </LockedSection>
+      </RevealSection>
 
       {/* ============================================ */}
       {/* Section 5: 付き合ったらどうなる？ — ロック付き */}
       {/* ============================================ */}
       {result.love && (
         <>
-          <SectionDivider />
-          <ObachanBubble variant="whisper">
-            ここだけの話やけど…恋愛面はなかなかヤバいで。
-          </ObachanBubble>
-          <LockedSection
-            id="love"
-            label="恋愛のヤバい真実、覗いてみるか？"
-            emoji="💕"
-            unlocked={unlocked.love}
-            onUnlock={handleUnlock}
-          >
-            <div className="result-section glass-card rounded-2xl shadow-lg overflow-hidden border-l-4 border-l-pink-400/70">
-              <div className="bg-coral/20 px-5 py-4 flex items-center gap-3">
-                <span className="text-2xl">💕</span>
-                <h3 className="text-xl font-bold text-text-primary">
-                  {targetName ? `${targetName}と` : ''}付き合ったらどうなる？
-                </h3>
-              </div>
-              <div className="px-5 pt-3 pb-0 flex items-center gap-3">
-                <span className="text-xs font-bold text-vivid-pink/70">恋愛キケン度</span>
-                <div className="flex gap-1">
-                  {[1,2,3,4,5].map(i => (
-                    <span key={i} className={`text-sm ${i <= dangerLevel ? '' : 'opacity-20'}`}>💀</span>
-                  ))}
+          {/* 煽りテキスト 4 */}
+          <TeaserDivider text={TEASER_TEXTS[3]} />
+
+          <RevealSection delay={0.1}>
+            <ObachanBubble variant="whisper">
+              ここだけの話やけど…恋愛面はなかなかヤバいで。
+            </ObachanBubble>
+          </RevealSection>
+
+          <RevealSection delay={0.15}>
+            <LockedSection
+              id="love"
+              label="恋愛のヤバい真実、覗いてみるか？"
+              emoji="💕"
+              unlocked={unlocked.love}
+              onUnlock={handleUnlock}
+            >
+              <div className="result-section glass-card rounded-2xl shadow-lg overflow-hidden border-l-4 border-l-pink-400/70" style={{ opacity: 1 }}>
+                <div className="bg-coral/20 px-5 py-4 flex items-center gap-3">
+                  <span className="text-2xl">💕</span>
+                  <h3 className="text-xl font-bold text-text-primary">
+                    {targetName ? `${targetName}と` : ''}付き合ったらどうなる？
+                  </h3>
+                </div>
+
+                {/* 恋愛キケン度メーター */}
+                <div className="px-5 pt-3 pb-1 space-y-1">
+                  <RevealSection delay={0} onReveal={() => setLoveMetersVisible(true)}>
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-bold text-vivid-pink/70">恋愛キケン度</span>
+                      <AnimatedStars level={dangerLevel} visible={loveMetersVisible && unlocked.love} />
+                    </div>
+                    <DangerMeter label="依存度" level={Math.min(dangerLevel + 1, 5)} maxLevel={5} icon="🫠" visible={loveMetersVisible && unlocked.love} />
+                  </RevealSection>
+                </div>
+
+                <div className="px-5 py-6">
+                  <p className="text-xs text-vivid-pink/50 italic mb-3">覚悟はええか？</p>
+                  <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{result.love}</p>
                 </div>
               </div>
-              <div className="px-5 py-6">
-                <p className="text-xs text-vivid-pink/50 italic mb-3">覚悟はええか？</p>
-                <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{result.love}</p>
-              </div>
-            </div>
-          </LockedSection>
+            </LockedSection>
+          </RevealSection>
         </>
       )}
+
+      {/* ============================================ */}
+      {/* 最後の煽りテキスト */}
+      {/* ============================================ */}
+      <TeaserDivider text={TEASER_TEXTS[4]} />
 
       {/* ============================================ */}
       {/* Section 7: 極秘ファイル（フローティングバーから開放） */}
@@ -564,11 +746,13 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* ============================================ */}
       {/* Section 8: ハッシュタグ */}
       {/* ============================================ */}
-      <div className="result-section text-center py-4">
-        <span className="inline-block text-sm font-bold text-vivid-pink bg-vivid-pink/10 px-5 py-2 rounded-full border border-vivid-pink/20">
-          #あの人の裏の顔診断
-        </span>
-      </div>
+      <RevealSection delay={0.1}>
+        <div className="text-center py-4">
+          <span className="inline-block text-sm font-bold text-vivid-pink bg-vivid-pink/10 px-5 py-2 rounded-full border border-vivid-pink/20">
+            #あの人の裏の顔診断
+          </span>
+        </div>
+      </RevealSection>
     </div>
 
     {/* ============================================ */}
