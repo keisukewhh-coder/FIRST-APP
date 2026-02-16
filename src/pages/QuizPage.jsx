@@ -2,6 +2,7 @@ import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import QuestionCard from '../components/QuestionCard';
 import ProgressBar from '../components/ProgressBar';
 import ObachanBubble from '../components/ObachanBubble';
+import AnalyzingScreen from '../components/AnalyzingScreen';
 import questions from '../data/questions.json';
 import { calculateResult, isAllAnswered, typeKeyToId } from '../utils/scoring';
 
@@ -62,7 +63,14 @@ export default function QuizPage({ onResult, targetName }) {
   const [answers, setAnswers] = useState({});
   const [showValidation, setShowValidation] = useState(false);
   const [taunt, setTaunt] = useState('');
+  const [combo, setCombo] = useState(0);
+  const [showCombo, setShowCombo] = useState(false);
+  const [poppedCard, setPoppedCard] = useState(null);
+  const [showAnalyzing, setShowAnalyzing] = useState(false);
+  const pendingResult = useRef(null);
   const cardRefs = useRef({});
+  const lastAnswerTime = useRef(Date.now());
+  const comboTimer = useRef(null);
 
   const shuffledQuestions = useMemo(() => shuffleQuestions([...questions]), []);
 
@@ -75,24 +83,62 @@ export default function QuizPage({ onResult, targetName }) {
   const vignetteSpread = Math.round(40 + progress * 120);
   const vignetteSize = Math.round(20 + progress * 80);
 
-  // Milestone taunts
+  // Screen tremble for final questions
+  const trembleThreshold = Math.max(1, totalQuestions - 5);
+  const shouldTremble = answeredCount >= trembleThreshold;
+
+  // Milestone taunts (updated for 45 questions)
   useEffect(() => {
     const taunts = {
-      10: 'あらあら、だんだん見えてきたで…ニヤニヤ',
-      20: 'うわぁ、もう隠しきれへんなこれ…',
-      25: 'あと少しで丸裸やで！覚悟しいや！',
-      29: '最後の1問や…！さぁ暴いたれ！',
+      12: 'あらあら、だんだん見えてきたで…ニヤニヤ',
+      25: 'うわぁ、もう隠しきれへんなこれ…',
+      [totalQuestions - 10]: 'あと少しで丸裸やで！覚悟しいや！',
+      [totalQuestions - 5]: 'もう逃げられへんで…！全部見えとるわ！',
+      [totalQuestions - 1]: '最後の1問や…！さぁ暴いたれ！',
     };
     if (taunts[answeredCount]) {
       setTaunt(taunts[answeredCount]);
       const timer = setTimeout(() => setTaunt(''), 2500);
       return () => clearTimeout(timer);
     }
-  }, [answeredCount]);
+  }, [answeredCount, totalQuestions]);
 
   const handleAnswer = useCallback((questionId, value) => {
+    const now = Date.now();
+    const elapsed = now - lastAnswerTime.current;
+    lastAnswerTime.current = now;
+
+    // Combo logic: if answered within 3 seconds, increment combo
+    if (elapsed < 3000) {
+      setCombo((prev) => {
+        const newCombo = prev + 1;
+        if (newCombo >= 3) {
+          setShowCombo(true);
+          if (comboTimer.current) clearTimeout(comboTimer.current);
+          comboTimer.current = setTimeout(() => {
+            setShowCombo(false);
+          }, 1500);
+        }
+        return newCombo;
+      });
+    } else {
+      setCombo(1);
+      setShowCombo(false);
+    }
+
+    // Pop visual feedback
+    setPoppedCard(questionId);
+    setTimeout(() => setPoppedCard(null), 400);
+
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
     setShowValidation(false);
+  }, []);
+
+  // Cleanup combo timer
+  useEffect(() => {
+    return () => {
+      if (comboTimer.current) clearTimeout(comboTimer.current);
+    };
   }, []);
 
   const handleSubmit = () => {
@@ -109,15 +155,39 @@ export default function QuizPage({ onResult, targetName }) {
       return;
     }
     const { typeKey, modifier } = calculateResult(answers);
-    onResult({ typeId: typeKeyToId(typeKey), modifier });
+    pendingResult.current = { typeId: typeKeyToId(typeKey), modifier };
+    setShowAnalyzing(true);
   };
 
+  const handleAnalyzingComplete = useCallback(() => {
+    if (pendingResult.current) {
+      onResult(pendingResult.current);
+    }
+  }, [onResult]);
+
   const canSubmit = isAllAnswered(answers);
-  const almostDone = answeredCount >= 28;
+  const almostDone = answeredCount >= totalQuestions - 3;
+
+  // Combo display text
+  const comboText = combo >= 10
+    ? `${combo}連続！！！`
+    : combo >= 5
+    ? `${combo}連続！！`
+    : `${combo}連続！`;
+  const comboEmoji = combo >= 10 ? '\u{1F30B}' : combo >= 7 ? '\u{1F4A5}' : combo >= 5 ? '\u{1F525}' : '\u{26A1}';
+
+  if (showAnalyzing) {
+    return (
+      <AnalyzingScreen
+        targetName={targetName}
+        onComplete={handleAnalyzingComplete}
+      />
+    );
+  }
 
   return (
     <div
-      className="pt-2 transition-all duration-700"
+      className={`pt-2 transition-all duration-700 ${shouldTremble ? 'screen-tremble' : ''}`}
       style={{
         boxShadow: vignetteIntensity > 0
           ? `inset 0 0 ${vignetteSize}px ${vignetteSpread}px rgba(204,17,51,${vignetteIntensity.toFixed(3)})`
@@ -131,6 +201,14 @@ export default function QuizPage({ onResult, targetName }) {
         </div>
       )}
 
+      {/* Combo counter */}
+      {showCombo && combo >= 3 && (
+        <div className="combo-banner combo-enter">
+          <span className="combo-fire">
+            {comboEmoji} {comboText}
+          </span>
+        </div>
+      )}
 
       {/* おばちゃんの案内 */}
       <div className="mb-4">
@@ -158,6 +236,7 @@ export default function QuizPage({ onResult, targetName }) {
             total={totalQuestions}
             highlighted={showValidation && answers[question.id] == null}
             cardRef={(el) => { cardRefs.current[question.id] = el; }}
+            popped={poppedCard === question.id}
           />
         ))}
       </div>

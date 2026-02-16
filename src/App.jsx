@@ -55,6 +55,7 @@ function QuizPageWrapper() {
     params.set('t', String(typeId));
     if (modifier) params.set('m', modifier);
     if (targetName) params.set('n', targetName);
+    params.set('reveal', '0'); // AnalyzingScreenで演出済みなのでFileOpenRevealはスキップ
     navigate(`/result?${params.toString()}`);
     window.scrollTo(0, 0);
   };
@@ -137,6 +138,7 @@ function ReceivedResultPageWrapper() {
   const rawTypeId = searchParams.get('t');
   const rawModifier = searchParams.get('m');
   const rawFrom = searchParams.get('from');
+  const targetName = searchParams.get('n') || '';
 
   // パラメータが全く無い場合はホームに戻す
   if (rawTypeId == null) {
@@ -166,6 +168,7 @@ function ReceivedResultPageWrapper() {
     params.set('t', correctedTypeId);
     params.set('m', modifier);
     if (senderName) params.set('from', senderName);
+    if (targetName) params.set('n', targetName);
     return <Navigate to={`/received?${params.toString()}`} replace />;
   }
 
@@ -174,6 +177,7 @@ function ReceivedResultPageWrapper() {
       typeId={typeId}
       modifier={modifier}
       senderName={senderName}
+      targetName={targetName}
     />
   );
 }

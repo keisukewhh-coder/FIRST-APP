@@ -1,8 +1,79 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import AnimalIllustration from './AnimalIllustration';
 import RadarChart from './RadarChart';
 import ObachanBubble from './ObachanBubble';
 import { MODIFIER_DETAILS } from '../utils/scoring';
+
+/** Confetti particle generator */
+function ConfettiEffect() {
+  const [particles, setParticles] = useState([]);
+
+  useEffect(() => {
+    const colors = ['#CC1133', '#FF3355', '#FF6B85', '#FFD700', '#FF8C00', '#FF1493', '#F0E0E0'];
+    const shapes = ['circle', 'square', 'triangle'];
+    const newParticles = [];
+
+    for (let i = 0; i < 40; i++) {
+      newParticles.push({
+        id: i,
+        left: Math.random() * 100,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        shape: shapes[Math.floor(Math.random() * shapes.length)],
+        size: 4 + Math.random() * 8,
+        duration: 2 + Math.random() * 3,
+        delay: Math.random() * 1.5,
+      });
+    }
+    setParticles(newParticles);
+
+    // Clean up particles after animation
+    const timer = setTimeout(() => setParticles([]), 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <>
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          className="confetti-particle"
+          style={{
+            left: `${p.left}%`,
+            width: `${p.size}px`,
+            height: p.shape === 'triangle' ? '0' : `${p.size}px`,
+            backgroundColor: p.shape !== 'triangle' ? p.color : 'transparent',
+            borderRadius: p.shape === 'circle' ? '50%' : p.shape === 'square' ? '2px' : '0',
+            borderLeft: p.shape === 'triangle' ? `${p.size / 2}px solid transparent` : 'none',
+            borderRight: p.shape === 'triangle' ? `${p.size / 2}px solid transparent` : 'none',
+            borderBottom: p.shape === 'triangle' ? `${p.size}px solid ${p.color}` : 'none',
+            animationDuration: `${p.duration}s`,
+            animationDelay: `${p.delay}s`,
+          }}
+        />
+      ))}
+    </>
+  );
+}
+
+/** Dramatic pause overlay — black screen that fades to reveal */
+function DramaticPause({ targetName }) {
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShow(false), 2200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <div className="dramatic-overlay">
+      <div className="dramatic-text">
+        {targetName ? `${targetName}の裏の顔…` : 'あの人の裏の顔…'}
+      </div>
+    </div>
+  );
+}
 
 /**
  * テキストを【見出し】で分割するユーティリティ
@@ -140,6 +211,12 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
 
   return (
     <>
+    {/* Dramatic pause overlay */}
+    <DramaticPause targetName={targetName} />
+
+    {/* Confetti effect */}
+    <ConfettiEffect />
+
     <div className="space-y-8 mb-6 pb-24">
 
       {/* ============================================ */}
@@ -199,14 +276,13 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
         </p>
 
         <div
-          className="flex flex-wrap justify-center gap-2 dondon-item"
-          style={{ animationDelay: `${nameRevealEnd + 0.7}s` }}
+          className="flex flex-wrap justify-center gap-2"
         >
           {result.traits.map((trait, i) => (
             <span
               key={i}
-              className="text-sm font-bold bg-vivid-pink/20 text-vivid-pink px-4 py-2 rounded-full border border-vivid-pink/30 trait-badge-glow"
-              style={{ animationDelay: `${i * 0.3}s` }}
+              className="text-sm font-bold bg-vivid-pink/20 text-vivid-pink px-4 py-2 rounded-full border border-vivid-pink/30 trait-badge-glow trait-bounce-in"
+              style={{ animationDelay: `${nameRevealEnd + 0.7 + i * 0.25}s` }}
             >
               {trait}
             </span>

@@ -15,6 +15,7 @@ export default function SendCompletePage() {
   const rawFrom = searchParams.get('from');
   const rawMsg = searchParams.get('msg');
   const rawExp = searchParams.get('exp');
+  const targetName = searchParams.get('n') || '';
 
   // --- バリデーション: パラメータ不正時は / にリダイレクト ---
   if (rawTypeId == null || rawFrom == null || rawMsg == null || rawExp == null) {
@@ -41,7 +42,7 @@ export default function SendCompletePage() {
   }
 
   // --- 受信者URL生成 ---
-  const receivedUrl = `${window.location.origin}/received?t=${encodeURIComponent(typeId)}&m=${encodeURIComponent(modifier)}&from=${encodeURIComponent(senderName)}&exp=${encodeURIComponent(expirationTimestamp)}`;
+  const receivedUrl = `${window.location.origin}/received?t=${encodeURIComponent(typeId)}&m=${encodeURIComponent(modifier)}&from=${encodeURIComponent(senderName)}&exp=${encodeURIComponent(expirationTimestamp)}${targetName ? `&n=${encodeURIComponent(targetName)}` : ''}`;
 
   // --- 有効期限の日時表示 ---
   const expirationDate = new Date(expirationTimestamp);

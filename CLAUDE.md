@@ -27,10 +27,11 @@ src/
 │   ├── ProgressBar.jsx       # 進捗バー
 │   ├── ResultCard.jsx        # 結果表示（表の顔/裏の顔/トリセツ/デート/キラーフレーズ）
 │   ├── AnimalIllustration.jsx # 16動物タイプSVGイラスト
+│   ├── AnalyzingScreen.jsx  # 診断結果前の解析演出アニメーション
 │   └── ShareBox.jsx          # 共有リンク + Xシェア
 ├── pages/          # ページコンポーネント
 │   ├── HomePage.jsx      # / (LP)
-│   ├── QuizPage.jsx      # /quiz (30問フルスクロール診断・シャッフル付き)
+│   ├── QuizPage.jsx      # /quiz (45問フルスクロール診断・シャッフル付き)
 │   └── ResultPage.jsx    # /result (結果)
 ├── data/           # 外部データファイル
 │   ├── questions.json    # 30問の質問データ（8軸スコアリング）
@@ -44,7 +45,7 @@ src/
 ```
 
 ## データファイル
-- `questions.json`: 30問。8軸（性格分析4軸 + Spice 4軸）。axes オブジェクトで複数軸への影響を定義
+- `questions.json`: 45問。8軸（性格分析4軸 + Spice 4軸）。axes オブジェクトで複数軸への影響を定義
 - `types.json`: 16動物タイプ。内部キーで管理、URLでは数値ID（0-15）に変換して使用
 
 ## 動物タイプ一覧（Noun: 16種）
@@ -70,11 +71,11 @@ src/
 ## 修飾語（Modifier: Spice軸から決定）
 | 条件 | 修飾語 |
 |------|--------|
-| maxSpice ≥ 3 (Approval) | 加工上手の |
-| maxSpice ≥ 3 (Obsession) | 鍵アカストーカーの |
-| maxSpice ≥ 3 (Emotion) | 即泣き地雷原な |
-| maxSpice ≥ 3 (Fickle) | べらべら |
-| maxSpice 0〜2 | 平凡な / 量産型の |
+| maxSpice ≥ 4 (Approval) | 加工上手の |
+| maxSpice ≥ 4 (Obsession) | 鍵アカストーカーの |
+| maxSpice ≥ 4 (Emotion) | 即泣き地雷原な |
+| maxSpice ≥ 4 (Fickle) | べらべら |
+| maxSpice 0〜3 | 平凡な / 量産型の |
 | maxSpice < 0 | 悟りを開いた / 無害な |
 
 ## 判定ロジック（src/utils/scoring.js）
