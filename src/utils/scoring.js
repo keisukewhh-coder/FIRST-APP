@@ -62,7 +62,7 @@ function determineModifier(spiceScores) {
     }
   }
 
-  if (maxScore >= 3) {
+  if (maxScore >= 4) {
     return SPICE_MODIFIERS[maxAxis];
   }
   if (maxScore >= 0) {

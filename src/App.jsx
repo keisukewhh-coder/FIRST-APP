@@ -55,6 +55,7 @@ function QuizPageWrapper() {
     params.set('t', String(typeId));
     if (modifier) params.set('m', modifier);
     if (targetName) params.set('n', targetName);
+    params.set('reveal', '0'); // AnalyzingScreenで演出済みなのでFileOpenRevealはスキップ
     navigate(`/result?${params.toString()}`);
     window.scrollTo(0, 0);
   };
