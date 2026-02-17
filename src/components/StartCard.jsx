@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import ObachanBubble from './ObachanBubble';
-import ObachanIllustration from './ObachanIllustration';
 
 /** タイピング風テキスト表示 */
 function TypingText({ text, delayMs = 0, speed = 50 }) {
@@ -83,13 +81,6 @@ export default function StartCard({ onStart }) {
           叩きつけたれ。</span><br />
           <span className="text-xs text-text-secondary">（バレたらやばい度 ★★★★★）</span>
         </p>
-      </div>
-
-      {/* おばちゃんの挨拶 */}
-      <div className="mb-3 text-left">
-        <ObachanBubble>
-          あんた、誰かの裏の顔が気になっとるんやな？ほな、おばちゃんが全部暴いたるわ。遠慮せんと名前入れてや！
-        </ObachanBubble>
       </div>
 
       {/* 相手の名前入力 */}

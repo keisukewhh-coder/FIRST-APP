@@ -1,6 +1,3 @@
-import ObachanBubble from './ObachanBubble';
-import ObachanIllustration from './ObachanIllustration';
-
 export default function TeaserCard({ senderName, targetName, onReveal }) {
   const displayName = senderName || '名無しの誰かさん';
   const targetLabel = targetName || 'あんた';
@@ -8,21 +5,11 @@ export default function TeaserCard({ senderName, targetName, onReveal }) {
   return (
     <div className="text-center pt-8 pb-4 animate-fade-in-up">
 
-      {/* おばちゃん登場 */}
-      <div className="mb-6 relative">
-        <div className="mx-auto w-32 h-44 relative flex items-center justify-center">
-          <div className="absolute inset-0 rounded-full bg-vivid-pink/10 teaser-bg-pulse" />
-          <div className="relative z-10">
-            <ObachanIllustration size={100} />
-          </div>
+      {/* 不穏なアイコン */}
+      <div className="mb-6">
+        <div className="inline-flex items-center justify-center w-28 h-28 rounded-full bg-vivid-pink/15 border-2 border-vivid-pink/30 hero-glow">
+          <span className="text-6xl float-bob">👿</span>
         </div>
-      </div>
-
-      {/* おばちゃんの第一声 */}
-      <div className="text-left mb-6">
-        <ObachanBubble variant="shout">
-          ちょっとあんた！{displayName}があんたのこと色々言うてるで！えげつないこと書かれとるわ〜
-        </ObachanBubble>
       </div>
 
       {/* 不穏なキャッチコピー */}
@@ -40,7 +27,7 @@ export default function TeaserCard({ senderName, targetName, onReveal }) {
 
       {/* 送信者名 */}
       <div className="bg-card rounded-2xl p-5 mb-6 border border-vivid-pink/20 shadow-lg">
-        <p className="text-xs text-text-secondary mb-1">占った人</p>
+        <p className="text-xs text-text-secondary mb-1">診断した人</p>
         <p className="text-lg font-bold text-text-primary mb-2">
           <span className="text-vivid-pink">{displayName}</span>
         </p>
@@ -50,14 +37,16 @@ export default function TeaserCard({ senderName, targetName, onReveal }) {
         </p>
       </div>
 
-      {/* おばちゃんの煽り */}
-      <div className="text-left mb-6">
-        <ObachanBubble variant="whisper">
-          ダメなところ、ヤバいクセ、黒い本性…ぜーんぶ暴かれとるで。見る覚悟はあるんか？
-        </ObachanBubble>
+      {/* 煽りテキスト */}
+      <div className="bg-card/50 rounded-2xl p-4 mb-6 border border-vivid-pink/15 text-left">
+        <p className="text-sm text-text-primary leading-relaxed">
+          ダメなところ、ヤバいクセ、黒い本性…<br />
+          <span className="text-vivid-pink font-bold">ぜーんぶ暴かれとるで。</span><br />
+          見る覚悟はあるんか？
+        </p>
       </div>
 
-      {/* 結果を見るボタン（脈動アニメーション付き） */}
+      {/* 結果を見るボタン */}
       <button
         className="teaser-reveal-btn w-full max-w-xs mx-auto py-4 px-8 rounded-full bg-vivid-pink text-white font-extrabold text-lg border-0 cursor-pointer shadow-xl transition-colors hover:bg-coral-dark"
         onClick={onReveal}

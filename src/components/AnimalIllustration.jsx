@@ -1,4 +1,4 @@
-// Flat-design anthropomorphized animal/character illustrations (16 MBTI types)
+// Flat-design anthropomorphized animal/character illustrations (16 types)
 // Enhanced with CSS animations, expressive eyes, background effects, and easter eggs
 
 const ANIM_STYLES = `

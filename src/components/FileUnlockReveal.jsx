@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import ObachanIllustration from './ObachanIllustration';
 
 /**
  * FileUnlockReveal - 受信側の「鍵付きファイル開封」演出
@@ -92,18 +91,7 @@ export default function FileUnlockReveal({ senderName, onComplete }) {
           padding: '20px',
         }}
       >
-        {/* おばちゃん（小さめ） */}
-        <div
-          style={{
-            opacity: phase >= 0 && phase < 4 ? 1 : 0,
-            transform: phase >= 1 ? 'translateY(-5px)' : 'translateY(0)',
-            transition: 'opacity 0.4s, transform 0.4s',
-          }}
-        >
-          <ObachanIllustration size={60} />
-        </div>
-
-        {/* おばちゃんのセリフ */}
+        {/* 開封テキスト */}
         <p
           style={{
             fontSize: '13px',
@@ -115,8 +103,8 @@ export default function FileUnlockReveal({ senderName, onComplete }) {
             transition: 'opacity 0.3s',
           }}
         >
-          {phase === 0 && 'ほな…開けるで？'}
-          {phase === 1 && 'ガタガタ…なんか出てきそうやで…！'}
+          {phase === 0 && '開封中…'}
+          {phase === 1 && 'ガタガタ…なんか出てきそうや…！'}
           {phase === 2 && '鍵が…！！'}
         </p>
 

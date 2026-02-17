@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
-import ObachanIllustration from './ObachanIllustration';
 
 /**
  * 診断結果表示前の「解析中」演出
- * おばちゃんがリアクションしながら解析メッセージを表示
  * 約4秒後に onComplete を呼び出す
  */
 const ANALYSIS_MESSAGES = [
@@ -59,9 +57,9 @@ export default function AnalyzingScreen({ targetName, onComplete }) {
         }}
       />
 
-      {/* Obachan illustration with shake */}
-      <div className={`mb-6 ${phase === 'reveal' ? 'analyzing-obachan-reveal' : visibleCount >= 4 ? 'analyzing-obachan-shock' : 'analyzing-obachan-idle'}`}>
-        <ObachanIllustration size={120} />
+      {/* Analyzing icon */}
+      <div className={`mb-6 text-6xl ${phase === 'reveal' ? 'analyzing-icon-reveal' : visibleCount >= 4 ? 'analyzing-icon-shock' : ''}`}>
+        <span className="inline-block" style={{ animation: phase !== 'reveal' ? 'pulse 1.5s ease-in-out infinite' : 'none' }}>🔍</span>
       </div>
 
       {/* Target name */}

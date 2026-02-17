@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import ResultCard from '../components/ResultCard';
 import ShareBox from '../components/ShareBox';
 import FileOpenReveal from '../components/FileOpenReveal';
-import ObachanBubble from '../components/ObachanBubble';
 import { getTypeByKey, idToTypeKey } from '../utils/scoring';
 
 export default function ResultPage({ typeId, modifier, targetName, onRestart, onGoHome }) {
@@ -73,14 +72,6 @@ export default function ResultPage({ typeId, modifier, targetName, onRestart, on
 
       <ResultCard result={result} typeKey={resolvedKey} modifier={modifier} targetName={targetName} />
       <ShareBox typeId={typeId} modifier={modifier} resultName={result.name} targetName={targetName} />
-
-      {/* おばちゃんの煽り */}
-      <ObachanBubble variant="shout">
-        {targetName
-          ? `ここまで暴いたんやから、${targetName}本人に突きつけたらんと意味ないやろ！遠慮すんな！`
-          : 'ここまで暴いたんやから、本人に突きつけたらんと意味ないやろ！ビビってんちゃうやろな？'
-        }
-      </ObachanBubble>
 
       {/* 送りつけるボタン */}
       <div className="bg-card rounded-3xl p-6 shadow-lg mb-6 border border-vivid-pink/30 text-center">
