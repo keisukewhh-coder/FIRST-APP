@@ -25,10 +25,15 @@ export default function ShareBox({ typeId, modifier, resultName, targetName }) {
     }
   };
 
-  const handleTwitterShare = () => {
+  const handleXShare = () => {
     const text = encodeURIComponent(`#あの人の裏の顔診断\n${nameLabel}の裏の顔を暴いた結果…！`);
     const url = encodeURIComponent(shareUrl);
-    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+    window.open(`https://x.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+  };
+
+  const handleLineShare = () => {
+    const text = encodeURIComponent(`${nameLabel}の裏の顔を暴いた結果…「${displayName}」だった！\n${shareUrl}`);
+    window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}&text=${text}`, '_blank');
   };
 
   return (
@@ -38,6 +43,7 @@ export default function ShareBox({ typeId, modifier, resultName, targetName }) {
       <div className="flex gap-2 mb-3">
         <input
           type="text"
+          aria-label="共有URL"
           className="flex-1 min-w-0 px-3 py-2 border border-coral/30 rounded-full text-xs text-text-secondary bg-sakura"
           value={shareUrl}
           readOnly
@@ -49,12 +55,20 @@ export default function ShareBox({ typeId, modifier, resultName, targetName }) {
           {copied ? 'コピー済み' : 'コピー'}
         </button>
       </div>
-      <button
-        className="btn-primary w-full py-3 rounded-full bg-vivid-pink text-white text-sm font-bold border-0 cursor-pointer hover:bg-coral-dark pulse-gentle"
-        onClick={handleTwitterShare}
-      >
-        Xでシェアする
-      </button>
+      <div className="flex gap-2">
+        <button
+          className="btn-primary flex-1 py-3 rounded-full bg-vivid-pink text-white text-sm font-bold border-0 cursor-pointer hover:bg-coral-dark"
+          onClick={handleXShare}
+        >
+          Xでシェア
+        </button>
+        <button
+          className="btn-primary flex-1 py-3 rounded-full bg-[#06C755] text-white text-sm font-bold border-0 cursor-pointer hover:brightness-90"
+          onClick={handleLineShare}
+        >
+          LINEでシェア
+        </button>
+      </div>
     </div>
   );
 }

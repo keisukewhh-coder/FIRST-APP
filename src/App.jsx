@@ -49,12 +49,14 @@ function QuizPageWrapper() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const targetName = searchParams.get('n') || '';
+  const revenge = searchParams.get('revenge');
 
   const handleShowResult = ({ typeId, modifier }) => {
     const params = new URLSearchParams();
     params.set('t', String(typeId));
     if (modifier) params.set('m', modifier);
     if (targetName) params.set('n', targetName);
+    if (revenge) params.set('revenge', revenge);
     params.set('reveal', '0'); // AnalyzingScreenで演出済みなのでFileOpenRevealはスキップ
     navigate(`/result?${params.toString()}`);
     window.scrollTo(0, 0);
