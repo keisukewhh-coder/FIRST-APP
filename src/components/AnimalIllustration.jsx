@@ -1010,7 +1010,7 @@ const TYPE_COMPONENTS = {
   ESTP: FestivalPanda,
   ESFP: SeaTurtle,
   ENFJ: SunnyRetriever,
-  ESFJ: BusybodyAlpaca,
+  ESFJ: SeaTurtle,
 };
 
 export default function AnimalIllustration({ typeKey }) {

@@ -444,12 +444,6 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* ============================================ */}
       <TeaserDivider text={TEASER_TEXTS[0]} />
 
-      <RevealSection delay={0.1}>
-        <ObachanBubble variant="whisper">
-          まずは表の顔から見せたるわ…裏はもっとエグいで？
-        </ObachanBubble>
-      </RevealSection>
-
       {/* ============================================ */}
       {/* Section 2: 表の顔 — 常に開放 */}
       {/* ============================================ */}
@@ -538,12 +532,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* ============================================ */}
       {unlocked.hidden && (
         <RevealSection delay={0.2}>
-          <ObachanBubble variant="whisper">
-            心当たりあるやろ？正直にチェックしてみ？
-          </ObachanBubble>
-          <div className="mt-4">
-            <AruAruChecklist typeKey={typeKey} targetName={targetName} />
-          </div>
+          <AruAruChecklist typeKey={typeKey} targetName={targetName} />
         </RevealSection>
       )}
 
@@ -551,12 +540,6 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* 煽りテキスト 3 */}
       {/* ============================================ */}
       <TeaserDivider text={TEASER_TEXTS[2]} />
-
-      <RevealSection delay={0.1}>
-        <ObachanBubble>
-          攻略法教えたるわ。でも地雷踏んでも知らんで？
-        </ObachanBubble>
-      </RevealSection>
 
       {/* ============================================ */}
       {/* Section 4: トリセツ — ロック付き */}
@@ -646,12 +629,6 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
         <>
           {/* 煽りテキスト 4 */}
           <TeaserDivider text={TEASER_TEXTS[3]} />
-
-          <RevealSection delay={0.1}>
-            <ObachanBubble variant="whisper">
-              ここだけの話やけど…恋愛面はなかなかヤバいで。
-            </ObachanBubble>
-          </RevealSection>
 
           <RevealSection delay={0.15}>
             <LockedSection
