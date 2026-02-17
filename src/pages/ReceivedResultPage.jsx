@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import TeaserCard from '../components/TeaserCard';
 import ResultCard from '../components/ResultCard';
@@ -6,6 +6,12 @@ import ObachanBubble from '../components/ObachanBubble';
 import FileUnlockReveal from '../components/FileUnlockReveal';
 import ObachanRageReveal from '../components/ObachanRageReveal';
 import { getTypeByKey, idToTypeKey } from '../utils/scoring';
+import sendMessagesData from '../data/sendMessages.json';
+
+/** ランダムに1つ選ぶヘルパー */
+function pickRandom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
 /**
  * 残り時間をフォーマットする
@@ -70,6 +76,12 @@ export default function ReceivedResultPage({ typeId, modifier, senderName, targe
   const result = found.data;
 
   const displayName = modifier ? `${modifier}${result.name}` : result.name;
+
+  // sendMessages.json から各フェーズ用メッセージをランダム選出（初回マウント時に固定）
+  const { resultIntroMsg, revengeMsg } = useMemo(() => ({
+    resultIntroMsg: pickRandom(sendMessagesData.sendMessages.resultIntro),
+    revengeMsg: pickRandom(sendMessagesData.sendMessages.revenge),
+  }), []);
 
   // ボタン押下 → 開封アニメーション開始
   const handleReveal = () => {
@@ -199,10 +211,10 @@ export default function ReceivedResultPage({ typeId, modifier, senderName, targe
             </h1>
           </div>
 
-          {/* おばちゃんの開封リアクション */}
+          {/* おばちゃんの開封リアクション（resultIntroメッセージ活用） */}
           <div className="text-left mb-6">
             <ObachanBubble variant="reveal">
-              開けてもうたな！もう知らんぷりはでけへんで。さぁ、あんたの裏の顔とご対面や！
+              {resultIntroMsg}
             </ObachanBubble>
           </div>
 
@@ -226,13 +238,8 @@ export default function ReceivedResultPage({ typeId, modifier, senderName, targe
             <h2 className="text-xl font-extrabold text-text-primary mb-2">
               黙ってられへんやろ？
             </h2>
-            <p className="text-sm text-text-secondary leading-relaxed mb-2">
-              <span className="text-vivid-pink font-bold">{senderName || '名無しの誰かさん'}</span>に
-              裏の顔を暴かれて悔しないんか？
-            </p>
-            <p className="text-sm text-text-secondary leading-relaxed mb-5">
-              今度はあんたが<span className="text-vivid-pink font-semibold">あの人の裏の顔</span>を<br />
-              暴いたれや。
+            <p className="text-sm text-text-secondary leading-relaxed mb-5 whitespace-pre-line">
+              {revengeMsg}
             </p>
             <button
               className="btn-primary w-full py-4 rounded-full bg-vivid-pink text-white font-extrabold text-base border-0 cursor-pointer hover:bg-coral-dark shadow-xl pulse-gentle"

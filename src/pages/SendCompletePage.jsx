@@ -104,7 +104,7 @@ export default function SendCompletePage() {
   const handleXShare = () => {
     const text = encodeURIComponent(message);
     const url = encodeURIComponent(receivedUrl);
-    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+    window.open(`https://x.com/intent/tweet?text=${text}&url=${url}`, '_blank');
   };
 
   // --- プレビューを新しいタブで開く ---

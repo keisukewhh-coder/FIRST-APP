@@ -33,10 +33,11 @@ function TypingText({ text, delayMs = 0, speed = 50 }) {
 
 /** ランダム実績バッジ */
 const FAKE_STATS = [
-  '今日だけで 847人 が暴かれました',
-  '直近1時間で 312人 が丸裸にされました',
-  '累計 28,491人 の裏の顔が暴かれました',
-  '今この瞬間も 23人 が診断中…',
+  '今日だけで 2,847人 の裏の顔が暴かれました',
+  '直近1時間で 1,312人 が丸裸にされました',
+  '累計 128万人 が診断済み — 今も増殖中',
+  '今この瞬間も 189人 が誰かを暴き中…',
+  'X（旧Twitter）で #あの人の裏の顔診断 が拡散中',
 ];
 
 export default function StartCard({ onStart }) {
@@ -57,11 +58,11 @@ export default function StartCard({ onStart }) {
       </div>
 
       <h1 className="text-3xl font-extrabold text-text-primary mb-2 leading-tight">
-        あいつの裏の顔、<br />
-        <span className="text-vivid-pink result-title-glow">暴いたろか？</span>
+        あの人の裏の顔、<br />
+        <span className="text-vivid-pink result-title-glow">バレたら終わりやで？</span>
       </h1>
       <p className="text-xs text-vivid-pink font-bold mb-1 tracking-wider">
-        <TypingText text="― 勝手に丸裸エディション ―" delayMs={400} speed={80} />
+        <TypingText text="― 暴いて・晒して・送りつける診断 ―" delayMs={400} speed={80} />
       </p>
 
       {/* ライブ感のある統計バッジ */}
@@ -74,11 +75,13 @@ export default function StartCard({ onStart }) {
 
       <div className="bg-card rounded-2xl p-4 mb-5 border border-vivid-pink/20 text-left card-shine">
         <p className="text-sm text-text-primary leading-relaxed">
-          あの人が<span className="text-vivid-pink font-extrabold">必死に隠してる</span>
-          ダメなとこ、ヤバいクセ、黒い本性…<br /><br />
+          あの人が<span className="text-vivid-pink font-extrabold">必死に隠してる黒い本性</span>、<br />
+          ヤバいクセ、恋愛の地雷ポイント…<br />
+          全部、<span className="text-vivid-pink font-extrabold">たった45問で丸裸</span>にしたるわ。<br /><br />
           本人の許可？<span className="text-vivid-pink font-bold">んなもん要らん。</span><br />
-          <span className="text-vivid-pink font-extrabold">勝手に丸裸にして<br />
-          本人に送りつけたれ。</span>
+          診断結果は<span className="text-vivid-pink font-extrabold">LINEで本人に<br />
+          叩きつけたれ。</span><br />
+          <span className="text-xs text-text-secondary">（バレたらやばい度 ★★★★★）</span>
         </p>
       </div>
 

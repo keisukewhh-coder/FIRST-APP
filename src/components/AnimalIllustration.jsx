@@ -927,6 +927,73 @@ function SeaTurtle() {
   );
 }
 
+function BusybodyAlpaca() {
+  return (
+    <svg viewBox="0 0 200 200" width="180" height="180">
+      <AnimDefs />
+      <defs>
+        <linearGradient id="baFlower" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#FFF0F5" /><stop offset="100%" stopColor="#FFE0EB" /></linearGradient>
+      </defs>
+      <circle cx="100" cy="100" r="95" fill="url(#baFlower)" />
+      {/* Sparkles */}
+      <circle cx="30" cy="40" r="2" fill="#FFD700" opacity="0.4"><animate attributeName="opacity" values="0.2;0.6;0.2" dur="2s" repeatCount="indefinite" /></circle>
+      <circle cx="170" cy="50" r="2.5" fill="#FFD700" opacity="0.3"><animate attributeName="opacity" values="0.1;0.5;0.1" dur="2.5s" repeatCount="indefinite" /></circle>
+      <circle cx="160" cy="160" r="2" fill="#FFD700" opacity="0.3"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite" /></circle>
+      {/* Fluffy body */}
+      <ellipse cx="100" cy="145" rx="40" ry="35" fill="#FFFAF0" />
+      <ellipse cx="100" cy="140" rx="36" ry="30" fill="#FFF5E6" />
+      {/* Curly wool puffs */}
+      <circle cx="70" cy="130" r="12" fill="#FFFAF0" />
+      <circle cx="80" cy="120" r="10" fill="#FFF8F0" />
+      <circle cx="120" cy="120" r="10" fill="#FFF8F0" />
+      <circle cx="130" cy="130" r="12" fill="#FFFAF0" />
+      {/* Long neck */}
+      <rect x="88" y="70" width="24" height="55" rx="12" fill="#FFFAF0" />
+      <rect x="90" y="72" width="20" height="50" rx="10" fill="#FFF5E6" />
+      {/* Head */}
+      <ellipse cx="100" cy="62" rx="28" ry="25" fill="#FFFAF0" />
+      <ellipse cx="100" cy="64" rx="24" ry="20" fill="#FFF5E6" />
+      {/* Fluffy head puff */}
+      <circle cx="90" cy="42" r="10" fill="#FFFAF0" />
+      <circle cx="100" cy="38" r="11" fill="#FFF8F0" />
+      <circle cx="110" cy="42" r="10" fill="#FFFAF0" />
+      {/* Ears */}
+      <ellipse cx="72" cy="50" rx="8" ry="14" fill="#FFFAF0" transform="rotate(-15,72,50)" />
+      <ellipse cx="74" cy="50" rx="5" ry="10" fill="#FFD1DC" transform="rotate(-15,74,50)" />
+      <ellipse cx="128" cy="50" rx="8" ry="14" fill="#FFFAF0" transform="rotate(15,128,50)" />
+      <ellipse cx="126" cy="50" rx="5" ry="10" fill="#FFD1DC" transform="rotate(15,126,50)" />
+      {/* Eyes - looking at you with judgment */}
+      <circle cx="90" cy="62" r="5" fill="#FFF" />
+      <circle cx="110" cy="62" r="5" fill="#FFF" />
+      <circle cx="91" cy="63" r="3" fill="#4A2C2A" />
+      <circle cx="111" cy="63" r="3" fill="#4A2C2A" />
+      <circle cx="92" cy="62" r="1" fill="#FFF" />
+      <circle cx="112" cy="62" r="1" fill="#FFF" />
+      {/* Judgmental eyelids */}
+      <path d="M84 59 Q90 57 96 60" fill="#FFFAF0" />
+      <path d="M104 60 Q110 57 116 59" fill="#FFFAF0" />
+      {/* Snout */}
+      <ellipse cx="100" cy="74" rx="8" ry="5" fill="#FFD1DC" />
+      <circle cx="97" cy="73" r="1.5" fill="#CC8899" />
+      <circle cx="103" cy="73" r="1.5" fill="#CC8899" />
+      {/* Sly smile */}
+      <path d="M93 79 Q100 84 107 79" stroke="#CC8899" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      {/* Blush */}
+      <circle cx="80" cy="70" r="5" fill="#FFB6C1" opacity="0.35" />
+      <circle cx="120" cy="70" r="5" fill="#FFB6C1" opacity="0.35" />
+      {/* Apron strings (world's most helpful apron) */}
+      <path d="M75 130 Q100 145 125 130" stroke="#FF69B4" strokeWidth="2" fill="none" strokeDasharray="4,3" />
+      {/* Heart on apron */}
+      <path d="M100 138 L96 133 Q92 128 96 125 Q100 122 100 126 Q100 122 104 125 Q108 128 104 133 Z" fill="#FF69B4" opacity="0.4"><animate attributeName="opacity" values="0.3;0.5;0.3" dur="2s" repeatCount="indefinite" /></path>
+      {/* Legs */}
+      <line x1="85" y1="170" x2="85" y2="188" stroke="#FFFAF0" strokeWidth="6" strokeLinecap="round" />
+      <line x1="115" y1="170" x2="115" y2="188" stroke="#FFFAF0" strokeWidth="6" strokeLinecap="round" />
+      {/* Gentle bobbing animation */}
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,-3;0,0" dur="4s" repeatCount="indefinite" />
+    </svg>
+  );
+}
+
 const TYPE_COMPONENTS = {
   INTJ: NightCat,
   INFJ: HighFlower,
@@ -943,7 +1010,7 @@ const TYPE_COMPONENTS = {
   ESTP: FestivalPanda,
   ESFP: SeaTurtle,
   ENFJ: SunnyRetriever,
-  ESFJ: SeaTurtle,
+  ESFJ: BusybodyAlpaca,
 };
 
 export default function AnimalIllustration({ typeKey }) {
