@@ -553,6 +553,14 @@ body {
 }
 
 /* ========================================
+   COLLAPSIBLE TEXT — もっと見る UI
+   ======================================== */
+.collapsible-text-preview {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ========================================
    QUIZ ATMOSPHERE EFFECTS
    ======================================== */
 

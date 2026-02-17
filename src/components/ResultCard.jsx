@@ -270,6 +270,32 @@ function LockedSection({ id, label, emoji, unlocked, onUnlock, children }) {
   );
 }
 
+/**
+ * CollapsibleText — 長文を折りたたみ表示するコンポーネント
+ * threshold文字以上で「もっと見る」ボタン表示
+ */
+function CollapsibleText({ text, threshold = 200, className = '' }) {
+  const [expanded, setExpanded] = useState(false);
+  if (!text) return null;
+  const needsCollapse = text.length > threshold;
+
+  return (
+    <div className={className}>
+      <p className={`text-sm leading-8 text-text-primary whitespace-pre-line ${!expanded && needsCollapse ? 'collapsible-text-preview' : ''}`}>
+        {expanded || !needsCollapse ? text : text.slice(0, threshold) + '…'}
+      </p>
+      {needsCollapse && (
+        <button
+          onClick={() => setExpanded(prev => !prev)}
+          className="mt-2 text-xs font-bold text-vivid-pink/80 hover:text-vivid-pink transition-colors cursor-pointer"
+        >
+          {expanded ? '閉じる ▴' : 'もっと見る ▾'}
+        </button>
+      )}
+    </div>
+  );
+}
+
 /** セクション間の煽りテキスト一覧 */
 const TEASER_TEXTS = [
   'ここからが本番やで…覚悟しとき 👀',
@@ -444,12 +470,6 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* ============================================ */}
       <TeaserDivider text={TEASER_TEXTS[0]} />
 
-      <RevealSection delay={0.1}>
-        <ObachanBubble variant="whisper">
-          まずは表の顔から見せたるわ…裏はもっとエグいで？
-        </ObachanBubble>
-      </RevealSection>
-
       {/* ============================================ */}
       {/* Section 2: 表の顔 — 常に開放 */}
       {/* ============================================ */}
@@ -538,12 +558,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* ============================================ */}
       {unlocked.hidden && (
         <RevealSection delay={0.2}>
-          <ObachanBubble variant="whisper">
-            心当たりあるやろ？正直にチェックしてみ？
-          </ObachanBubble>
-          <div className="mt-4">
-            <AruAruChecklist typeKey={typeKey} targetName={targetName} />
-          </div>
+          <AruAruChecklist typeKey={typeKey} targetName={targetName} />
         </RevealSection>
       )}
 
@@ -551,12 +566,6 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* 煽りテキスト 3 */}
       {/* ============================================ */}
       <TeaserDivider text={TEASER_TEXTS[2]} />
-
-      <RevealSection delay={0.1}>
-        <ObachanBubble>
-          攻略法教えたるわ。でも地雷踏んでも知らんで？
-        </ObachanBubble>
-      </RevealSection>
 
       {/* ============================================ */}
       {/* Section 4: トリセツ — ロック付き */}
@@ -585,7 +594,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
                     <span className="text-base">✅</span>
                     <h4 className="text-[0.95rem] font-extrabold text-text-primary tracking-wide">攻略法</h4>
                   </div>
-                  <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{attackStrategy}</p>
+                  <CollapsibleText text={attackStrategy} threshold={200} />
                 </div>
               )}
 
@@ -595,7 +604,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
                     <span className="text-base">🎬</span>
                     <h4 className="text-[0.95rem] font-extrabold text-text-primary tracking-wide">デートのシミュレーション</h4>
                   </div>
-                  <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{dateSimulation}</p>
+                  <CollapsibleText text={dateSimulation} threshold={200} />
                 </div>
               )}
 
@@ -617,7 +626,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
                     <span className="text-xl mt-0.5 shrink-0">⚠️</span>
                     <div>
                       <h4 className="text-[0.95rem] font-extrabold text-vivid-pink mb-1 tracking-wide">絶対にやってはいけないNG行動</h4>
-                      <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{landmine}</p>
+                      <CollapsibleText text={landmine} threshold={200} />
                     </div>
                   </div>
                 </div>
@@ -646,12 +655,6 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
         <>
           {/* 煽りテキスト 4 */}
           <TeaserDivider text={TEASER_TEXTS[3]} />
-
-          <RevealSection delay={0.1}>
-            <ObachanBubble variant="whisper">
-              ここだけの話やけど…恋愛面はなかなかヤバいで。
-            </ObachanBubble>
-          </RevealSection>
 
           <RevealSection delay={0.15}>
             <LockedSection
@@ -682,7 +685,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
 
                 <div className="px-5 py-6">
                   <p className="text-xs text-vivid-pink/50 italic mb-3">覚悟はええか？</p>
-                  <p className="text-sm leading-8 text-text-primary whitespace-pre-line">{result.love}</p>
+                  <CollapsibleText text={result.love} threshold={200} />
                 </div>
               </div>
             </LockedSection>
