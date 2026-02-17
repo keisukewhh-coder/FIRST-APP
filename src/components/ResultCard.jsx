@@ -676,6 +676,63 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       )}
 
       {/* ============================================ */}
+      {/* Section 5.5: 相性診断 */}
+      {/* ============================================ */}
+      {result.compatibility && (
+        <>
+          <TeaserDivider text="最後のおまけ…相性診断いってみよか 🔮" />
+          <RevealSection delay={0.15}>
+            <div className="result-section glass-card rounded-2xl shadow-lg overflow-hidden border-l-4 border-l-purple-400/70">
+              <div className="bg-coral/20 px-5 py-4 flex items-center gap-3">
+                <span className="text-2xl">🔮</span>
+                <h3 className="text-xl font-bold text-text-primary">
+                  {nameLabel}との相性診断
+                </h3>
+              </div>
+              <div className="px-5 py-6 space-y-6">
+                {/* ベスト相性 */}
+                <div className="glass-inner rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">💕</span>
+                    <h4 className="text-sm font-extrabold text-text-primary">ベスト相性</h4>
+                    <span className="ml-auto text-xs font-bold text-vivid-pink bg-vivid-pink/10 px-3 py-1 rounded-full">
+                      {result.compatibility.bestName}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4 mb-3">
+                    <div className="w-16 h-16 flex items-center justify-center bg-sakura/50 rounded-full p-2">
+                      <AnimalIllustration typeKey={result.compatibility.best} size="sm" />
+                    </div>
+                    <p className="flex-1 text-sm leading-7 text-text-primary">
+                      {result.compatibility.best_reason}
+                    </p>
+                  </div>
+                </div>
+                {/* ワースト相性 */}
+                <div className="rounded-xl p-4 border border-vivid-pink/30 bg-vivid-pink/5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">💀</span>
+                    <h4 className="text-sm font-extrabold text-vivid-pink">ワースト相性</h4>
+                    <span className="ml-auto text-xs font-bold text-text-secondary bg-coral/20 px-3 py-1 rounded-full">
+                      {result.compatibility.worstName}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4 mb-3">
+                    <div className="w-16 h-16 flex items-center justify-center bg-coral/30 rounded-full p-2">
+                      <AnimalIllustration typeKey={result.compatibility.worst} size="sm" />
+                    </div>
+                    <p className="flex-1 text-sm leading-7 text-text-primary">
+                      {result.compatibility.worst_reason}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </RevealSection>
+        </>
+      )}
+
+      {/* ============================================ */}
       {/* 最後の煽りテキスト */}
       {/* ============================================ */}
       <TeaserDivider text={TEASER_TEXTS[4]} />
