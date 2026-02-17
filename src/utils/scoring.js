@@ -72,10 +72,14 @@ function determineModifier(spiceScores) {
   if (maxScore >= 4) {
     return SPICE_MODIFIERS[maxAxis];
   }
+
+  // 決定的に選択：全Spiceスコアの合計の絶対値を使う（同じ回答 → 同じ結果を保証）
+  const totalSpice = Math.abs(SPICE_AXES.reduce((sum, axis) => sum + spiceScores[axis], 0));
+
   if (maxScore >= 0) {
-    return NEUTRAL_MODIFIERS[Math.floor(Math.random() * NEUTRAL_MODIFIERS.length)];
+    return NEUTRAL_MODIFIERS[totalSpice % NEUTRAL_MODIFIERS.length];
   }
-  return CALM_MODIFIERS[Math.floor(Math.random() * CALM_MODIFIERS.length)];
+  return CALM_MODIFIERS[totalSpice % CALM_MODIFIERS.length];
 }
 
 /**

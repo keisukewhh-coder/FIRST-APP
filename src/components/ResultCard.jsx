@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import AnimalIllustration from './AnimalIllustration';
 import RadarChart from './RadarChart';
 import ObachanBubble from './ObachanBubble';
+import AruAruChecklist from './AruAruChecklist';
 import { MODIFIER_DETAILS } from '../utils/scoring';
 
 /** Confetti particle generator */
@@ -531,6 +532,20 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
           </div>
         </LockedSection>
       </RevealSection>
+
+      {/* ============================================ */}
+      {/* Section 3.5: あるあるチェック — インタラクティブ */}
+      {/* ============================================ */}
+      {unlocked.hidden && (
+        <RevealSection delay={0.2}>
+          <ObachanBubble variant="whisper">
+            心当たりあるやろ？正直にチェックしてみ？
+          </ObachanBubble>
+          <div className="mt-4">
+            <AruAruChecklist typeKey={typeKey} targetName={targetName} />
+          </div>
+        </RevealSection>
+      )}
 
       {/* ============================================ */}
       {/* 煽りテキスト 3 */}
