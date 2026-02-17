@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react';
 import { useSearchParams, useNavigate, Navigate } from 'react-router-dom';
 import { idToTypeKey, getTypeByKey, MODIFIER_DETAILS } from '../utils/scoring';
 import sendMessagesData from '../data/sendMessages.json';
-import ObachanBubble from '../components/ObachanBubble';
 
 /**
  * 送信設定ページ
@@ -99,12 +98,6 @@ export default function SendPage() {
         <p className="text-sm text-vivid-pink font-semibold">
           逃げ場なんかあらへんで？
         </p>
-      </div>
-
-      <div className="mb-5">
-        <ObachanBubble variant="shout">
-          ほな送りつけるで！名前入れて、えげつないメッセージ選んだれ！知らんぷりはさせへんで！
-        </ObachanBubble>
       </div>
 
       {/* ============================================ */}

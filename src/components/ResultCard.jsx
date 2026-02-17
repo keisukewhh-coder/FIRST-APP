@@ -1,8 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import AnimalIllustration from './AnimalIllustration';
 import RadarChart from './RadarChart';
-import ObachanBubble from './ObachanBubble';
-import AruAruChecklist from './AruAruChecklist';
 import { MODIFIER_DETAILS } from '../utils/scoring';
 
 /** Confetti particle generator */
@@ -406,15 +404,6 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
           </div>
         </div>
 
-        {/* おばちゃんの第一声 */}
-        <div className="dondon-item dondon-delay-1">
-          <ObachanBubble variant="reveal">
-            {targetName
-              ? `出たわ…！${targetName}の裏の顔、まさかの…！`
-              : 'あちゃー、出てもうたわ…！まさかの…！'
-            }
-          </ObachanBubble>
-        </div>
 
         {targetName && (
           <p className="text-center text-sm text-vivid-pink/70 font-bold mb-2 tracking-wide dondon-item dondon-delay-2">
@@ -496,12 +485,6 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* ============================================ */}
       <TeaserDivider text={TEASER_TEXTS[1]} />
 
-      <RevealSection delay={0.1}>
-        <ObachanBubble variant="shout">
-          さぁここからが本番や！タップして暴いたれ！
-        </ObachanBubble>
-      </RevealSection>
-
       {/* ============================================ */}
       {/* Section 3: 裏の顔 — ロック付き + シェイク演出 */}
       {/* ============================================ */}
@@ -552,15 +535,6 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
           </div>
         </LockedSection>
       </RevealSection>
-
-      {/* ============================================ */}
-      {/* Section 3.5: あるあるチェック — インタラクティブ */}
-      {/* ============================================ */}
-      {unlocked.hidden && (
-        <RevealSection delay={0.2}>
-          <AruAruChecklist typeKey={typeKey} targetName={targetName} />
-        </RevealSection>
-      )}
 
       {/* ============================================ */}
       {/* 煽りテキスト 3 */}
@@ -761,9 +735,6 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {gokuhi && (
         <>
           <SectionDivider />
-          <ObachanBubble variant="reveal">
-            極秘ファイル開いてもうたな…！もう後戻りできひんで！
-          </ObachanBubble>
           <div
             ref={gokuhiRef}
             className="result-section bg-card rounded-2xl shadow-xl border-2 border-vivid-pink/50 overflow-hidden gokuhi-card"

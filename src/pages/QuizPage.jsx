@@ -1,7 +1,6 @@
 import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import QuestionCard from '../components/QuestionCard';
 import ProgressBar from '../components/ProgressBar';
-import ObachanBubble from '../components/ObachanBubble';
 import AnalyzingScreen from '../components/AnalyzingScreen';
 import questions from '../data/questions.json';
 import { calculateResult, isAllAnswered, typeKeyToId } from '../utils/scoring';
@@ -194,7 +193,7 @@ export default function QuizPage({ onResult, targetName }) {
           : 'none',
       }}
     >
-      {/* Milestone taunt banner - おばちゃん style */}
+      {/* Milestone taunt banner */}
       {taunt && (
         <div className="quiz-taunt-banner">
           <span className="mr-2">👵</span>{taunt}
@@ -209,16 +208,6 @@ export default function QuizPage({ onResult, targetName }) {
           </span>
         </div>
       )}
-
-      {/* おばちゃんの案内 */}
-      <div className="mb-4">
-        <ObachanBubble>
-          {targetName
-            ? `ほな${targetName}のこと思い出しながら答えてな！分からん問題は真ん中の「どっちとも言えん」押しときゃええねん。気楽にいこ！`
-            : 'さぁ始めるで！分からん問題は真ん中の「どっちとも言えん」押しときゃええねん。深く考えんと、パパッと答えたってな！'
-          }
-        </ObachanBubble>
-      </div>
 
       {/* Progress bar with glow wrapper at 80%+ */}
       <div className={progress > 0.8 ? 'progress-glow-wrapper' : ''}>

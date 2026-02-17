@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useSearchParams, Navigate, useNavigate } from 'react-router-dom';
 import { MODIFIER_DETAILS } from '../utils/scoring';
-import ObachanBubble from '../components/ObachanBubble';
 
 export default function SendCompletePage() {
   const navigate = useNavigate();
@@ -137,12 +136,6 @@ export default function SendCompletePage() {
         <p className="text-sm text-text-secondary">
           もう後戻りはでけへんで…
         </p>
-      </div>
-
-      <div className="mb-5">
-        <ObachanBubble variant="reveal">
-          やってもうたな！あとはあの人がリンク開くのを待つだけや。震えて待っときや〜
-        </ObachanBubble>
       </div>
 
       {/* ===== 2. 送信用URL表示 ===== */}
