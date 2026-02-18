@@ -244,7 +244,7 @@ export default function ReceivedResultPage({ typeId, modifier, senderName, targe
 
           {/* 開封演出ヘッダー */}
           <div className="text-center mb-6 animate-fade-in-up">
-            <p className="text-xs tracking-[0.15em] text-vivid-pink/60 mb-2 font-semibold">
+            <p className="text-xs tracking-[0.15em] text-vivid-pink/60 mb-2 font-semibold [text-wrap:balance]">
               ― {senderName || '名無しの誰かさん'} が暴いた診断結果 ―
             </p>
             <h1 className="text-lg font-bold text-text-primary mb-1">

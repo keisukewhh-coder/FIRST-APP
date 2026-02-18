@@ -37,8 +37,8 @@ export default function ShareBox({ typeId, modifier, resultName, targetName }) {
   };
 
   return (
-    <div className="bg-card rounded-3xl p-6 shadow-lg mb-6 border border-vivid-pink/25">
-      <h3 className="text-base font-extrabold text-text-primary mb-1">{targetName ? `${targetName}の` : 'この'}裏の顔、みんなに暴露する？</h3>
+    <div className="bg-card rounded-3xl p-5 sm:p-6 shadow-lg mb-6 border border-vivid-pink/25">
+      <h3 className="text-sm sm:text-base font-extrabold text-text-primary mb-1 [text-wrap:balance]">{targetName ? `${targetName}の` : 'この'}裏の顔、みんなに暴露する？</h3>
       <p className="text-xs text-vivid-pink font-semibold mb-4">#あの人の裏の顔診断</p>
       <div className="flex gap-2 mb-3">
         <input

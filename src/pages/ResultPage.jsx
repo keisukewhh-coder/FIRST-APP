@@ -74,11 +74,11 @@ export default function ResultPage({ typeId, modifier, targetName, onRestart, on
       <ShareBox typeId={typeId} modifier={modifier} resultName={result.name} targetName={targetName} />
 
       {/* 送りつけるボタン */}
-      <div className="bg-card rounded-3xl p-6 shadow-lg mb-6 border border-vivid-pink/30 text-center">
-        <p className="text-lg font-extrabold text-text-primary mb-1">
+      <div className="bg-card rounded-3xl p-5 sm:p-6 shadow-lg mb-6 border border-vivid-pink/30 text-center">
+        <p className="text-base sm:text-lg font-extrabold text-text-primary mb-1 [text-wrap:balance]">
           {targetName ? `${targetName}に` : '本人に'}叩きつけたれ
         </p>
-        <p className="text-xs text-text-secondary mb-4">
+        <p className="text-xs text-text-secondary mb-4 [text-wrap:balance]">
           「{displayName}」を{targetName ? `${targetName}に` : '相手に'}送りつけたる
         </p>
         {isRevenge ? (
