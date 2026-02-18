@@ -350,6 +350,24 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
     });
   }, []);
 
+  // WARNING通知: スクロール50%で一度だけ表示
+  const [showWarning, setShowWarning] = useState(false);
+  const warningShownRef = useRef(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (warningShownRef.current) return;
+      const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      if (scrollPercent > 0.35) {
+        warningShownRef.current = true;
+        setShowWarning(true);
+        setTimeout(() => setShowWarning(false), 2500);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // 暴露度計算（開封されたセクション数）
   const totalSections = 4; // front, hidden, manual, love
   const unlockedCount = Object.values(unlocked).filter(Boolean).length;
@@ -802,20 +820,32 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
     </div>
 
     {/* ============================================ */}
+    {/* WARNING通知（スクロール連動・1回だけ） */}
+    {/* ============================================ */}
+    {showWarning && (
+      <div className="classified-warning">
+        <span className="classified-warning-icon">⚠️</span>
+        <span>CLASSIFIED DATA DETECTED</span>
+      </div>
+    )}
+
+    {/* ============================================ */}
     {/* フローティング暴露バー（常時表示） */}
     {/* ============================================ */}
-    <div className="fixed bottom-0 left-0 right-0 z-50 floating-bar-gradient">
+    <div className={`fixed bottom-0 left-0 right-0 z-50 floating-bar-gradient ${bakuroPercent >= 75 ? 'floating-bar-alert' : ''}`}>
+      {/* スキャンライン装飾 */}
+      <div className="floating-bar-scanline" />
       <div className="max-w-lg mx-auto px-4 py-3">
         {/* 暴露度プログレスバー */}
         <div className="flex items-center gap-3 mb-2">
-          <span className="text-xs font-bold text-vivid-pink shrink-0">暴露度</span>
-          <div className="flex-1 h-2 bg-coral/30 rounded-full overflow-hidden">
+          <span className="text-xs font-bold text-vivid-pink shrink-0 tracking-wider">暴露度</span>
+          <div className="flex-1 h-2.5 bg-coral/30 rounded-full overflow-hidden relative meter-bar-glow">
             <div
-              className="h-full bg-vivid-pink rounded-full transition-all duration-700 ease-out"
+              className="h-full rounded-full transition-all duration-700 ease-out meter-bar-fill"
               style={{ width: `${bakuroPercent}%` }}
             />
           </div>
-          <span className="text-xs font-extrabold text-vivid-pink shrink-0">{bakuroPercent}%</span>
+          <span className="text-xs font-extrabold text-vivid-pink shrink-0 tabular-nums">{bakuroPercent}%</span>
         </div>
 
         {/* 極秘モードボタン */}
@@ -829,11 +859,12 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
               ? 'bg-vivid-pink text-white shadow-[0_0_25px_rgba(204,17,51,0.5)]'
               : 'bg-card text-vivid-pink border-2 border-vivid-pink/40 hover:bg-vivid-pink/10'
             }
-            ${bakuroPercent >= 80 && !gokuhi ? 'pulse-gentle' : ''}
+            ${bakuroPercent >= 75 && !gokuhi ? 'quiz-submit-escalate' : ''}
           `}
         >
           <span className="text-lg">{gokuhi ? '🔓' : '🔒'}</span>
           {gokuhi ? '極秘ファイル開放中' : '極秘ファイルを解放する'}
+          {!gokuhi && bakuroPercent >= 75 && <span className="text-[0.6rem] tracking-widest opacity-60">UNLOCK</span>}
         </button>
       </div>
     </div>

@@ -1361,15 +1361,29 @@ body {
 
 @keyframes meterGlow {
   0%, 100% {
-    box-shadow: 0 0 6px rgba(204, 17, 51, 0.2);
+    box-shadow: 0 0 8px rgba(204, 17, 51, 0.25), inset 0 0 4px rgba(204, 17, 51, 0.1);
   }
   50% {
-    box-shadow: 0 0 14px rgba(204, 17, 51, 0.5), 0 0 24px rgba(204, 17, 51, 0.2);
+    box-shadow: 0 0 18px rgba(204, 17, 51, 0.5), 0 0 30px rgba(204, 17, 51, 0.15), inset 0 0 8px rgba(204, 17, 51, 0.15);
   }
 }
 
 .meter-bar-glow {
   animation: meterGlow 2s ease-in-out infinite;
+  position: relative;
+}
+
+/* メーターバーのエッジグロー */
+.meter-bar-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -1px;
+  bottom: -1px;
+  width: 6px;
+  background: radial-gradient(circle at right, rgba(255,51,85,0.8), transparent);
+  border-radius: 0 2px 2px 0;
+  filter: blur(1px);
 }
 
 @keyframes starPop {
@@ -1631,3 +1645,212 @@ body {
 .countdown-warning .countdown-footer { color: #AA8855; }
 .countdown-critical .countdown-footer { color: #CC5544; }
 .countdown-final .countdown-footer { color: #FF3355; font-weight: 800; }
+
+/* ========================================
+   RADAR CHART — サイバーHUD風アニメーション
+   ======================================== */
+
+/* ストローク描画アニメーション */
+@keyframes radarDraw {
+  from { stroke-dashoffset: 800; }
+  to { stroke-dashoffset: 0; }
+}
+
+.radar-stroke {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: radarDraw 1.5s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+  animation-delay: 0.3s;
+}
+
+/* フィル遅延フェードイン */
+@keyframes radarFillIn {
+  from { fill-opacity: 0; }
+  to { fill-opacity: 0.2; }
+}
+
+.radar-fill {
+  fill-opacity: 0;
+  animation: radarFillIn 0.8s ease-out forwards;
+  animation-delay: 1.2s;
+}
+
+/* グローパルス（ストローク完了後に開始） */
+@keyframes radarGlowPulse {
+  0%, 100% {
+    stroke: rgba(204,17,51,0.6);
+    filter: url(#radar-glow) drop-shadow(0 0 3px rgba(204,17,51,0.2));
+  }
+  50% {
+    stroke: rgba(204,17,51,0.9);
+    filter: url(#radar-glow) drop-shadow(0 0 8px rgba(204,17,51,0.5));
+  }
+}
+
+.radar-stroke {
+  animation: radarDraw 1.5s cubic-bezier(0.25,0.46,0.45,0.94) forwards,
+             radarGlowPulse 3s ease-in-out 2s infinite;
+  animation-delay: 0.3s, 2s;
+}
+
+/* ドットのポップイン */
+@keyframes radarDotPop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.8); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.radar-dot {
+  transform: scale(0);
+  opacity: 0;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: radarDotPop 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
+/* ラベルのフェードイン */
+@keyframes radarLabelIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.radar-label {
+  opacity: 0;
+  animation: radarLabelIn 0.4s ease-out forwards;
+}
+
+/* グリッドのフェードイン */
+@keyframes radarGridIn {
+  from { stroke-opacity: 0; }
+  to { stroke-opacity: 1; }
+}
+
+.radar-grid {
+  stroke-opacity: 0;
+  animation: radarGridIn 0.5s ease-out forwards;
+}
+
+/* HUDコーナーブラケットの描画 */
+@keyframes radarCornerDraw {
+  from { stroke-dashoffset: 30; opacity: 0; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+
+.radar-hud-corner {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  opacity: 0;
+  animation: radarCornerDraw 0.5s ease-out forwards;
+}
+
+/* HUDテキストのフェードイン */
+@keyframes radarHudTextIn {
+  0% { opacity: 0; letter-spacing: 0.8em; }
+  100% { opacity: 0.35; letter-spacing: 0.25em; }
+}
+
+.radar-hud-text {
+  opacity: 0;
+  animation: radarHudTextIn 0.8s ease-out 0.2s forwards;
+}
+
+/* スキャンライン（上から下へ繰り返し移動） */
+@keyframes radarScanMove {
+  0% { transform: translateY(15px); opacity: 0; }
+  10% { opacity: 0.3; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(235px); opacity: 0; }
+}
+
+.radar-scanline {
+  animation: radarScanMove 3s linear 1.5s infinite;
+  opacity: 0;
+}
+
+/* コンテナの微細グロー */
+.radar-container {
+  position: relative;
+}
+
+.radar-container::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 12px;
+  border: 1px solid rgba(204,17,51,0.08);
+  pointer-events: none;
+  animation: radarContainerGlow 4s ease-in-out infinite;
+}
+
+@keyframes radarContainerGlow {
+  0%, 100% { border-color: rgba(204,17,51,0.05); box-shadow: none; }
+  50% { border-color: rgba(204,17,51,0.15); box-shadow: 0 0 15px rgba(204,17,51,0.05); }
+}
+
+/* ========================================
+   CLASSIFIED WARNING — スクロール連動警告
+   ======================================== */
+@keyframes classifiedWarningIn {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  15% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+  85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+}
+
+.classified-warning {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: rgba(13,8,8,0.95);
+  border: 2px solid rgba(204,17,51,0.7);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #FF3355;
+  letter-spacing: 0.15em;
+  box-shadow: 0 0 40px rgba(204,17,51,0.3), 0 0 80px rgba(204,17,51,0.1);
+  animation: classifiedWarningIn 2.5s ease-out forwards;
+  pointer-events: none;
+}
+
+.classified-warning-icon {
+  font-size: 1.2rem;
+  animation: countdownIconShake 0.3s ease-in-out infinite;
+}
+
+/* ========================================
+   FLOATING BAR — 強化版
+   ======================================== */
+.floating-bar-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(204,17,51,0.4), transparent);
+  animation: floatingBarScan 2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes floatingBarScan {
+  0% { opacity: 0.2; transform: scaleX(0.3); }
+  50% { opacity: 1; transform: scaleX(1); }
+  100% { opacity: 0.2; transform: scaleX(0.3); }
+}
+
+/* 暴露度75%以上で警告モード */
+.floating-bar-alert {
+  border-top-color: rgba(204,17,51,0.4);
+  animation: floatingBarPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes floatingBarPulse {
+  0%, 100% { border-top-color: rgba(204,17,51,0.2); }
+  50% { border-top-color: rgba(204,17,51,0.6); }
+}

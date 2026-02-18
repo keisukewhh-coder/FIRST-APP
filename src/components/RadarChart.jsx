@@ -1,7 +1,7 @@
 /**
- * 六角形レーダーチャート（SVG）
+ * 六角形レーダーチャート（SVG）— サイバーHUD風
  * typeKey と modifier から6軸の値を算出し、ヘキサゴンで描画する
- * viewBox を十分に広げてラベルがクリップされないようにする
+ * アニメーション: ストローク描画 → フィル表示 → ドットポップ → グローパルス
  */
 export default function RadarChart({ typeKey, modifier }) {
   if (!typeKey || typeKey.length < 4) return null;
@@ -29,9 +29,8 @@ export default function RadarChart({ typeKey, modifier }) {
     { label: '情緒不安定', value: spice.emotion },
   ];
 
-  // viewBox を広くとってラベルが切れないようにする
   const cx = 140;
-  const cy = 120;
+  const cy = 125;
   const radius = 65;
   const total = 6;
   const maxValue = 5;
@@ -77,17 +76,92 @@ export default function RadarChart({ typeKey, modifier }) {
     return { ...axis, x: p.x, y: p.y };
   });
 
+  // HUDコーナーブラケット座標
+  const cornerSize = 10;
+  const hudCorners = [
+    { x: 15, y: 15 },   // 左上
+    { x: 265, y: 15 },  // 右上
+    { x: 15, y: 235 },  // 左下
+    { x: 265, y: 235 }, // 右下
+  ];
+
   return (
-    <div className="w-full max-w-[300px] mx-auto">
-      <svg viewBox="0 0 280 245" xmlns="http://www.w3.org/2000/svg">
+    <div className="w-full max-w-[300px] mx-auto relative radar-container">
+      <svg viewBox="0 0 280 250" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          {/* グローフィルター */}
+          <filter id="radar-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          {/* 強いグロー（ドット用） */}
+          <filter id="radar-dot-glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* HUDコーナーブラケット */}
+        {hudCorners.map((corner, i) => {
+          const isRight = corner.x > cx;
+          const isBottom = corner.y > cy;
+          const dx = isRight ? -cornerSize : cornerSize;
+          const dy = isBottom ? -cornerSize : cornerSize;
+          return (
+            <path
+              key={`hud-corner-${i}`}
+              d={`M${corner.x + dx},${corner.y} L${corner.x},${corner.y} L${corner.x},${corner.y + dy}`}
+              fill="none"
+              stroke="rgba(204,17,51,0.3)"
+              strokeWidth="1"
+              className="radar-hud-corner"
+              style={{ animationDelay: `${i * 0.15}s` }}
+            />
+          );
+        })}
+
+        {/* HUDヘッダーテキスト */}
+        <text
+          x="140"
+          y="10"
+          textAnchor="middle"
+          fill="rgba(204,17,51,0.35)"
+          fontSize="7"
+          fontWeight="700"
+          letterSpacing="0.25em"
+          className="radar-hud-text"
+        >
+          THREAT ANALYSIS
+        </text>
+
+        {/* スキャンライン（横方向に移動） */}
+        <line
+          x1="15"
+          y1="0"
+          x2="265"
+          y2="0"
+          stroke="rgba(204,17,51,0.2)"
+          strokeWidth="1"
+          className="radar-scanline"
+        />
+
         {/* グリッド線（3段階） */}
         {gridPolygons.map((points, i) => (
           <polygon
             key={`grid-${i}`}
             points={points}
             fill="none"
-            stroke="rgba(204,17,51,0.15)"
+            stroke="rgba(204,17,51,0.12)"
             strokeWidth="0.8"
+            className="radar-grid"
+            style={{ animationDelay: `${i * 0.2}s` }}
           />
         ))}
 
@@ -99,20 +173,31 @@ export default function RadarChart({ typeKey, modifier }) {
             y1={s.y1}
             x2={s.x2}
             y2={s.y2}
-            stroke="rgba(204,17,51,0.15)"
+            stroke="rgba(204,17,51,0.12)"
             strokeWidth="0.8"
           />
         ))}
 
-        {/* データ領域 */}
+        {/* データ領域 — フィル（遅延フェードイン） */}
         <polygon
           points={dataPolygon}
-          fill="rgba(204,17,51,0.25)"
-          stroke="rgba(204,17,51,0.7)"
-          strokeWidth="1.5"
+          fill="rgba(204,17,51,0.2)"
+          stroke="none"
+          className="radar-fill"
         />
 
-        {/* 各頂点のドット */}
+        {/* データ領域 — ストローク（描画アニメーション） */}
+        <polygon
+          points={dataPolygon}
+          fill="none"
+          stroke="rgba(204,17,51,0.8)"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+          className="radar-stroke"
+          filter="url(#radar-glow)"
+        />
+
+        {/* 各頂点のドット（ポップアニメーション） */}
         {dataPoints.map((p, i) => (
           <circle
             key={`dot-${i}`}
@@ -120,6 +205,9 @@ export default function RadarChart({ typeKey, modifier }) {
             cy={p.y}
             r="3"
             fill="#CC1133"
+            className="radar-dot"
+            style={{ animationDelay: `${1.2 + i * 0.12}s` }}
+            filter="url(#radar-dot-glow)"
           />
         ))}
 
@@ -133,13 +221,16 @@ export default function RadarChart({ typeKey, modifier }) {
             ? label.value
             : label.value.toFixed(1);
 
-          // 上頂点と下頂点はラベルの上下位置を微調整
           const isTop = i === 0;
           const isBottom = i === 3;
           const yOffset = isTop ? -5 : isBottom ? 5 : 0;
 
           return (
-            <g key={`label-${i}`}>
+            <g
+              key={`label-${i}`}
+              className="radar-label"
+              style={{ animationDelay: `${1.4 + i * 0.1}s` }}
+            >
               <text
                 x={label.x}
                 y={label.y + yOffset}
