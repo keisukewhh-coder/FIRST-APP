@@ -1051,19 +1051,17 @@ body {
    ======================================== */
 @keyframes screenTremble {
   0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-1px, 0.5px); }
-  20% { transform: translate(1px, -0.5px); }
-  30% { transform: translate(-0.5px, 1px); }
-  40% { transform: translate(0.5px, -1px); }
-  50% { transform: translate(-1px, 0.5px); }
-  60% { transform: translate(1px, -0.5px); }
-  70% { transform: translate(-0.5px, 0.5px); }
-  80% { transform: translate(0.5px, -0.5px); }
-  90% { transform: translate(-0.5px, 1px); }
+  12% { transform: translate(-0.3px, 0.2px); }
+  24% { transform: translate(0.3px, -0.1px); }
+  36% { transform: translate(-0.2px, 0.3px); }
+  48% { transform: translate(0.2px, -0.3px); }
+  60% { transform: translate(-0.3px, 0.1px); }
+  72% { transform: translate(0.2px, -0.2px); }
+  84% { transform: translate(-0.1px, 0.2px); }
 }
 
 .screen-tremble {
-  animation: screenTremble 0.15s linear infinite;
+  animation: screenTremble 0.3s linear infinite;
 }
 
 /* ========================================
