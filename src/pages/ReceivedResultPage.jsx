@@ -12,22 +12,27 @@ function pickRandom(arr) {
 }
 
 /**
- * 残り時間をフォーマットする
- * 日が残っている場合は「○日○時間」、それ以外は「○時間○分」
+ * 残り時間を構造化データで返す
+ * urgency: 'normal' | 'warning' | 'critical' | 'final'
  */
-function formatRemaining(ms) {
+function parseRemaining(ms) {
   if (ms <= 0) return null;
 
-  const totalMinutes = Math.floor(ms / (1000 * 60));
+  const totalSeconds = Math.floor(ms / 1000);
+  const totalMinutes = Math.floor(totalSeconds / 60);
   const totalHours = Math.floor(totalMinutes / 60);
   const days = Math.floor(totalHours / 24);
   const hours = totalHours % 24;
   const minutes = totalMinutes % 60;
+  const seconds = totalSeconds % 60;
 
-  if (days > 0) {
-    return `${days}日${hours}時間`;
-  }
-  return `${hours}時間${minutes}分`;
+  // 緊急度レベル
+  let urgency = 'normal';
+  if (totalHours < 1) urgency = 'final';        // 1時間以内
+  else if (totalHours < 6) urgency = 'critical'; // 6時間以内
+  else if (totalHours < 24) urgency = 'warning'; // 24時間以内
+
+  return { days, hours, minutes, seconds, urgency, totalHours };
 }
 
 export default function ReceivedResultPage({ typeId, modifier, senderName, targetName }) {
@@ -55,15 +60,19 @@ export default function ReceivedResultPage({ typeId, modifier, senderName, targe
   useEffect(() => {
     if (exp === null || isExpired) return;
 
+    // 6時間以内は毎秒、それ以外は30秒ごと
+    const diff = exp - Date.now();
+    const intervalMs = diff <= 6 * 60 * 60 * 1000 ? 1000 : 30000;
+
     const interval = setInterval(() => {
-      const diff = exp - Date.now();
-      if (diff <= 0) {
+      const d = exp - Date.now();
+      if (d <= 0) {
         setRemaining(0);
         clearInterval(interval);
       } else {
-        setRemaining(diff);
+        setRemaining(d);
       }
-    }, 60 * 1000); // 1分ごとに更新
+    }, intervalMs);
 
     return () => clearInterval(interval);
   }, [exp, isExpired]);
@@ -141,8 +150,7 @@ export default function ReceivedResultPage({ typeId, modifier, senderName, targe
     );
   }
 
-  // 残り1時間以下かどうか
-  const isUrgent = remaining !== null && remaining <= 60 * 60 * 1000;
+  const parsed = parseRemaining(remaining ?? 0);
 
   return (
     <div className="pt-2 pb-8">
@@ -152,16 +160,69 @@ export default function ReceivedResultPage({ typeId, modifier, senderName, targe
       {/* ============================================ */}
       {phase === 'teaser' && (
         <>
-          <TeaserCard senderName={senderName} targetName={targetName} onReveal={handleReveal} />
-
           {/* カウントダウンタイマー（期限が設定されている場合のみ） */}
-          {remaining !== null && remaining > 0 && (
-            <div className="text-center mt-4 animate-fade-in-up">
-              <p className={`text-sm font-bold ${isUrgent ? 'text-red-500' : 'text-text-secondary'}`}>
-                あと {formatRemaining(remaining)} で消えるで
+          {remaining !== null && remaining > 0 && parsed && (
+            <div className={`countdown-container animate-fade-in-up ${parsed.urgency === 'final' ? 'countdown-final' : parsed.urgency === 'critical' ? 'countdown-critical' : parsed.urgency === 'warning' ? 'countdown-warning' : ''}`}>
+              <div className="countdown-header">
+                <span className="countdown-icon">
+                  {parsed.urgency === 'final' ? '💀' : parsed.urgency === 'critical' ? '🔥' : '⏳'}
+                </span>
+                <span className="countdown-label">
+                  {parsed.urgency === 'final'
+                    ? 'もうすぐ消えるで！！'
+                    : parsed.urgency === 'critical'
+                      ? '急がな間に合わんで…！'
+                      : 'この結果、期限付きや'}
+                </span>
+              </div>
+
+              {/* 大きなカウントダウン数字 */}
+              <div className="countdown-digits">
+                {parsed.days > 0 && (
+                  <div className="countdown-unit">
+                    <span className="countdown-number">{parsed.days}</span>
+                    <span className="countdown-unit-label">日</span>
+                  </div>
+                )}
+                <div className="countdown-unit">
+                  <span className="countdown-number">{String(parsed.hours).padStart(2, '0')}</span>
+                  <span className="countdown-unit-label">時間</span>
+                </div>
+                <div className="countdown-separator">:</div>
+                <div className="countdown-unit">
+                  <span className="countdown-number">{String(parsed.minutes).padStart(2, '0')}</span>
+                  <span className="countdown-unit-label">分</span>
+                </div>
+                {parsed.urgency === 'final' && (
+                  <>
+                    <div className="countdown-separator">:</div>
+                    <div className="countdown-unit">
+                      <span className="countdown-number countdown-seconds">{String(parsed.seconds).padStart(2, '0')}</span>
+                      <span className="countdown-unit-label">秒</span>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* 残り時間バー */}
+              <div className="countdown-bar-track">
+                <div
+                  className="countdown-bar-fill"
+                  style={{ width: `${Math.max(0, Math.min(100, (remaining / (48 * 60 * 60 * 1000)) * 100))}%` }}
+                />
+              </div>
+
+              <p className="countdown-footer">
+                {parsed.urgency === 'final'
+                  ? '見んかったら一生後悔するで？'
+                  : parsed.urgency === 'critical'
+                    ? '時間切れたら二度と見られへんで'
+                    : '48時間で消滅するで'}
               </p>
             </div>
           )}
+
+          <TeaserCard senderName={senderName} targetName={targetName} onReveal={handleReveal} />
         </>
       )}
 
