@@ -86,13 +86,13 @@ export default function QuizPage({ onResult, targetName }) {
   const trembleThreshold = Math.max(1, totalQuestions - 5);
   const shouldTremble = answeredCount >= trembleThreshold;
 
-  // Milestone taunts (updated for 45 questions)
+  // Milestone taunts (updated for 25 questions)
   useEffect(() => {
     const taunts = {
-      12: 'あらあら、だんだん見えてきたで…ニヤニヤ',
-      25: 'うわぁ、もう隠しきれへんなこれ…',
-      [totalQuestions - 10]: 'あと少しで丸裸やで！覚悟しいや！',
-      [totalQuestions - 5]: 'もう逃げられへんで…！全部見えとるわ！',
+      7: 'あらあら、だんだん見えてきたで…ニヤニヤ',
+      15: 'うわぁ、もう隠しきれへんなこれ…',
+      [totalQuestions - 5]: 'あと少しで丸裸やで！覚悟しいや！',
+      [totalQuestions - 3]: 'もう逃げられへんで…！全部見えとるわ！',
       [totalQuestions - 1]: '最後の1問や…！さぁ暴いたれ！',
     };
     if (taunts[answeredCount]) {

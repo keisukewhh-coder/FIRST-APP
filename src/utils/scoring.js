@@ -14,7 +14,7 @@ const TYPE_KEYS_LIST = [
   'ISTJ', 'ISFJ', 'ISFP', 'INFP', 'ESTP', 'ESFP', 'ENFJ', 'ESFJ',
 ];
 
-// Spice軸ごとの高スコア修飾語（maxScore >= 3）
+// Spice軸ごとの高スコア修飾語（maxScore >= 3）— 25問版で閾値到達を現実的にするため
 const SPICE_MODIFIERS = {
   Approval: '加工上手の',
   Obsession: '鍵アカストーカーの',
@@ -69,7 +69,7 @@ function determineModifier(spiceScores) {
     }
   }
 
-  if (maxScore >= 4) {
+  if (maxScore >= 3) {
     return SPICE_MODIFIERS[maxAxis];
   }
 
