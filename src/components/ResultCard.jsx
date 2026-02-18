@@ -391,7 +391,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* ============================================ */}
       {/* Section 1: 診断結果 (Hero) — 常に表示 */}
       {/* ============================================ */}
-      <div className="result-section hero-gradient rounded-2xl p-8 shadow-xl border border-vivid-pink/20 card-shine relative">
+      <div className="result-section hero-gradient rounded-2xl p-5 sm:p-8 shadow-xl border border-vivid-pink/20 card-shine relative">
         {/* キラキラパーティクル */}
         <div className="sparkle-field" aria-hidden="true">
           <span /><span /><span /><span /><span /><span />
@@ -412,7 +412,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
         )}
 
         {/* 診断名 — 1文字ずつ「ボン！」と出現 */}
-        <h2 className="text-center text-[1.75rem] sm:text-4xl font-extrabold text-text-primary mb-3 leading-tight result-title-glow tracking-tight">
+        <h2 className="text-center text-2xl sm:text-4xl font-extrabold text-text-primary mb-3 leading-tight result-title-glow tracking-tight [text-wrap:balance]">
           {fullName.split('').map((char, i) => (
             <span
               key={i}
@@ -429,7 +429,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
         </div>
 
         <p
-          className="text-center text-sm text-vivid-pink font-semibold mb-5 px-2 dondon-item"
+          className="text-center text-sm text-vivid-pink font-semibold mb-5 px-2 dondon-item [text-wrap:balance]"
           style={{ animationDelay: `${nameRevealEnd + 0.3}s` }}
         >
           {result.tagline}
@@ -464,14 +464,14 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
       {/* ============================================ */}
       <RevealSection delay={0.15}>
         <div className="result-section glass-card rounded-2xl shadow-lg overflow-hidden border-l-4 border-l-blue-400/70" style={{ opacity: 1 }}>
-          <div className="bg-coral/20 px-5 py-4 flex items-center gap-3">
-            <span className="text-2xl">😇</span>
-            <h3 className="text-xl font-bold text-text-primary">
+          <div className="bg-coral/20 px-4 sm:px-5 py-4 flex items-center gap-2 sm:gap-3">
+            <span className="text-xl sm:text-2xl shrink-0">😇</span>
+            <h3 className="text-lg sm:text-xl font-bold text-text-primary min-w-0">
               {nameLabel}の表の顔
             </h3>
-            <span className="text-xs text-text-secondary ml-auto">みんなが見ている姿</span>
+            <span className="text-xs text-text-secondary ml-auto hidden sm:block shrink-0">みんなが見ている姿</span>
           </div>
-          <div className="px-5 py-6">
+          <div className="px-4 sm:px-5 py-6">
             <p className="text-xs text-vivid-pink/50 italic mb-3">こんな顔して裏ではね…</p>
             <p className="text-sm leading-8 text-text-primary whitespace-pre-line">
               {result.front}
@@ -497,23 +497,23 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
           onUnlock={handleUnlock}
         >
           <div className="result-section bg-card rounded-2xl shadow-xl border-2 border-vivid-pink/40 overflow-hidden ura-card" style={{ opacity: 1 }}>
-            <div className="ura-header px-5 py-5 flex items-center gap-3">
-              <span className="text-3xl">👿</span>
-              <h3 className="text-2xl font-extrabold text-vivid-pink">
+            <div className="ura-header px-4 sm:px-5 py-5 flex items-center gap-2 sm:gap-3">
+              <span className="text-2xl sm:text-3xl shrink-0">👿</span>
+              <h3 className="text-xl sm:text-2xl font-extrabold text-vivid-pink min-w-0">
                 {nameLabel}の裏の顔
               </h3>
-              <span className="text-[0.65rem] text-vivid-pink/60 ml-auto font-medium tracking-wider">ちょいゲスな本性</span>
+              <span className="text-[0.65rem] text-vivid-pink/60 ml-auto font-medium tracking-wider hidden sm:block shrink-0">ちょいゲスな本性</span>
             </div>
 
             {/* 危険度メーター群 */}
-            <div className="px-5 pt-4 pb-2 space-y-1">
+            <div className="px-4 sm:px-5 pt-4 pb-2 space-y-1">
               <RevealSection delay={0} onReveal={() => setMetersVisible(true)}>
                 <DangerMeter label="ゲス度" level={gesudoLevel} icon="👿" visible={metersVisible && unlocked.hidden} />
                 <DangerMeter label="面倒くさ度" level={mendokusaLevel} icon="😮‍💨" visible={metersVisible && unlocked.hidden} />
               </RevealSection>
             </div>
 
-            <div className="px-5 py-6 ura-body">
+            <div className="px-4 sm:px-5 py-6 ura-body">
               <p className="text-xs text-vivid-pink/50 italic mb-3">さぁ、ここからが本番やで</p>
               <p className="text-sm leading-8 text-text-primary whitespace-pre-line">
                 {result.hidden}
@@ -553,13 +553,13 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
           onUnlock={handleUnlock}
         >
           <div className="result-section glass-card rounded-2xl shadow-lg overflow-hidden border-l-4 border-l-amber-500/70" style={{ opacity: 1 }}>
-            <div className="bg-coral/25 px-5 py-4 flex items-center gap-3">
-              <span className="text-2xl">📖</span>
-              <h3 className="text-xl font-bold text-text-primary">
+            <div className="bg-coral/25 px-4 sm:px-5 py-4 flex items-center gap-2 sm:gap-3">
+              <span className="text-xl sm:text-2xl shrink-0">📖</span>
+              <h3 className="text-lg sm:text-xl font-bold text-text-primary min-w-0">
                 {nameLabel}のトリセツ
               </h3>
             </div>
-            <div className="px-5 py-6 space-y-5">
+            <div className="px-4 sm:px-5 py-6 space-y-5">
               <p className="text-xs text-vivid-pink/50 italic">{targetName ? `${targetName}を` : ''}攻略するも地雷を踏むも、あんた次第や</p>
 
               {attackStrategy && (
@@ -639,15 +639,15 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
               onUnlock={handleUnlock}
             >
               <div className="result-section glass-card rounded-2xl shadow-lg overflow-hidden border-l-4 border-l-pink-400/70" style={{ opacity: 1 }}>
-                <div className="bg-coral/20 px-5 py-4 flex items-center gap-3">
-                  <span className="text-2xl">💕</span>
-                  <h3 className="text-xl font-bold text-text-primary">
+                <div className="bg-coral/20 px-4 sm:px-5 py-4 flex items-center gap-2 sm:gap-3">
+                  <span className="text-xl sm:text-2xl shrink-0">💕</span>
+                  <h3 className="text-base sm:text-xl font-bold text-text-primary min-w-0 [text-wrap:balance]">
                     {targetName ? `${targetName}と` : ''}付き合ったらどうなる？
                   </h3>
                 </div>
 
                 {/* 恋愛キケン度メーター */}
-                <div className="px-5 pt-3 pb-1 space-y-1">
+                <div className="px-4 sm:px-5 pt-3 pb-1 space-y-1">
                   <RevealSection delay={0} onReveal={() => setLoveMetersVisible(true)}>
                     <div className="flex items-center gap-3">
                       <span className="text-xs font-bold text-vivid-pink/70">恋愛キケン度</span>
@@ -657,7 +657,7 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
                   </RevealSection>
                 </div>
 
-                <div className="px-5 py-6">
+                <div className="px-4 sm:px-5 py-6">
                   <p className="text-xs text-vivid-pink/50 italic mb-3">覚悟はええか？</p>
                   <CollapsibleText text={result.love} threshold={200} />
                 </div>
@@ -675,13 +675,13 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
           <TeaserDivider text="最後のおまけ…相性診断いってみよか 🔮" />
           <RevealSection delay={0.15}>
             <div className="result-section glass-card rounded-2xl shadow-lg overflow-hidden border-l-4 border-l-purple-400/70">
-              <div className="bg-coral/20 px-5 py-4 flex items-center gap-3">
-                <span className="text-2xl">🔮</span>
-                <h3 className="text-xl font-bold text-text-primary">
+              <div className="bg-coral/20 px-4 sm:px-5 py-4 flex items-center gap-2 sm:gap-3">
+                <span className="text-xl sm:text-2xl shrink-0">🔮</span>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary min-w-0">
                   {nameLabel}との相性診断
                 </h3>
               </div>
-              <div className="px-5 py-6 space-y-6">
+              <div className="px-4 sm:px-5 py-6 space-y-6">
                 {/* ベスト相性 */}
                 <div className="glass-inner rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-3">
@@ -740,14 +740,14 @@ export default function ResultCard({ result, typeKey, modifier, targetName }) {
             className="result-section bg-card rounded-2xl shadow-xl border-2 border-vivid-pink/50 overflow-hidden gokuhi-card"
             style={{ opacity: 0, animation: 'fadeInUp 0.6s ease-out 0.1s forwards' }}
           >
-            <div className="gokuhi-header px-5 py-5 flex items-center gap-3">
-              <span className="text-3xl">🔥</span>
-              <h3 className="text-xl font-extrabold text-vivid-pink">
+            <div className="gokuhi-header px-4 sm:px-5 py-5 flex items-center gap-2 sm:gap-3">
+              <span className="text-2xl sm:text-3xl shrink-0">🔥</span>
+              <h3 className="text-lg sm:text-xl font-extrabold text-vivid-pink min-w-0">
                 {nameLabel}の極秘ファイル
               </h3>
-              <span className="text-[0.6rem] text-vivid-pink/60 ml-auto font-bold tracking-widest">TOP SECRET</span>
+              <span className="text-[0.6rem] text-vivid-pink/60 ml-auto font-bold tracking-widest hidden sm:block shrink-0">TOP SECRET</span>
             </div>
-            <div className="px-5 py-6 space-y-4">
+            <div className="px-4 sm:px-5 py-6 space-y-4">
               <div className="glass-inner rounded-xl p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-base">🎭</span>
